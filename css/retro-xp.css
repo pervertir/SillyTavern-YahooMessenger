@@ -599,3 +599,12 @@ body.yahoo-messenger .ym-sm-all::after {
     clip-path: none;
     border-radius: 0;
 }
+
+/* Add a contact: a person with a green plus at their shoulder (drawn for this theme) */
+body.ym-retro {
+    --ym-px-addperson: url("../img/add-contact.svg");
+}
+
+body.ym-retro i.fa-user-plus {
+    --ym-glyph: url("../img/add-contact.svg");
+}
