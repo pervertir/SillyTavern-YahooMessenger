@@ -148,3 +148,44 @@ body.yahoo-messenger #chat .mes :is(.swipe_left, .swipeRightBlock) {
     align-self: start;
     transform: none;
 }
+
+/* A message's toolbar is as wide as its buttons need, however short the message: above the bubble,
+   starting at its edge, so it never squeezes into columns or covers the text or the pager */
+body.yahoo-messenger #chat .mes .mes_buttons,
+body.yahoo-messenger #chat .mes .extraMesButtons {
+    flex-wrap: wrap;
+    width: max-content;
+    max-width: min(520px, 70vw);
+    height: auto;
+    min-height: 32px;
+}
+
+body.yahoo-messenger #chat .mes .extraMesButtons {
+    min-height: 0;
+}
+
+body.yahoo-messenger.ym-bubbles #chat .mes .mes_buttons {
+    top: auto;
+    bottom: calc(100% - 4px);
+    left: 0;
+    right: auto;
+    z-index: 5;
+}
+
+body.yahoo-messenger.ym-bubbles #chat .mes[is_user="true"] .mes_buttons {
+    left: auto;
+    right: 0;
+}
+
+/* the first message has no room above it */
+body.yahoo-messenger.ym-bubbles #chat .mes:first-child .mes_buttons {
+    top: calc(100% - 4px);
+    bottom: auto;
+}
+
+/* the pager's arrows stay plain, whatever else styles them */
+body.yahoo-messenger #chat .mes :is(.swipe_left, .swipe_right) {
+    border: none;
+    background: none;
+    box-shadow: none;
+}
