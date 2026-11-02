@@ -27,6 +27,8 @@ const defaultSettings = Object.freeze({
     look: 'retro',
     /** The retro look's desktop: wallpaper and taskbar */
     xpDesktop: true,
+    /** The desktop's wallpaper: hills (drawn) or mine (the background picked in SillyTavern) */
+    xpWallpaper: 'hills',
     /** The whole story at the start of a session: Windows logon, then Messenger's sign-in */
     xpLogon: true,
     signInAuto: false,
@@ -106,6 +108,7 @@ const SETTING_CLASSES = {
     'ym-dark': isDark,
     'ym-retro': settings => settings.look === 'retro',
     'ym-xp': settings => settings.look === 'retro' && settings.xpDesktop,
+    'ym-xp-mine': settings => settings.xpWallpaper === 'mine',
     'ym-bubbles': settings => settings.messageStyle === 'bubbles',
     'ym-images-on': settings => settings.displayImages,
     'ym-tabs-on': settings => settings.tabs,
@@ -238,6 +241,7 @@ async function renderSettingsPanel() {
         select('ym_look', 'look', () => resumeStory()),
         checkbox('ym_xp_desktop', 'xpDesktop', () => resumeStory()),
         checkbox('ym_xp_logon', 'xpLogon', () => resumeStory()),
+        select('ym_xp_wallpaper', 'xpWallpaper'),
         [screensaver, 'screensaverMinutes', () => Math.min(240, Math.max(0, Number(screensaver.value) || 0))],
         select('ym_appearance', 'appearance'),
         select('ym_message_style', 'messageStyle'),
