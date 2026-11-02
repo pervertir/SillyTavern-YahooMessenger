@@ -531,3 +531,177 @@ body.yahoo-messenger.ym-xp #ym-flyout:not([hidden]) {
         display: none !important;
     }
 }
+
+/* ---- Minimise, maximise, close ---- */
+.ym-win-btns {
+    display: none;
+}
+
+body.yahoo-messenger.ym-xp .ym-title-live::after {
+    display: none;
+}
+
+body.yahoo-messenger.ym-retro:not(.ym-xp) .ym-win-btns {
+    display: none;
+}
+
+body.yahoo-messenger.ym-xp .ym-win-btns {
+    display: flex;
+    gap: 1px;
+    flex: none;
+    margin-left: auto;
+}
+
+body.yahoo-messenger .ym-win-btn {
+    position: relative;
+    flex: none;
+    width: 21px;
+    height: 21px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ffffff;
+    border-radius: 3px;
+    background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.65), #3c81f3 30%, #0a3bc4);
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-win-btn:hover {
+    filter: brightness(1.2);
+}
+
+body.yahoo-messenger .ym-win-btn:active {
+    filter: brightness(0.8);
+}
+
+body.yahoo-messenger .ym-win-close {
+    background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.6), #e67157 30%, #b42a0d);
+}
+
+body.yahoo-messenger .ym-win-min::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    bottom: 3px;
+    width: 7px;
+    height: 3px;
+    background: #ffffff;
+}
+
+body.yahoo-messenger .ym-win-max::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1px solid #ffffff;
+    border-top-width: 3px;
+}
+
+body.yahoo-messenger .ym-win-close::before,
+body.yahoo-messenger .ym-win-close::after {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 3px;
+    width: 3px;
+    height: 13px;
+    background: #ffffff;
+    transform: rotate(45deg);
+}
+
+body.yahoo-messenger .ym-win-close::after {
+    transform: rotate(-45deg);
+}
+
+/* The chat window takes the buddy list's place when that's away, or when it's maximized */
+body.yahoo-messenger.ym-xp.ym-buddy-gone #ym-buddy {
+    display: none;
+}
+
+body.yahoo-messenger.ym-xp:is(.ym-buddy-gone, .ym-chat-max) {
+    --ym-chat-left: var(--ym-gap);
+}
+
+body.yahoo-messenger.ym-xp.ym-chat-max #sheld {
+    z-index: 32;
+}
+
+body.yahoo-messenger.ym-xp.ym-chat-min #sheld {
+    display: none;
+}
+
+/* The desktop icon, under the windows */
+.ym-desk-icon {
+    display: none;
+}
+
+body.yahoo-messenger.ym-xp .ym-desk-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    width: 76px;
+    padding: 4px 2px;
+    margin: 0;
+    border: 1px solid transparent;
+    background: none;
+    color: #ffffff;
+    font: 11px Tahoma, sans-serif;
+    text-shadow: 1px 1px 1px #000000;
+    cursor: pointer;
+    z-index: 1;
+}
+
+body.yahoo-messenger.ym-xp .ym-desk-icon:is(:hover, :focus-visible) {
+    border: 1px dotted #ffffff;
+    outline: none;
+    background: rgba(49, 106, 197, 0.55);
+}
+
+body.yahoo-messenger .ym-desk-pic {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: url("../img/xp/yahoo-y.svg") center / contain no-repeat;
+}
+
+/* The tray's face opens Messenger */
+body.yahoo-messenger .ym-tray-face {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-tray-face:hover {
+    filter: brightness(1.15);
+}
+
+/* A reply came in while the chat is minimized */
+body.yahoo-messenger .ym-task.ym-task-flash {
+    background: linear-gradient(180deg, #f2a23c, #d97b12);
+    animation: ym-task-flash 1s steps(2) infinite;
+}
+
+@keyframes ym-task-flash {
+    from { filter: brightness(1.15); }
+    to { filter: brightness(0.9); }
+}
+
+@media screen and (max-width: 1000px) {
+    body.yahoo-messenger.ym-xp .ym-win-btns,
+    body.yahoo-messenger.ym-xp .ym-desk-icon {
+        display: none;
+    }
+
+    body.yahoo-messenger.ym-xp.ym-buddy-gone #ym-buddy {
+        display: flex;
+    }
+
+    body.yahoo-messenger.ym-xp.ym-chat-min #sheld {
+        display: flex;
+    }
+}

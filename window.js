@@ -207,6 +207,112 @@ function toggleStartMenu(start) {
     start.classList.add('ym-start-open');
 }
 
+/* ---------- the two windows: minimise, maximise, close ---------- */
+
+const WINDOWS_KEY = 'ym-window-state';
+/** buddy: open, minimized or closed; chat: open or minimized; max: the chat fills the desktop */
+let windowState = { buddy: 'open', chat: 'open', max: false };
+let conversationTitle = '';
+/** Which window was touched last, for the taskbar's pressed button */
+let focusedWindow = 'chat';
+
+function loadWindowState() {
+    try {
+        windowState = { ...windowState, ...JSON.parse(localStorage.getItem(WINDOWS_KEY) || '{}') };
+    } catch {
+        // the windows just start open
+    }
+}
+
+/** Puts the state on the page as body classes; the buttons and the taskbar follow. */
+function applyWindowState() {
+    try {
+        localStorage.setItem(WINDOWS_KEY, JSON.stringify(windowState));
+    } catch {
+        // private windows can refuse storage
+    }
+    const body = document.body.classList;
+    body.toggle('ym-buddy-gone', windowState.buddy !== 'open');
+    body.toggle('ym-chat-min', windowState.chat === 'minimized');
+    body.toggle('ym-chat-max', !!windowState.max);
+    renderTaskbar();
+}
+
+/** Opens the buddy list again, from the tray, the desktop icon, the taskbar or Start. */
+export function showMessenger() {
+    windowState.buddy = 'open';
+    focusedWindow = 'buddy';
+    if (windowState.max) {
+        windowState.max = false;
+    }
+    applyWindowState();
+}
+
+function restoreChat() {
+    windowState.chat = 'open';
+    focusedWindow = 'chat';
+    document.querySelector('.ym-task-chat')?.classList.remove('ym-task-flash');
+    applyWindowState();
+}
+
+/** The real buttons on a title bar. */
+function windowButtons(which) {
+    const holder = el('div', 'ym-win-btns');
+    const make = (kind, label, run) => {
+        const item = button(`ym-win-btn ym-win-${kind}`);
+        item.title = t(label);
+        item.setAttribute('aria-label', t(label));
+        item.addEventListener('click', (event) => {
+            event.stopPropagation();
+            run();
+        });
+        holder.append(item);
+    };
+    if (which === 'buddy') {
+        make('min', 'Minimize', () => {
+            windowState.buddy = 'minimized';
+            focusedWindow = 'chat';
+            applyWindowState();
+        });
+        make('close', 'Close', () => {
+            windowState.buddy = 'closed';
+            focusedWindow = 'chat';
+            applyWindowState();
+        });
+    } else {
+        make('min', 'Minimize', () => {
+            windowState.chat = 'minimized';
+            focusedWindow = 'buddy';
+            applyWindowState();
+        });
+        make('max', 'Maximize', () => {
+            windowState.max = !windowState.max;
+            applyWindowState();
+        });
+        make('close', 'Close', () => {
+            if (SillyTavern.getContext().getCurrentChatId()) {
+                tabs = [];
+                saveTabs();
+                clickOption('option_close_chat');
+            } else {
+                windowState.chat = 'minimized';
+                applyWindowState();
+            }
+        });
+    }
+    return holder;
+}
+
+/** Adds the buttons to the buddy list's title bar (the list is built after this window). */
+export function addBuddyButtons(titleBar) {
+    titleBar.classList.add('ym-title-live');
+    titleBar.append(windowButtons('buddy'));
+    document.getElementById('ym-buddy')?.addEventListener('pointerdown', () => {
+        focusedWindow = 'buddy';
+        renderTaskbar();
+    });
+}
+
 /** The retro look's taskbar: Start, a button per open conversation, and the clock. */
 function createTaskbar() {
     const bar = el('div');
@@ -216,7 +322,18 @@ function createTaskbar() {
     start.addEventListener('click', () => toggleStartMenu(start));
     const tasks = el('div', 'ym-tasks');
     const tray = el('div', 'ym-tray');
-    tray.append(el('span', 'ym-face ym-face-available'), el('span', 'ym-clock'));
+    // Messenger lives on in the tray when its window is closed, as it always did
+    const trayFace = button('ym-tray-face');
+    trayFace.title = t('Open Messenger');
+    trayFace.setAttribute('aria-label', t('Open Messenger'));
+    trayFace.append(el('span', 'ym-face ym-face-available'));
+    trayFace.addEventListener('click', showMessenger);
+    tray.append(trayFace, el('span', 'ym-clock'));
+    const shortcut = button('ym-desk-icon');
+    shortcut.append(el('span', 'ym-desk-pic'), el('span', 'ym-desk-name', t('Messenger')));
+    shortcut.title = t('Open Messenger');
+    shortcut.addEventListener('click', showMessenger);
+    document.body.append(own(shortcut));
     bar.append(start, tasks, tray);
     document.body.append(own(bar));
     const tick = () => {
@@ -228,19 +345,48 @@ function createTaskbar() {
     setInterval(tick, 20000);
 }
 
-function renderTaskbar(current) {
+/** Two buttons, as the windows are two: Messenger, and the conversation under its current name. */
+function renderTaskbar() {
     const tasks = document.querySelector('#ym-taskbar .ym-tasks');
-    tasks?.replaceChildren(...tabs.map((tab) => {
-        const task = button(`ym-task${sameTab(tab, current) ? ' ym-task-active' : ''}`);
-        task.title = tab.name;
-        task.append(el('span', 'ym-logo'), el('span', 'ym-task-name', tab.name));
-        task.addEventListener('click', () => openContact(tab));
-        return task;
-    }));
+    if (!tasks) {
+        return;
+    }
+    const flashing = tasks.querySelector('.ym-task-flash');
+    const task = (cls, label, active, run) => {
+        const item = button(`ym-task ${cls}${active ? ' ym-task-active' : ''}`);
+        item.title = label;
+        item.append(el('span', 'ym-logo'), el('span', 'ym-task-name', label));
+        item.addEventListener('click', run);
+        return item;
+    };
+    const items = [];
+    if (windowState.buddy !== 'closed') {
+        items.push(task('ym-task-buddy', t('Messenger'), windowState.buddy === 'open' && focusedWindow === 'buddy', () => {
+            // a press on the window in front minimizes it, as on Windows
+            if (windowState.buddy === 'open' && focusedWindow === 'buddy') {
+                windowState.buddy = 'minimized';
+                focusedWindow = 'chat';
+                applyWindowState();
+            } else {
+                showMessenger();
+            }
+        }));
+    }
+    const chat = task('ym-task-chat', conversationTitle, windowState.chat === 'open' && focusedWindow === 'chat', () => {
+        if (windowState.chat === 'open' && focusedWindow === 'chat') {
+            windowState.chat = 'minimized';
+            focusedWindow = 'buddy';
+            applyWindowState();
+        } else {
+            restoreChat();
+        }
+    });
+    chat.classList.toggle('ym-task-flash', !!flashing && windowState.chat === 'minimized');
+    items.push(chat);
+    tasks.replaceChildren(...items);
 }
 
 function renderTabs(current) {
-    renderTaskbar(current);
     const strip = document.querySelector(`#${HEAD_ID} .ym-tabs`);
     if (!strip) {
         return;
@@ -376,6 +522,8 @@ export function refreshWindow() {
     small.textContent = detail;
     small.title = detail;
     /** @type {HTMLElement} */ (head.querySelector('.ym-title-text')).textContent = hasChat ? name : t('Welcome to Messenger');
+    conversationTitle = hasChat ? `${t('Chat with')} ${name}` : t('Welcome to Messenger');
+    renderTaskbar();
     refreshImages(group, character);
 }
 
@@ -392,7 +540,8 @@ function createHead() {
     back.addEventListener('click', () => document.body.classList.remove('ym-m-chat'));
     const logo = el('span', 'ym-logo');
     logo.setAttribute('aria-hidden', 'true');
-    title.append(back, logo, el('span', 'ym-title-text'), el('nav', 'ym-tabs'));
+    title.classList.add('ym-title-live');
+    title.append(back, logo, el('span', 'ym-title-text'), el('nav', 'ym-tabs'), windowButtons('chat'));
 
     const bar = el('div', 'ym-contact-bar');
     const who = button('ym-who');
@@ -508,11 +657,27 @@ export function initWindow(config) {
     loadTabs();
     createHead();
     createWindowBar();
+    loadWindowState();
     createTaskbar();
+    applyWindowState();
+    document.getElementById('sheld')?.addEventListener('pointerdown', () => {
+        focusedWindow = 'chat';
+        renderTaskbar();
+    });
     trackDrawers();
     refreshWindow();
 
     const { eventSource, eventTypes } = SillyTavern.getContext();
+    eventSource.on(eventTypes.CHAT_CHANGED, () => {
+        if (isOn() && SillyTavern.getContext().getCurrentChatId() && windowState.chat === 'minimized') {
+            restoreChat();
+        }
+    });
+    eventSource.on(eventTypes.MESSAGE_RECEIVED, () => {
+        if (isOn() && windowState.chat === 'minimized') {
+            document.querySelector('.ym-task-chat')?.classList.add('ym-task-flash');
+        }
+    });
     for (const type of [eventTypes.GROUP_UPDATED, eventTypes.CHARACTER_EDITED, eventTypes.CHARACTER_RENAMED, eventTypes.CHARACTER_DELETED, eventTypes.PERSONA_CHANGED]) {
         if (type) {
             eventSource.on(type, refreshWindow);

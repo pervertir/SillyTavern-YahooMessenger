@@ -7,7 +7,7 @@ import { formatListTime } from './times.js';
 import { buzz } from './messenger.js';
 import { isOn, own } from './own.js';
 import { button, clickOption, el, iconButton, openDrawer, openProfile, t, toPreview, toggleDrawer } from './util.js';
-import { closeDrawers, showAbout } from './window.js';
+import { addBuddyButtons, closeDrawers, showAbout, showMessenger } from './window.js';
 import { signOut } from './xpflow.js';
 
 const LIST_ID = 'ym-buddy';
@@ -360,6 +360,7 @@ function menus() {
                 panel('Backgrounds', 'fa-regular fa-image', 'backgrounds-button'),
                 panel('Extensions', 'fa-solid fa-cubes', 'extensions-settings-button'),
                 { label: 'Customize theme', icon: 'fa-solid fa-palette', run: () => options.customize() },
+                document.body.classList.contains('ym-xp') ? { label: 'Sign Out', icon: 'fa-solid fa-xmark', run: signOut } : null,
                 document.body.classList.contains('ym-retro')
                     ? { label: 'Switch to the modern look', icon: 'fa-solid fa-wand-magic-sparkles', run: () => options.setLook('modern') }
                     : { label: 'Switch to the retro look', icon: 'fa-solid fa-clock-rotate-left', run: () => options.setLook('retro') },
@@ -410,7 +411,7 @@ export function startMenuItems() {
     const panel = (label, icon, id) => ({ label, icon, run: () => openDrawer(id) });
     return {
         pinned: [
-            { label: 'Messenger', sub: 'Sign in or sign out', icon: 'fa-regular fa-comment', run: signOut },
+            { label: 'Messenger', sub: 'Open your contacts', icon: 'fa-regular fa-comment', run: showMessenger },
             { label: 'New conversation', sub: 'With the open contact', icon: 'fa-regular fa-pen-to-square', run: () => clickOption('option_start_new_chat') },
         ],
         all: [...all.Contacts(), ...all.Actions(), ...all.Messenger()],
@@ -530,6 +531,7 @@ function createBuddyList() {
     const logo = el('span', 'ym-logo');
     logo.setAttribute('aria-hidden', 'true');
     title.append(logo, el('span', 'ym-title-text', 'Messenger'));
+    addBuddyButtons(title);
 
     const bar = el('nav', 'ym-menubar');
     const all = menus();
