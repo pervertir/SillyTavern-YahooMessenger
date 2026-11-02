@@ -1,0 +1,535 @@
+/* The transcript. Everything SillyTavern can show on a message (edit mode, swipes, reasoning, delete
+   mode, system notes) is laid out here; transcript.css and the bubble option pick the look on top. */
+
+/* Message area */
+body.yahoo-messenger #chat {
+    max-height: none;
+    padding: 16px 0 8px;
+    background:
+        linear-gradient(color-mix(in srgb, var(--ym-chat-bg) var(--ym-chat-bg-dim), transparent), color-mix(in srgb, var(--ym-chat-bg) var(--ym-chat-bg-dim), transparent)),
+        var(--ym-chat-bg-image) center / var(--ym-chat-bg-size) no-repeat,
+        var(--ym-chat-bg);
+    background-attachment: local, scroll, scroll;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    text-shadow: none;
+    scroll-padding-top: 16px;
+}
+
+body.yahoo-messenger #chat .mes {
+    --ym-avatar-size: var(--ym-mes-avatar);
+    display: grid;
+    grid-template-columns: var(--ym-avatar-size) minmax(0, max-content) minmax(48px, 1fr);
+    grid-template-rows: auto auto;
+    column-gap: 8px;
+    align-items: start;
+    padding: var(--ym-mes-gap) var(--ym-chat-pad);
+    margin: 0;
+    box-sizing: border-box;
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    color: var(--ym-fg);
+    font-family: var(--ym-font);
+}
+
+body.yahoo-messenger #chat .mes .mesAvatarWrapper {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 0;
+    margin: 0;
+    width: var(--ym-avatar-size);
+}
+
+body.yahoo-messenger #chat .mes .avatar,
+body.yahoo-messenger.big-avatars #chat .mes .avatar,
+body.yahoo-messenger.square-avatars #chat .mes .avatar,
+body.yahoo-messenger.rounded-avatars #chat .mes .avatar {
+    flex: none;
+    width: var(--ym-avatar-size);
+    height: var(--ym-avatar-size);
+    border-radius: var(--ym-avatar-radius);
+    overflow: hidden;
+    box-shadow: none;
+    border: none;
+}
+
+body.yahoo-messenger #chat .mes .avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--ym-avatar-radius);
+    object-fit: cover;
+    object-position: top center;
+    box-shadow: none;
+    border: none;
+}
+
+body.yahoo-messenger #chat .last_mes .mesAvatarWrapper {
+    padding-bottom: 0;
+}
+
+body.yahoo-messenger #chat .mes .mesIDDisplay,
+body.yahoo-messenger #chat .mes .mes_timer,
+body.yahoo-messenger #chat .mes .tokenCounterDisplay {
+    font-size: var(--ym-text-xs);
+    line-height: 12px;
+    color: var(--ym-fg-4);
+    text-align: center;
+}
+
+/* The bubble */
+body.yahoo-messenger #chat .mes .mes_block {
+    grid-column: 2;
+    grid-row: 1;
+    position: relative;
+    width: auto;
+    min-width: 0;
+    max-width: var(--ym-bubble-max);
+    padding: var(--ym-bubble-pad-y) var(--ym-bubble-pad-x) calc(var(--ym-bubble-pad-y) + 2px);
+    margin: 0;
+    box-sizing: border-box;
+    border-radius: var(--ym-bubble-radius);
+    background: var(--ym-bubble-in);
+    overflow: visible;
+}
+
+body.yahoo-messenger #chat .mes[is_user="true"] .mes_block {
+    grid-column: 2;
+    background: var(--ym-bubble-out);
+}
+
+/* Your messages: right-aligned, no picture */
+body.yahoo-messenger #chat .mes[is_user="true"] {
+    grid-template-columns: minmax(48px, 1fr) minmax(0, max-content);
+}
+
+body.yahoo-messenger #chat .mes[is_user="true"] .mesAvatarWrapper {
+    display: none;
+}
+
+body.yahoo-messenger.hideChatAvatars #chat .mes {
+    grid-template-columns: 0 minmax(0, max-content) minmax(48px, 1fr);
+    column-gap: 0;
+}
+
+/* With no picture beside your messages (or none at all), the counters SillyTavern keeps under it
+   (message number, reply time, tokens) still show when they are turned on */
+body.yahoo-messenger:is(:not(.no-mesIDDisplay), :not(.no-timer), :not(.no-tokenCount)) #chat .mes[is_user="true"] .mesAvatarWrapper {
+    display: flex;
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    width: auto;
+    min-width: 0;
+}
+
+body.yahoo-messenger #chat .mes[is_user="true"] .mesAvatarWrapper .avatar {
+    display: none;
+}
+
+body.yahoo-messenger.hideChatAvatars:is(:not(.no-mesIDDisplay), :not(.no-timer), :not(.no-tokenCount)) #chat .mes:not([is_user="true"]) {
+    grid-template-columns: auto minmax(0, max-content) minmax(48px, 1fr);
+    column-gap: 8px;
+}
+
+body.yahoo-messenger.hideChatAvatars #chat .mes .mesAvatarWrapper {
+    width: auto;
+}
+
+body.yahoo-messenger.hideChatAvatars #chat .mes[is_user="true"] {
+    grid-template-columns: minmax(48px, 1fr) minmax(0, max-content);
+}
+
+/* Header line: name and time */
+body.yahoo-messenger #chat .mes .ch_name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 16px;
+    margin: 0 0 2px;
+    font-weight: 400;
+}
+
+body.yahoo-messenger #chat .mes .ch_name > .flex-container {
+    min-width: 0;
+}
+
+body.yahoo-messenger #chat .mes .ch_name .alignItemsBaseline {
+    gap: 8px;
+    align-items: baseline;
+    flex-wrap: nowrap;
+    min-width: 0;
+}
+
+body.yahoo-messenger #chat .mes .name_text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: var(--ym-text-sm);
+    line-height: 16px;
+    font-weight: 600;
+    color: var(--ym-fg-2);
+}
+
+body.yahoo-messenger #chat .mes[is_user="true"] .name_text {
+    display: none;
+}
+
+body.yahoo-messenger #chat .mes .timestamp {
+    flex: none;
+    font-size: var(--ym-text-sm);
+    line-height: 16px;
+    color: var(--ym-fg-3);
+    white-space: nowrap;
+}
+
+/* the short time from times.js, in place of SillyTavern's long date */
+body.yahoo-messenger.ym-short-times #chat .mes .timestamp[data-ym-time] {
+    font-size: 0;
+}
+
+body.yahoo-messenger.ym-short-times #chat .mes .timestamp[data-ym-time]::after {
+    content: attr(data-ym-time);
+    font-size: var(--ym-text-sm);
+}
+
+body.yahoo-messenger #chat .mes .mes_ghost {
+    font-size: 11px;
+    color: var(--ym-fg-4);
+}
+
+/* Message text */
+body.yahoo-messenger #chat .mes .mes_text {
+    padding: 0;
+    margin: 0;
+    font-family: var(--ym-font);
+    font-size: var(--ym-mes-text);
+    line-height: var(--ym-mes-line);
+    font-weight: 400;
+    color: var(--ym-fg);
+    overflow-wrap: anywhere;
+    text-shadow: none;
+}
+
+body.yahoo-messenger #chat .mes .mes_text p {
+    margin: 0 0 8px;
+}
+
+body.yahoo-messenger #chat .mes .mes_text p:last-child {
+    margin-bottom: 0;
+}
+
+body.yahoo-messenger #chat .mes .mes_text em,
+body.yahoo-messenger #chat .mes .mes_text i {
+    color: var(--ym-mes-em);
+}
+
+body.yahoo-messenger #chat .mes .mes_text q,
+body.yahoo-messenger #chat .mes .mes_text q * {
+    color: var(--ym-mes-quote);
+}
+
+body.yahoo-messenger #chat .mes .mes_text blockquote {
+    margin: 4px 0 8px;
+    padding: 4px 12px;
+    border-left: 3px solid var(--ym-stroke);
+    color: var(--ym-fg-2);
+}
+
+body.yahoo-messenger #chat .mes .mes_text code {
+    padding: 1px 4px;
+    border-radius: var(--ym-radius);
+    background: var(--ym-subtle-hover);
+    font-family: Consolas, "Cascadia Mono", Menlo, monospace;
+    font-size: 13px;
+}
+
+body.yahoo-messenger #chat .mes .mes_text pre {
+    margin: 4px 0 8px;
+    border: 1px solid var(--ym-stroke-2);
+    border-radius: var(--ym-radius);
+    background: var(--ym-list);
+    overflow-x: auto;
+}
+
+body.yahoo-messenger #chat .mes .mes_text pre code {
+    padding: 8px 12px;
+    background: none;
+}
+
+/* SillyTavern's code colors are for dark backgrounds */
+body.yahoo-messenger:not(.ym-dark) #chat .mes .mes_text pre code.hljs {
+    color: var(--ym-fg);
+}
+body.yahoo-messenger:not(.ym-dark) #chat .mes .mes_text pre :is(.hljs-keyword, .hljs-selector-tag, .hljs-literal, .hljs-doctag) { color: #3b1fa8; }
+body.yahoo-messenger:not(.ym-dark) #chat .mes .mes_text pre :is(.hljs-string, .hljs-regexp, .hljs-addition) { color: #a4262c; }
+body.yahoo-messenger:not(.ym-dark) #chat .mes .mes_text pre :is(.hljs-number, .hljs-attr, .hljs-attribute, .hljs-variable, .hljs-symbol) { color: #8a3707; }
+body.yahoo-messenger:not(.ym-dark) #chat .mes .mes_text pre :is(.hljs-title, .hljs-function, .hljs-section, .hljs-name) { color: #6001d2; }
+body.yahoo-messenger:not(.ym-dark) #chat .mes .mes_text pre :is(.hljs-comment, .hljs-quote, .hljs-meta) { color: var(--ym-fg-3); }
+body.yahoo-messenger:not(.ym-dark) #chat .mes .mes_text pre :is(.hljs-built_in, .hljs-type, .hljs-class) { color: #0e700e; }
+
+body.yahoo-messenger #chat .mes .mes_text img {
+    border-radius: var(--ym-radius);
+}
+
+body.yahoo-messenger #chat .mes .mes_reasoning_details {
+    margin: 4px 0;
+    border-radius: var(--ym-radius);
+    background: var(--ym-subtle-hover);
+    padding: 4px 8px;
+}
+
+/* the "Thought for …" line: a quiet row, not SillyTavern's dark pill */
+body.yahoo-messenger #chat .mes .mes_reasoning_header {
+    margin: 0;
+    padding: 2px 20px 2px 0;
+    border-radius: var(--ym-radius);
+    background: none;
+    color: var(--ym-fg-3);
+    font-size: var(--ym-text-sm);
+}
+
+body.yahoo-messenger #chat .mes .mes_reasoning_header:hover {
+    color: var(--ym-brand-fg);
+}
+
+body.yahoo-messenger #chat .mes .mes_reasoning_arrow {
+    color: inherit;
+}
+
+body.yahoo-messenger #chat .mes .mes_reasoning {
+    margin-top: 4px;
+    padding: 4px 0 2px 10px;
+    border-left: 2px solid var(--ym-stroke);
+}
+
+body.yahoo-messenger #chat .mes .mes_reasoning,
+body.yahoo-messenger #chat .mes .mes_reasoning_header_title {
+    font-size: var(--ym-text-sm);
+    color: var(--ym-fg-3);
+}
+
+/* Message actions: a hover toolbar over the bubble's top corner */
+body.yahoo-messenger #chat .mes .mes_buttons {
+    position: absolute;
+    top: -18px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: 32px;
+    padding: 0 2px;
+    box-sizing: border-box;
+    border-radius: var(--ym-radius);
+    background: var(--ym-raised);
+    box-shadow: var(--ym-shadow-8);
+    opacity: 0;
+    pointer-events: none;
+    overflow: visible;
+    transition: opacity var(--ym-fast) var(--ym-ease);
+    z-index: 2;
+}
+
+body.yahoo-messenger #chat .mes:hover .mes_buttons,
+body.yahoo-messenger #chat .mes:focus-within .mes_buttons {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+body.yahoo-messenger #chat .mes .extraMesButtons {
+    gap: 0;
+    padding: 0;
+}
+
+body.yahoo-messenger #chat .mes .mes_button,
+body.yahoo-messenger #chat .mes .extraMesButtons > div {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border-radius: var(--ym-radius);
+    font-size: 14px;
+    color: var(--ym-fg-2);
+    opacity: 1;
+    filter: none;
+}
+
+body.yahoo-messenger #chat .mes .mes_button:hover,
+body.yahoo-messenger #chat .mes .extraMesButtons > div:hover {
+    background: var(--ym-subtle-hover);
+    color: var(--ym-brand-fg);
+}
+
+/* SillyTavern shows some message buttons only when they apply (a checkpoint, a hidden message,
+   media, the extension turned on); the display set above would show them on every message */
+body.yahoo-messenger #chat .mes[bookmark_link=''] .mes_bookmark,
+body.yahoo-messenger #chat .mes:not([bookmark_link='']) .mes_create_bookmark,
+body.yahoo-messenger #chat .mes[is_system="true"] .mes_hide,
+body.yahoo-messenger #chat .mes[is_system="false"] .mes_unhide,
+body.yahoo-messenger #chat .mes:not([data-media-display="gallery"]) .mes_media_gallery,
+body.yahoo-messenger #chat .mes:not([data-media-display="list"]) .mes_media_list,
+body.yahoo-messenger:not(.translate) #chat .mes .mes_translate,
+body.yahoo-messenger:not(.sd) #chat .mes .sd_message_gen,
+body.yahoo-messenger:not(.tts) #chat .mes .mes_narrate,
+body.yahoo-messenger #chat .mes[is_system="true"] .mes_narrate,
+body.yahoo-messenger:is([data-generating="true"], [data-swiping="true"]) #chat .last_mes .mes_buttons {
+    display: none;
+}
+
+body.yahoo-messenger #chat .mes .mes_edit_buttons {
+    gap: 4px;
+    margin-left: auto;
+    padding: 0;
+    filter: none;
+}
+
+/* editing: when the name line has no room left, the edit buttons go to a line of their own
+   instead of covering the name */
+body.yahoo-messenger #chat .mes .mes_block:has(.edit_textarea) .ch_name {
+    flex-wrap: wrap;
+    row-gap: 4px;
+}
+
+body.yahoo-messenger #chat .mes .mes_block:has(.edit_textarea) .ch_name > .flex-container {
+    flex: 0 1 auto;
+    min-width: min-content;
+}
+
+body.yahoo-messenger #chat .mes .mes_edit_buttons .menu_button {
+    width: 28px;
+    height: 28px;
+    margin: 0;
+    opacity: 1;
+    font-size: 13px;
+}
+
+body.yahoo-messenger #chat .mes .edit_textarea {
+    min-width: min(480px, 60vw);
+    padding: 6px 8px;
+    border: 1px solid var(--ym-stroke);
+    border-bottom: 2px solid var(--ym-brand);
+    border-radius: var(--ym-radius);
+    background: var(--ym-input);
+    color: var(--ym-fg);
+    font-family: var(--ym-font);
+    font-size: var(--ym-text);
+    line-height: 20px;
+}
+
+/* Swipes: a small pager under the bubble */
+body.yahoo-messenger #chat .mes .swipe_left,
+body.yahoo-messenger #chat .mes .swipeRightBlock {
+    grid-column: 2;
+    grid-row: 2;
+    position: static;
+    align-self: center;
+    justify-self: start;
+    margin-top: 4px;
+    pointer-events: auto;
+}
+
+body.yahoo-messenger #chat .mes .swipeRightBlock {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 4px;
+    margin-left: 28px;
+}
+
+body.yahoo-messenger #chat .mes .swipe_left,
+body.yahoo-messenger #chat .mes .swipe_right {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    border-radius: var(--ym-radius);
+    color: var(--ym-fg-3);
+    opacity: 1;
+    filter: none;
+    text-shadow: none;
+}
+
+body.yahoo-messenger #chat .mes .swipe_left:hover,
+body.yahoo-messenger #chat .mes .swipe_right:hover {
+    background: var(--ym-subtle-hover);
+    color: var(--ym-brand-fg);
+}
+
+body.yahoo-messenger #chat .mes .swipes-counter {
+    opacity: 1;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    font-size: var(--ym-text-sm);
+    line-height: 16px;
+    color: var(--ym-fg-3);
+}
+
+body.yahoo-messenger #chat .mes[is_user="true"] .swipe_left,
+body.yahoo-messenger #chat .mes[is_user="true"] .swipeRightBlock {
+    justify-self: end;
+}
+
+/* SillyTavern only swipes the last message, unless Swipe All Messages is on */
+body.yahoo-messenger:not(.swipeAllMessages) #chat .mes:not(.last_mes) .swipe_left,
+body.yahoo-messenger:not(.swipeAllMessages) #chat .mes:not(.last_mes) .swipeRightBlock {
+    display: none;
+}
+
+/* Delete mode checkboxes */
+body.yahoo-messenger #chat .mes .del_checkbox {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 8px 0 0;
+    z-index: 3;
+}
+
+body.yahoo-messenger #chat .mes .for_checkbox {
+    display: none;
+}
+
+/* System notes: a quiet centered line, */
+body.yahoo-messenger #chat .mes.smallSysMes {
+    display: flex;
+    justify-content: center;
+    padding: 4px 20px;
+}
+
+body.yahoo-messenger #chat .mes.smallSysMes .mesAvatarWrapper,
+body.yahoo-messenger #chat .mes.smallSysMes .ch_name,
+body.yahoo-messenger #chat .mes.smallSysMes .swipe_left,
+body.yahoo-messenger #chat .mes.smallSysMes .swipeRightBlock {
+    display: none;
+}
+
+body.yahoo-messenger #chat .mes.smallSysMes .mes_block {
+    max-width: 640px;
+    padding: 4px 12px;
+    background: none;
+    text-align: center;
+}
+
+body.yahoo-messenger #chat .mes.smallSysMes .mes_text {
+    font-size: var(--ym-text-sm);
+    line-height: 16px;
+    color: var(--ym-fg-3);
+}
+
+/* SillyTavern's chat display modes all take the theme's look */
+body.yahoo-messenger.bubblechat #chat .mes,
+body.yahoo-messenger.documentstyle #chat .mes {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+body.yahoo-messenger.documentstyle #chat .mes .mes_text {
+    padding: 0;
+}
+

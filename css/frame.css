@@ -1,0 +1,441 @@
+/* The desktop and the windows on it: the buddy list on the left, the conversation beside it, and
+   SillyTavern's menus as windows of their own in the middle. Phones are in mobile.css.
+
+   SillyTavern's #top-settings-holder stays where its drawers need it. It never gets transform, filter
+   or backdrop-filter: any of them makes it the containing block for its fixed panels. */
+
+#ym-buddy,
+#ym-head,
+#ym-images,
+#ym-format,
+#ym-status,
+#ym-scrim,
+#ym-window-bar,
+#ym-emoticons {
+    display: none;
+}
+
+.ym-hidden-card {
+    display: none !important;
+}
+
+/* while the theme is off its parts are taken out of the page (own.js); this keeps any that
+   appear in between out of sight */
+body:not(.yahoo-messenger) [data-ym-own] {
+    display: none !important;
+}
+
+html.ym-html body.yahoo-messenger {
+    background: linear-gradient(135deg, var(--ym-desk-from), var(--ym-desk-to)) fixed;
+}
+
+/* SillyTavern's background stands behind the windows, when wanted */
+body.yahoo-messenger:not(.ym-use-bg) #bg1,
+body.yahoo-messenger:not(.ym-use-bg) #bg_custom {
+    display: none;
+}
+
+body.yahoo-messenger #top-bar,
+body.yahoo-messenger #sheldheader,
+body.yahoo-messenger #version_display {
+    display: none;
+}
+
+/* The top bar's buttons leave; their panels stay, as windows */
+body.yahoo-messenger #top-settings-holder {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    background: none;
+    border: none;
+    box-shadow: none;
+    z-index: 3005;
+}
+
+body.yahoo-messenger #top-settings-holder > .drawer {
+    position: static;
+    width: 0;
+    height: 0;
+}
+
+body.yahoo-messenger #top-settings-holder > .drawer > .drawer-toggle {
+    display: none;
+}
+
+/* ---- Title bars, on every window ---- */
+body.yahoo-messenger .ym-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: none;
+    height: var(--ym-title-h);
+    padding: 0 8px 0 12px;
+    box-sizing: border-box;
+    background: linear-gradient(100deg, var(--ym-title-from), var(--ym-title-to));
+    color: var(--ym-on-brand);
+    user-select: none;
+}
+
+body.yahoo-messenger .ym-title-text {
+    flex: none;
+    max-width: 40%;
+    overflow: hidden;
+    color: var(--ym-on-brand);
+    font-size: var(--ym-text);
+    font-weight: 700;
+    letter-spacing: 0.1px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.yahoo-messenger .ym-logo {
+    display: block;
+    flex: none;
+    width: 22px;
+    height: 22px;
+    background: var(--ym-logo) center / contain no-repeat;
+}
+
+/* Pictures and status faces, wherever they appear */
+body.yahoo-messenger .ym-pic {
+    position: relative;
+    display: inline-flex;
+    flex: none;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: var(--ym-avatar-radius);
+    background: var(--ym-brand-soft);
+}
+
+body.yahoo-messenger .ym-pic > img {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--ym-avatar-radius);
+    object-fit: cover;
+    object-position: top center;
+}
+
+/* A conference: up to four of its members */
+body.yahoo-messenger .ym-pic-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    overflow: hidden;
+}
+
+body.yahoo-messenger .ym-pic-group > img {
+    min-width: 0;
+    min-height: 0;
+    border-radius: 0;
+}
+
+body.yahoo-messenger .ym-pic-group > img:only-child {
+    grid-column: 1 / -1;
+    grid-row: 1 / span 2;
+}
+
+body.yahoo-messenger .ym-face {
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: center / contain no-repeat;
+}
+
+body.yahoo-messenger .ym-pic > .ym-face {
+    display: none;
+    position: absolute;
+    right: -3px;
+    bottom: -3px;
+    box-shadow: 0 0 0 2px var(--ym-face-ring, var(--ym-list));
+}
+
+body.yahoo-messenger.ym-presence-on .ym-pic > .ym-face,
+body.yahoo-messenger .ym-me-pic > .ym-face {
+    display: block;
+}
+
+body.yahoo-messenger .ym-face-available {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23ffc91f'/%3E%3Ccircle cx='5.4' cy='6' r='1.2' fill='%234a2c00'/%3E%3Ccircle cx='10.6' cy='6' r='1.2' fill='%234a2c00'/%3E%3Cpath d='M4.4 9.6c.9 1.6 2.2 2.4 3.6 2.4s2.7-.8 3.6-2.4' fill='none' stroke='%234a2c00' stroke-width='1.3' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+body.yahoo-messenger .ym-face-busy {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23e5484d'/%3E%3Crect x='3.5' y='6.8' width='9' height='2.4' rx='1.2' fill='%23fff'/%3E%3C/svg%3E");
+}
+
+body.yahoo-messenger .ym-face-away {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23f59e0b'/%3E%3Cpath d='M8 3.6v4.6l3 1.8' fill='none' stroke='%23fff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+body.yahoo-messenger .ym-face-invisible {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6.6' fill='%23fff' stroke='%23a59bb5' stroke-width='2.4'/%3E%3C/svg%3E");
+}
+
+/* ---- Small buttons ---- */
+body.yahoo-messenger .ym-tool {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: var(--ym-radius);
+    background: transparent;
+    color: var(--ym-fg-3);
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color var(--ym-fast) var(--ym-ease), color var(--ym-fast) var(--ym-ease);
+}
+
+body.yahoo-messenger .ym-tool:hover {
+    background: var(--ym-subtle-hover);
+    color: var(--ym-brand-fg);
+}
+
+body.yahoo-messenger .ym-tool:active {
+    background: var(--ym-subtle-pressed);
+}
+
+body.yahoo-messenger :is(.ym-tool, .ym-menubar-item, .ym-action, .ym-tab, .ym-row, .ym-group-head, .ym-who, .ym-me-status, .ym-buzz, .ym-more-item, .ym-window-close, .ym-back):focus-visible {
+    outline: 2px solid var(--ym-brand-fg);
+    outline-offset: -2px;
+}
+
+/* ---- Menu windows ---- */
+body.yahoo-messenger {
+    --ym-win-w: 760px;
+    --ym-win-top: max(16px, 5dvh);
+}
+
+body.yahoo-messenger.ym-win-sm { --ym-win-w: 560px; }
+body.yahoo-messenger.ym-win-md { --ym-win-w: 760px; }
+body.yahoo-messenger.ym-win-lg { --ym-win-w: 1040px; }
+
+body.yahoo-messenger.ym-menu-open #ym-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(18, 4, 44, 0.45);
+    z-index: 3002;
+    animation: ym-fade var(--ym-normal) var(--ym-ease);
+}
+
+body.yahoo-messenger.ym-menu-open #ym-window-bar {
+    display: flex;
+    position: fixed;
+    top: var(--ym-win-top);
+    left: calc(50vw - min(var(--ym-win-w), 100vw - 48px) / 2);
+    width: min(var(--ym-win-w), 100vw - 48px);
+    border-radius: var(--ym-radius-lg) var(--ym-radius-lg) 0 0;
+    z-index: 3006;
+    animation: ym-fade var(--ym-normal) var(--ym-ease);
+}
+
+body.yahoo-messenger #ym-window-bar .ym-title-text {
+    flex: 1;
+    max-width: none;
+}
+
+body.yahoo-messenger .ym-window-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: var(--ym-radius);
+    background: transparent;
+    color: var(--ym-on-brand);
+    font-size: 15px;
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-window-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+body.yahoo-messenger #top-settings-holder .drawer-content,
+body.yahoo-messenger #top-settings-holder .drawer-content.fillLeft,
+body.yahoo-messenger #top-settings-holder .drawer-content.fillRight {
+    position: fixed;
+    top: calc(var(--ym-win-top) + var(--ym-title-h));
+    left: calc(50vw - min(var(--ym-win-w), 100vw - 48px) / 2);
+    right: auto;
+    bottom: auto;
+    width: min(var(--ym-win-w), 100vw - 48px);
+    min-width: 0;
+    max-width: none;
+    max-height: calc(100dvh - 2 * var(--ym-win-top) - var(--ym-title-h));
+    margin: 0;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 0 0 var(--ym-radius-lg) var(--ym-radius-lg);
+    background: var(--ym-list);
+    color: var(--ym-fg);
+    box-shadow: var(--ym-shadow-64);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    z-index: 3005;
+}
+
+body.yahoo-messenger #top-settings-holder .drawer-content.openDrawer {
+    height: calc(100dvh - 2 * var(--ym-win-top) - var(--ym-title-h));
+}
+
+body.yahoo-messenger .drawer-content .drag-grabber,
+body.yahoo-messenger #top-settings-holder .drawer-content .floating_panel_maximize {
+    display: none;
+}
+
+@keyframes ym-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Pop-up menus */
+#ym-flyout {
+    display: none;
+}
+
+body.yahoo-messenger #ym-flyout:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: var(--ym-flyout-top, 120px);
+    left: var(--ym-flyout-left, 72px);
+    min-width: 220px;
+    max-height: calc(100dvh - var(--ym-flyout-top, 120px) - 8px);
+    overflow-y: auto;
+    padding: 4px;
+    box-sizing: border-box;
+    border: 1px solid var(--ym-stroke-2);
+    border-radius: var(--ym-radius-md);
+    background: var(--ym-raised);
+    box-shadow: var(--ym-shadow-16);
+    z-index: 3010;
+    animation: ym-fade var(--ym-fast) var(--ym-ease);
+}
+
+body.yahoo-messenger #ym-flyout[data-placement="below-end"]:not([hidden]) {
+    left: auto;
+    right: var(--ym-flyout-right, 16px);
+}
+
+body.yahoo-messenger #ym-flyout[data-placement="below-start"]:not([hidden]) {
+    left: var(--ym-flyout-start, 16px);
+}
+
+body.yahoo-messenger .ym-more-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 32px;
+    padding: 5px 10px;
+    margin: 0;
+    border: none;
+    border-radius: var(--ym-radius);
+    background: none;
+    color: var(--ym-fg);
+    font: inherit;
+    font-size: var(--ym-text);
+    text-align: left;
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-more-item:hover,
+body.yahoo-messenger .ym-more-item:focus-visible {
+    background: var(--ym-brand);
+    color: var(--ym-on-brand);
+}
+
+body.yahoo-messenger .ym-more-item i:not(.ym-face) {
+    width: 16px;
+    color: var(--ym-fg-3);
+    font-size: 14px;
+    text-align: center;
+}
+
+body.yahoo-messenger .ym-more-item:is(:hover, :focus-visible) i:not(.ym-face) {
+    color: inherit;
+}
+
+body.yahoo-messenger .ym-more-item i.ym-face {
+    flex: none;
+    width: 16px;
+    height: 16px;
+}
+
+/* Extension settings panel */
+.ym-settings .ym-setting-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 0;
+}
+
+.ym-settings .ym-setting-row > label {
+    flex: 1;
+}
+
+.ym-settings .ym-setting-row > select {
+    width: auto;
+    min-width: 160px;
+    margin: 0;
+}
+
+.ym-settings .ym-note {
+    display: block;
+    margin-top: 8px;
+    opacity: 0.8;
+}
+
+/* About */
+body.yahoo-messenger .ym-about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    text-align: center;
+}
+
+body.yahoo-messenger .ym-logo-large {
+    width: 72px;
+    height: 72px;
+    background-image: var(--ym-logo-solid);
+}
+
+/* Sharp pictures (sharp.js): the full image in place of a thumbnail drawn too big */
+body.yahoo-messenger img[style*="--ym-full"] {
+    content: var(--ym-full);
+}
+
+body.yahoo-messenger .thumbnail-clipper[style*="--ym-full"] {
+    background-image: var(--ym-full) !important;
+}
+
+/* SillyTavern puts translateZ(0) on <html>. In Firefox-based browsers, Zen above all, that drops
+   backdrop blur on repaint, so it's undone there on desktop; phones rely on <html> framing the
+   fixed panels. */
+@supports (-moz-appearance: none) {
+    @media screen and (min-width: 1001px) {
+        html.ym-html {
+            transform: none;
+            -webkit-transform: none;
+        }
+    }
+}

@@ -1,0 +1,122 @@
+// Leak check: with the theme switched off, nothing of it may be left in SillyTavern's page.
+// Run before every push against a test SillyTavern with this extension installed:
+//   node tests/leak-check.js [http://127.0.0.1:8000/]
+// Needs Playwright. It turns the theme off through its own switch, checks the page, reloads with
+// it off, checks again, opens a chat while off, checks again, then turns it on (the page reloads),
+// off and on again and checks that it comes back whole and leaves nothing the second time either.
+// Exits with 1 and lists what it found when anything of the theme is left.
+
+const { chromium } = require(process.env.PLAYWRIGHT ?? 'playwright');
+
+const URL = process.argv[2] ?? 'http://127.0.0.1:8000/';
+
+/** Everything of the theme's in the page, outside its own settings panel */
+function scan() {
+    const found = [];
+    const outside = (node) => !node.closest?.('.ym-settings');
+    for (const node of document.querySelectorAll('*')) {
+        if (!outside(node)) {
+            continue;
+        }
+        const name = `${node.tagName.toLowerCase()}${node.id ? '#' + node.id : ''}`;
+        if (/^mst/i.test(node.id)) {
+            found.push(`element ${name}`);
+        }
+        for (const cls of node.classList) {
+            if (cls.startsWith('ym-') || cls === 'yahoo-messenger') {
+                found.push(`class ${cls} on ${name}`);
+            }
+        }
+        for (const attribute of node.attributes) {
+            if (attribute.name.startsWith('data-mst')) {
+                found.push(`attribute ${attribute.name} on ${name}`);
+            }
+            if (attribute.name === 'style' && attribute.value.includes('--ym-')) {
+                found.push(`style variable on ${name}`);
+            }
+        }
+    }
+    if ([...document.querySelectorAll('link[rel~="icon"]')].some((link) => link.href.includes('SillyTavern-YahooMessenger'))) {
+        found.push('the tab still has the theme icon');
+    }
+    if (document.documentElement.classList.contains('ym-html')) {
+        found.push('class ym-html on html');
+    }
+    if (document.getElementById('ym-custom-css')) {
+        found.push('the Customize CSS is still in the page');
+    }
+    return found;
+}
+
+async function waitForApp(page, settle) {
+    await page.waitForSelector('#ym_enabled', { state: 'attached', timeout: 60000 });
+    await page.waitForTimeout(settle);
+}
+
+/** Turning the theme on reloads the page once the settings are saved; turning it off doesn't. */
+async function setTheme(page, on) {
+    const wasOn = await page.evaluate(() => !!document.getElementById('ym_enabled').checked);
+    if (on === wasOn) {
+        return;
+    }
+    const reloaded = on ? page.waitForEvent('load', { timeout: 15000 }) : null;
+    await page.evaluate((on) => {
+        const box = document.getElementById('ym_enabled');
+        box.checked = on;
+        box.dispatchEvent(new Event('input', { bubbles: true }));
+    }, on);
+    if (reloaded) {
+        await reloaded;
+        await waitForApp(page, 4000);
+    } else {
+        await page.waitForTimeout(2000);
+    }
+}
+
+(async () => {
+    const browser = await chromium.launch(process.env.BROWSER ? { executablePath: process.env.BROWSER, args: ['--disable-gpu'] } : {});
+    const page = await (await browser.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
+    const errors = [];
+    page.on('pageerror', (error) => errors.push(error.message));
+    await page.goto(URL);
+    await waitForApp(page, 3000);
+    await setTheme(page, true);
+
+    const results = {};
+    await setTheme(page, false);
+    results['turned off'] = await page.evaluate(scan);
+    await page.reload();
+    await waitForApp(page, 4000);
+    results['loaded while off'] = await page.evaluate(scan);
+    await page.evaluate(async () => {
+        const context = SillyTavern.getContext();
+        if (context.characters.length) {
+            await context.selectCharacterById(0);
+        }
+    });
+    await page.waitForTimeout(2500);
+    results['chat opened while off'] = await page.evaluate(scan);
+    // on, off and on again: it comes back whole, then leaves nothing again
+    await setTheme(page, true);
+    const back = await page.evaluate(() => !!document.querySelector('#ym-buddy') && document.body.classList.contains('yahoo-messenger'));
+    await setTheme(page, false);
+    results['turned off a second time'] = await page.evaluate(scan);
+    await setTheme(page, true);
+    if (!back) {
+        results['turned on again'] = ['the theme did not come back when turned on'];
+    }
+    await browser.close();
+
+    let failed = false;
+    for (const [step, found] of Object.entries(results)) {
+        console.log(`${found.length ? 'FAIL' : 'ok  '} ${step}${found.length ? `: ${found.length} left` : ''}`);
+        for (const item of found.slice(0, 20)) {
+            console.log(`       ${item}`);
+        }
+        failed ||= found.length > 0;
+    }
+    for (const error of errors) {
+        console.log(`page error: ${error}`);
+    }
+    process.exit(failed || errors.length ? 1 : 0);
+})();

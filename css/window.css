@@ -1,0 +1,390 @@
+/* The conversation window: SillyTavern's #sheld, with the title strip and contact bar on top, the
+   display images down the right and the status line above the message box. */
+
+body.yahoo-messenger #sheld,
+body.yahoo-messenger.movingUI #sheld {
+    position: fixed;
+    inset: var(--ym-gap) var(--ym-gap) var(--ym-gap) calc(var(--ym-gap) * 2 + var(--ym-list-w)) !important;
+    display: flex;
+    flex-direction: column;
+    width: auto !important;
+    height: auto !important;
+    max-width: none;
+    max-height: none;
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    border: none;
+    border-radius: var(--ym-radius-lg);
+    background: var(--ym-canvas);
+    box-shadow: var(--ym-shadow-28);
+    resize: none;
+    z-index: 30;
+}
+
+/* Title strip: the name, then a tab per open conversation */
+body.yahoo-messenger #ym-head {
+    display: block;
+    flex: none;
+}
+
+body.yahoo-messenger .ym-back {
+    display: none;
+}
+
+body.yahoo-messenger .ym-tabs {
+    display: none;
+    flex: 1;
+    align-self: flex-end;
+    gap: 2px;
+    min-width: 0;
+    height: 32px;
+    margin-left: 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+body.yahoo-messenger.ym-tabs-on .ym-tabs {
+    display: flex;
+}
+
+body.yahoo-messenger .ym-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+body.yahoo-messenger .ym-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex: 0 1 160px;
+    min-width: 72px;
+    height: 32px;
+    padding: 0 6px 0 12px;
+    margin: 0;
+    border: none;
+    border-radius: var(--ym-radius-md) var(--ym-radius-md) 0 0;
+    background: rgba(255, 255, 255, 0.14);
+    color: var(--ym-on-brand);
+    font: inherit;
+    font-size: var(--ym-text-sm);
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-tab:hover {
+    background: rgba(255, 255, 255, 0.24);
+}
+
+body.yahoo-messenger .ym-tab-active,
+body.yahoo-messenger .ym-tab-active:hover {
+    background: var(--ym-canvas);
+    color: var(--ym-fg);
+    font-weight: 600;
+}
+
+body.yahoo-messenger .ym-tab-name {
+    flex: 1;
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.yahoo-messenger .ym-tab-close {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    border-radius: var(--ym-radius-sm);
+    font-size: 11px;
+    line-height: 18px;
+    text-align: center;
+    opacity: 0.75;
+}
+
+body.yahoo-messenger .ym-tab-close:hover {
+    background: var(--ym-subtle-pressed);
+    opacity: 1;
+}
+
+/* With tabs the name is on the tab */
+body.yahoo-messenger.ym-tabs-on:not(.ym-no-chat) .ym-title-conv > .ym-title-text {
+    display: none;
+}
+
+/* Contact bar */
+body.yahoo-messenger .ym-contact-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 52px;
+    padding: 6px 12px;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--ym-stroke-2);
+    --ym-face-ring: var(--ym-canvas);
+}
+
+body.yahoo-messenger .ym-who {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+    padding: 2px 8px 2px 2px;
+    margin: 0;
+    border: none;
+    border-radius: var(--ym-radius);
+    background: none;
+    color: var(--ym-fg);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-who:hover {
+    background: var(--ym-subtle-hover);
+}
+
+body.yahoo-messenger .ym-who-names {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+body.yahoo-messenger .ym-who-name {
+    overflow: hidden;
+    font-size: var(--ym-text-md);
+    line-height: 20px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.yahoo-messenger .ym-who-detail {
+    overflow: hidden;
+    color: var(--ym-fg-3);
+    font-size: var(--ym-text-xs);
+    line-height: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.yahoo-messenger .ym-actions {
+    display: flex;
+    flex: none;
+    gap: 2px;
+}
+
+body.yahoo-messenger .ym-action {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    width: 52px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: var(--ym-radius);
+    background: none;
+    color: var(--ym-fg-2);
+    font: inherit;
+    font-size: var(--ym-text-xs);
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-action i {
+    color: var(--ym-brand-fg);
+    font-size: 15px;
+}
+
+body.yahoo-messenger .ym-action:hover,
+body.yahoo-messenger .ym-action.ym-menu-anchor {
+    background: var(--ym-subtle-hover);
+}
+
+/* Home: the title strip says welcome and the contact bar has nothing to show yet */
+body.yahoo-messenger.ym-no-chat .ym-contact-bar,
+body.yahoo-messenger.ym-no-chat #ym-status {
+    display: none;
+}
+
+/* Display images: theirs on top, yours below, as on the old conversation window */
+body.yahoo-messenger.ym-images-on:not(.ym-no-chat) #ym-images {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    position: absolute;
+    top: calc(var(--ym-title-h) + 53px);
+    right: 0;
+    bottom: 0;
+    width: var(--ym-images-w);
+    padding: 12px;
+    box-sizing: border-box;
+    border-left: 1px solid var(--ym-stroke-2);
+    background: var(--ym-list);
+}
+
+body.yahoo-messenger.ym-images-on:not(.ym-no-chat) :is(#chat, #form_sheld, #ym-status) {
+    margin-right: var(--ym-images-w);
+}
+
+body.yahoo-messenger .ym-di-them {
+    flex: 0 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-di-them > img {
+    display: block;
+    width: 100%;
+    max-height: 100%;
+    border-radius: var(--ym-radius-md);
+    object-fit: cover;
+    object-position: top center;
+    box-shadow: var(--ym-shadow-8);
+}
+
+/* a conference: everyone, in a small grid */
+body.yahoo-messenger .ym-di-them.ym-di-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-content: start;
+    gap: 6px;
+    overflow-y: auto;
+}
+
+body.yahoo-messenger .ym-di-group > img {
+    aspect-ratio: 1;
+    height: auto;
+    box-shadow: none;
+}
+
+body.yahoo-messenger .ym-di-me {
+    flex: none;
+    align-self: flex-end;
+    width: 96px;
+    height: 96px;
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-di-me > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--ym-radius-md);
+    object-fit: cover;
+    object-position: top center;
+    box-shadow: var(--ym-shadow-2);
+}
+
+@media screen and (max-width: 1240px) {
+    body.yahoo-messenger.ym-images-on:not(.ym-no-chat) #ym-images {
+        display: none;
+    }
+
+    body.yahoo-messenger.ym-images-on:not(.ym-no-chat) :is(#chat, #form_sheld, #ym-status) {
+        margin-right: 0;
+    }
+}
+
+/* Buzz: the whole window shakes */
+body.yahoo-messenger #sheld.ym-buzzing {
+    animation: ym-buzz 0.6s linear;
+}
+
+@keyframes ym-buzz {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-9px, 3px); }
+    20% { transform: translate(8px, -4px); }
+    30% { transform: translate(-8px, -3px); }
+    40% { transform: translate(7px, 4px); }
+    50% { transform: translate(-6px, 2px); }
+    60% { transform: translate(5px, -3px); }
+    70% { transform: translate(-4px, 2px); }
+    80% { transform: translate(3px, -1px); }
+    90% { transform: translate(-1px, 1px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.yahoo-messenger #sheld.ym-buzzing {
+        animation: none;
+    }
+}
+
+body.yahoo-messenger.reduced-motion #sheld.ym-buzzing {
+    animation: none;
+}
+
+/* Home: SillyTavern's welcome panel as a tidy start page. Its recent chats, pins and Temporary Chat all
+   stay; the buddy list's chrome is enough, so the logo swaps for the theme's own. */
+body.yahoo-messenger #chat .welcomePanel {
+    max-width: 760px;
+    margin: 12px auto;
+    padding: 16px;
+    border: 1px solid var(--ym-stroke-2);
+    border-radius: var(--ym-radius-lg);
+    background: var(--ym-card);
+    box-shadow: var(--ym-shadow-2);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+body.yahoo-messenger #chat .welcomeHeaderTitle {
+    position: relative;
+    justify-content: flex-start;
+    min-height: 56px;
+    padding-left: 68px;
+}
+
+body.yahoo-messenger #chat .welcomeHeaderTitle::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 56px;
+    height: 56px;
+    background: var(--ym-logo-solid) center / contain no-repeat;
+}
+
+body.yahoo-messenger #chat .welcomeHeaderLogo {
+    display: none;
+}
+
+body.yahoo-messenger #chat .welcomeHeaderVersionDisplay {
+    margin-right: auto;
+    color: var(--ym-fg-3);
+    font-size: var(--ym-text-sm);
+}
+
+body.yahoo-messenger #chat .welcomeShortcuts {
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+body.yahoo-messenger #chat .recentChatsTitle {
+    color: var(--ym-fg);
+    font-size: var(--ym-text-md);
+    font-weight: 700;
+}
+
+body.yahoo-messenger #chat .recentChat {
+    border: none;
+    border-radius: var(--ym-radius-md);
+    background: transparent;
+    transition: background-color var(--ym-fast) var(--ym-ease);
+}
+
+body.yahoo-messenger #chat .recentChat:hover {
+    background: var(--ym-hover);
+}
+
+body.yahoo-messenger #chat .recentChat .avatar,
+body.yahoo-messenger #chat .recentChat .avatar img {
+    border-radius: var(--ym-avatar-radius);
+}
+
+body.yahoo-messenger #chat .recentChat :is(.chatDate, .chatStats) {
+    color: var(--ym-fg-3);
+}

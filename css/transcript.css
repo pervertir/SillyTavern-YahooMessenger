@@ -1,0 +1,150 @@
+/* The look on top of chat.css. By default a transcript, as the old messenger drew it: everyone on the
+   left with a coloured name and the time, the text under it, no bubbles. body.ym-bubbles adds bubbles. */
+
+body.yahoo-messenger #chat {
+    flex: 1;
+    width: auto;
+    min-height: 0;
+    padding: 12px 0 8px;
+}
+
+/* Everyone's on the left here, you too */
+body.yahoo-messenger #chat .mes,
+body.yahoo-messenger #chat .mes[is_user="true"] {
+    grid-template-columns: var(--ym-avatar-size) minmax(0, 1fr);
+}
+
+body.yahoo-messenger #chat .mes:hover {
+    background: var(--ym-stroke-3);
+}
+
+body.yahoo-messenger #chat .mes .mes_block {
+    width: 100%;
+    padding: var(--ym-bubble-pad-y) var(--ym-bubble-pad-x);
+    border-radius: 0;
+    background: none;
+}
+
+body.yahoo-messenger #chat .mes[is_user="true"] .mes_block {
+    background: none;
+}
+
+body.yahoo-messenger #chat .mes[is_user="true"] .mesAvatarWrapper,
+body.yahoo-messenger #chat .mes[is_user="true"] .mesAvatarWrapper .avatar {
+    display: flex;
+}
+
+body.yahoo-messenger:is(:not(.no-mesIDDisplay), :not(.no-timer), :not(.no-tokenCount)) #chat .mes[is_user="true"] .mesAvatarWrapper {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    justify-self: auto;
+    width: var(--ym-avatar-size);
+}
+
+body.yahoo-messenger #chat .mes .name_text,
+body.yahoo-messenger #chat .mes[is_user="true"] .name_text {
+    display: block;
+    font-size: var(--ym-text);
+    line-height: 18px;
+    font-weight: 700;
+    color: var(--ym-name-them);
+}
+
+body.yahoo-messenger #chat .mes[is_user="true"] .name_text {
+    color: var(--ym-name-me);
+}
+
+body.yahoo-messenger #chat .mes .timestamp,
+body.yahoo-messenger.ym-short-times #chat .mes .timestamp[data-ym-time]::after {
+    font-size: var(--ym-text-xs);
+}
+
+/* Without pictures, the text starts at the window's margin */
+body.yahoo-messenger.hideChatAvatars #chat .mes,
+body.yahoo-messenger.hideChatAvatars #chat .mes[is_user="true"],
+body.yahoo-messenger.ym-x-hide-avatars #chat .mes,
+body.yahoo-messenger.ym-x-hide-avatars #chat .mes[is_user="true"] {
+    grid-template-columns: 0 minmax(0, 1fr);
+    column-gap: 0;
+}
+
+/* Buzz in the chat: bold, in the attention colour */
+body.yahoo-messenger #chat .mes.ym-buzz-mes .mes_text {
+    color: var(--ym-danger);
+    font-size: calc(var(--ym-mes-text) * 1.2);
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+/* Bubbles, when picked: yours to the right, in the accent's soft colour */
+body.yahoo-messenger.ym-bubbles {
+    --ym-bubble-pad-y: 8px;
+    --ym-bubble-pad-x: 14px;
+    --ym-bubble-max: 80%;
+}
+
+body.yahoo-messenger.ym-bubbles #chat .mes:hover {
+    background: none;
+}
+
+body.yahoo-messenger.ym-bubbles #chat .mes {
+    grid-template-columns: var(--ym-avatar-size) minmax(0, max-content) minmax(48px, 1fr);
+}
+
+body.yahoo-messenger.ym-bubbles #chat .mes .mes_block {
+    width: auto;
+    border-radius: var(--ym-bubble-radius);
+    background: var(--ym-bubble-in);
+}
+
+body.yahoo-messenger.ym-bubbles #chat .mes[is_user="true"] {
+    grid-template-columns: minmax(48px, 1fr) minmax(0, max-content) var(--ym-avatar-size);
+}
+
+body.yahoo-messenger.ym-bubbles #chat .mes[is_user="true"] .mes_block {
+    grid-column: 2;
+    background: var(--ym-bubble-out);
+}
+
+body.yahoo-messenger.ym-bubbles #chat .mes[is_user="true"] .mesAvatarWrapper {
+    grid-column: 3;
+}
+
+body.yahoo-messenger.ym-bubbles:is(:not(.no-mesIDDisplay), :not(.no-timer), :not(.no-tokenCount)) #chat .mes[is_user="true"] .mesAvatarWrapper {
+    grid-column: 3;
+}
+
+body.yahoo-messenger.ym-bubbles #chat .mes[is_user="true"] :is(.swipe_left, .swipeRightBlock) {
+    grid-column: 2;
+    justify-self: end;
+}
+
+/* The hover toolbar stays inside the window for the first message */
+body.yahoo-messenger #chat .mes .mes_buttons {
+    top: -4px;
+    right: 4px;
+}
+
+/* No line marking where memory starts, just a quiet dotted rule */
+body.yahoo-messenger #chat .mes.lastInContext {
+    border-top: 1px dotted var(--ym-stroke-accessible);
+}
+
+/* Selected in Delete mode */
+body.yahoo-messenger #chat .mes.selected {
+    background: var(--ym-danger-soft);
+}
+
+/* The reply pager: arrows and count on one line */
+body.yahoo-messenger #chat .mes .swipe_left,
+body.yahoo-messenger #chat .mes .swipe_right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 24px;
+}
+
+body.yahoo-messenger #chat .mes :is(.swipe_left, .swipeRightBlock) {
+    align-self: start;
+    transform: none;
+}

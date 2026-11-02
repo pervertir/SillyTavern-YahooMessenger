@@ -1,0 +1,101 @@
+/* Sliders: the label on its own line, then the slider with its number box to
+   the right. SillyTavern builds its sliders two ways; both are laid out the same. */
+
+/* 1. a box holding a label, the slider and the number (often wrapped in a div) */
+body.yahoo-messenger div:has(> .neo-range-slider) {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 76px;
+    column-gap: 12px;
+    row-gap: 4px;
+    align-items: center;
+    text-align: left;
+}
+
+body.yahoo-messenger div:has(> .neo-range-slider) > :is(small, label, span, .range-block-title) {
+    grid-column: 1 / -1;
+    justify-self: start;
+    text-align: left;
+    font-size: var(--ym-text-sm);
+    font-weight: 600;
+    color: var(--ym-fg-2);
+}
+
+body.yahoo-messenger div:has(> .neo-range-slider) > .neo-range-slider {
+    grid-column: 1;
+    margin: 0 !important;
+}
+
+body.yahoo-messenger div:has(> .neo-range-slider) > :is(.neo-range-input, div:has(> .neo-range-input)) {
+    grid-column: 2;
+    width: 76px;
+}
+
+/* anything else in the box (checkboxes, notes) takes its own line */
+body.yahoo-messenger div:has(> .neo-range-slider) > div:not(:has(> .neo-range-input)),
+body.yahoo-messenger div:has(> .neo-range-slider) > :is(small, label) ~ :is(small, label):not(:first-child) {
+    grid-column: 1 / -1;
+}
+
+/* 2. SillyTavern's range blocks: a title, then the slider and counter side by side */
+body.yahoo-messenger .range-block {
+    align-items: stretch;
+    text-align: left;
+}
+
+body.yahoo-messenger .range-block-title {
+    justify-content: flex-start;
+    text-align: left;
+    font-size: var(--ym-text-sm);
+    font-weight: 600;
+    color: var(--ym-fg-2);
+}
+
+body.yahoo-messenger .range-block-range-and-counter {
+    align-items: center;
+    gap: 12px;
+}
+
+body.yahoo-messenger .range-block-range {
+    flex: 1;
+}
+
+body.yahoo-messenger .range-block-counter {
+    flex: 0 0 76px;
+    margin: 0;
+}
+
+/* the number boxes: spin fields */
+body.yahoo-messenger :is(.neo-range-input, .range-block-counter input) {
+    width: 76px;
+    height: 32px;
+    padding: 0 8px !important;
+    box-sizing: border-box;
+    border: 1px solid var(--ym-stroke) !important;
+    border-bottom-color: var(--ym-stroke-accessible) !important;
+    border-radius: var(--ym-radius) !important;
+    background: var(--ym-input) !important;
+    color: var(--ym-fg);
+    font-family: var(--ym-font);
+    font-size: var(--ym-text);
+    text-align: left;
+}
+
+body.yahoo-messenger :is(.neo-range-input, .range-block-counter input):focus {
+    border-bottom-color: var(--ym-brand) !important;
+    box-shadow: inset 0 -1px 0 var(--ym-brand);
+}
+
+/* the slider's rail fills up to the thumb in brand color */
+body.yahoo-messenger .neo-range-slider {
+    margin: 0 !important;
+}
+
+/* one slider per line, full width */
+body.yahoo-messenger div:has(> .neo-range-slider),
+body.yahoo-messenger .range-block:has(.range-block-range-and-counter) {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0;
+    margin-bottom: 8px;
+}

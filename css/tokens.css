@@ -1,0 +1,180 @@
+/* Design tokens: purple and gold, plus SillyTavern's own theme variables pointed at them. Light is the
+   default; body.ym-dark switches the palette. The logo and status faces are drawn here, as data. */
+
+body:is(.yahoo-messenger, .ym-booting) {
+    --ym-logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Cpath fill='%23ffffff' fill-opacity='.14' d='M24 10h48a16 16 0 0 1 16 16v30a16 16 0 0 1-16 16H44L25 88a3 3 0 0 1-5-2V72a16 16 0 0 1-12-16V26a16 16 0 0 1 16-16z'/%3E%3Ccircle cx='36' cy='33' r='6' fill='%23ffd21f'/%3E%3Ccircle cx='60' cy='33' r='6' fill='%23ffd21f'/%3E%3Cpath fill='none' stroke='%23ffd21f' stroke-linecap='round' stroke-width='6' d='M30 48c4 9 11 13 18 13s14-4 18-13'/%3E%3C/svg%3E");
+    --ym-logo-solid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238a3df0'/%3E%3Cstop offset='1' stop-color='%233f0a94'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23a)' d='M24 10h48a16 16 0 0 1 16 16v30a16 16 0 0 1-16 16H44L25 88a3 3 0 0 1-5-2V72a16 16 0 0 1-12-16V26a16 16 0 0 1 16-16z'/%3E%3Ccircle cx='36' cy='33' r='6' fill='%23ffd21f'/%3E%3Ccircle cx='60' cy='33' r='6' fill='%23ffd21f'/%3E%3Cpath fill='none' stroke='%23ffd21f' stroke-linecap='round' stroke-width='6' d='M30 48c4 9 11 13 18 13s14-4 18-13'/%3E%3C/svg%3E");
+}
+
+body.yahoo-messenger {
+    /* Brand */
+    --ym-brand: #6001d2;
+    --ym-brand-hover: #4f00ad;
+    --ym-brand-fg: #6001d2;
+    --ym-brand-soft: #efe6ff;
+    --ym-on-brand: #ffffff;
+    --ym-gold: #ffc91f;
+    --ym-gold-hover: #ffd750;
+    --ym-on-gold: #2b1a00;
+    --ym-title-from: #3f0a94;
+    --ym-title-to: #7b2ff0;
+    --ym-desk-from: #2b0a66;
+    --ym-desk-to: #8a4be8;
+
+    /* Surfaces, from the windows inwards */
+    --ym-list: #faf8fd;
+    --ym-canvas: #ffffff;
+    --ym-card: #ffffff;
+    --ym-raised: #ffffff;
+    --ym-hover: #f3edfb;
+    --ym-selected: #efe6ff;
+    --ym-subtle-hover: rgba(70, 20, 140, 0.07);
+    --ym-subtle-pressed: rgba(70, 20, 140, 0.13);
+    --ym-input: #ffffff;
+    --ym-bubble-in: #f3eff9;
+    --ym-bubble-out: #efe6ff;
+
+    /* Text */
+    --ym-fg: #221a30;
+    --ym-fg-2: #453a58;
+    --ym-fg-3: #665b78;
+    --ym-fg-4: #7a7089;
+    --ym-fg-disabled: #b9b2c4;
+
+    /* Lines */
+    --ym-stroke: #d8d0e4;
+    --ym-stroke-2: #e8e2f0;
+    --ym-stroke-3: #f0ecf5;
+    --ym-stroke-accessible: #8a7fa0;
+
+    /* Status */
+    --ym-available: #f0b400;
+    --ym-danger: #c62f4b;
+    --ym-danger-soft: #fdf1f3;
+    --ym-warning: #b77a00;
+    --ym-success: #1f7d4d;
+
+    /* Type */
+    --ym-font: Inter, "Segoe UI", Verdana, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    --ym-text: 14px;
+    --ym-text-sm: 12px;
+    --ym-text-xs: 11px;
+    --ym-text-md: 16px;
+    --ym-text-lg: 20px;
+
+    /* Shape */
+    --ym-radius-sm: 3px;
+    --ym-radius: 6px;
+    --ym-radius-md: 8px;
+    --ym-radius-lg: 12px;
+    --ym-avatar-radius: 22%;
+    --ym-bubble-radius: 12px;
+
+    /* Space */
+    --ym-gap: 12px;
+    --ym-list-w: 300px;
+    --ym-images-w: 196px;
+    --ym-title-h: 38px;
+    --ym-chat-pad: 20px;
+    --ym-mes-gap: 6px;
+    --ym-mes-avatar: 36px;
+    --ym-bubble-max: 100%;
+    --ym-bubble-pad-y: 0px;
+    --ym-bubble-pad-x: 0px;
+
+    /* Messages */
+    --ym-name-them: #8a1fd1;
+    --ym-name-me: #0a6cc4;
+    --ym-mes-text: 15px;
+    --ym-mes-line: 22px;
+    --ym-mes-em: #5d5270;
+    --ym-mes-quote: #7a3bbf;
+    --ym-chat-bg: var(--ym-canvas);
+    --ym-chat-bg-image: none;
+    --ym-chat-bg-size: cover;
+    --ym-chat-bg-dim: 0%;
+
+    /* Depth and motion */
+    --ym-shadow-2: 0 1px 2px rgba(40, 10, 90, 0.12);
+    --ym-shadow-8: 0 4px 12px rgba(40, 10, 90, 0.18);
+    --ym-shadow-16: 0 8px 24px rgba(30, 5, 70, 0.24);
+    --ym-shadow-28: 0 12px 32px rgba(30, 5, 70, 0.28);
+    --ym-shadow-64: 0 24px 64px rgba(20, 0, 50, 0.42);
+    --ym-fast: 100ms;
+    --ym-normal: 180ms;
+    --ym-ease: cubic-bezier(0.33, 0, 0.67, 1);
+
+    /* SillyTavern's own variables, for everything else that reads them */
+    --SmartThemeBodyColor: var(--ym-fg);
+    --SmartThemeEmColor: var(--ym-mes-em);
+    --SmartThemeUnderlineColor: var(--ym-brand-fg);
+    --SmartThemeQuoteColor: var(--ym-mes-quote);
+    --SmartThemeBlurTintColor: var(--ym-raised);
+    --SmartThemeChatTintColor: var(--ym-canvas);
+    --SmartThemeUserMesBlurTintColor: var(--ym-bubble-out);
+    --SmartThemeBotMesBlurTintColor: var(--ym-bubble-in);
+    --SmartThemeShadowColor: transparent;
+    --SmartThemeBorderColor: var(--ym-stroke);
+    --SmartThemeCheckboxTickColor: var(--ym-on-brand);
+    --grey30a: var(--ym-subtle-hover);
+    --crimson70a: color-mix(in srgb, var(--ym-danger) 70%, transparent);
+    --mainFontSize: var(--ym-text);
+
+    font-family: var(--ym-font);
+    color: var(--ym-fg);
+}
+
+body.yahoo-messenger.ym-dark {
+    --ym-brand: #8f4dff;
+    --ym-brand-hover: #a56dff;
+    --ym-brand-fg: #c4a2ff;
+    --ym-brand-soft: #38245c;
+    --ym-on-brand: #ffffff;
+    --ym-gold: #ffc91f;
+    --ym-gold-hover: #ffd750;
+    --ym-on-gold: #2b1a00;
+    --ym-title-from: #2a0a66;
+    --ym-title-to: #5a1fb8;
+    --ym-desk-from: #0e0620;
+    --ym-desk-to: #38136f;
+
+    --ym-list: #1c1529;
+    --ym-canvas: #171122;
+    --ym-card: #231a33;
+    --ym-raised: #2a2040;
+    --ym-hover: #2b2040;
+    --ym-selected: #38245c;
+    --ym-subtle-hover: rgba(255, 255, 255, 0.08);
+    --ym-subtle-pressed: rgba(255, 255, 255, 0.14);
+    --ym-input: #231a33;
+    --ym-bubble-in: #2a2040;
+    --ym-bubble-out: #38245c;
+
+    --ym-fg: #f2eefa;
+    --ym-fg-2: #d6cee6;
+    --ym-fg-3: #ac9fc4;
+    --ym-fg-4: #9689ae;
+    --ym-fg-disabled: #62577a;
+
+    --ym-stroke: #46385f;
+    --ym-stroke-2: #352950;
+    --ym-stroke-3: #2c2243;
+    --ym-stroke-accessible: #8878a6;
+
+    --ym-available: #ffc91f;
+    --ym-danger: #ff6d84;
+    --ym-danger-soft: #3b1a26;
+    --ym-warning: #ffc55c;
+    --ym-success: #63d69a;
+
+    --ym-name-them: #d59cff;
+    --ym-name-me: #7cc4ff;
+    --ym-mes-em: #bdb1d3;
+    --ym-mes-quote: #cfa8ff;
+
+    --ym-shadow-2: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --ym-shadow-8: 0 4px 12px rgba(0, 0, 0, 0.45);
+    --ym-shadow-16: 0 8px 24px rgba(0, 0, 0, 0.5);
+    --ym-shadow-28: 0 12px 32px rgba(0, 0, 0, 0.55);
+    --ym-shadow-64: 0 24px 64px rgba(0, 0, 0, 0.65);
+}

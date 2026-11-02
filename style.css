@@ -1,0 +1,22 @@
+/* Yahoo Messenger theme for SillyTavern
+   Every rule is scoped to body.yahoo-messenger, so the extension's "Enable theme" switch turns the
+   whole look on and off; body.ym-dark switches to the dark palette.
+   tokens.css comes first because everything uses it, and mobile.css last. */
+
+@import url("css/tokens.css");
+@import url("css/boot.css");
+@import url("css/frame.css");
+@import url("css/buddy.css");
+@import url("css/window.css");
+@import url("css/chat.css");
+@import url("css/transcript.css");
+@import url("css/compose.css");
+@import url("css/messenger.css");
+@import url("css/controls.css");
+@import url("css/panels.css");
+@import url("css/sliders.css");
+@import url("css/customize.css");
+@import url("css/extension-inherit.css");
+@import url("css/extension-chips.css");
+@import url("css/extension-places.css");
+@import url("css/mobile.css");

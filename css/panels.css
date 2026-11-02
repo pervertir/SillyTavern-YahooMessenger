@@ -1,0 +1,337 @@
+/* What's inside the menu windows: SillyTavern's forms, lists and cards, in the theme's cards and
+   colours. The controls themselves are in controls.css. */
+
+/* Text keeps its colour; ST dims a lot of it with opacity */
+body.yahoo-messenger #top-settings-holder .drawer-content :is(h3, h4, h5, label, small, span, p) {
+    text-shadow: none;
+}
+
+body.yahoo-messenger #top-settings-holder .drawer-content :is(h3, h4) {
+    color: var(--ym-fg);
+    font-weight: 700;
+}
+
+body.yahoo-messenger #top-settings-holder .drawer-content small {
+    color: var(--ym-fg-2);
+}
+
+/* Cards */
+body.yahoo-messenger :is(.wide100p, .flex-container) > .inline-drawer,
+body.yahoo-messenger #left-nav-panel .inline-drawer,
+body.yahoo-messenger #rm_api_block .inline-drawer {
+    border: 1px solid var(--ym-stroke-2);
+    border-radius: var(--ym-radius-md);
+    background: var(--ym-card);
+}
+
+body.yahoo-messenger .inline-drawer-header {
+    padding: 8px 12px;
+    border-radius: var(--ym-radius-md);
+}
+
+body.yahoo-messenger .inline-drawer-header:hover {
+    background: var(--ym-subtle-hover);
+}
+
+body.yahoo-messenger .inline-drawer-content {
+    padding: 4px 12px 12px;
+}
+
+/* Contacts: the character list */
+body.yahoo-messenger #right-nav-panel,
+body.yahoo-messenger #rm_print_characters_block {
+    background: var(--ym-list);
+}
+
+body.yahoo-messenger #rm_button_bar,
+body.yahoo-messenger #rm_buttons_container {
+    gap: 4px;
+}
+
+body.yahoo-messenger #right-nav-panel .right_menu_button,
+body.yahoo-messenger #rm_button_bar .menu_button {
+    color: var(--ym-fg-2);
+}
+
+body.yahoo-messenger #rm_print_characters_block .character_select,
+body.yahoo-messenger #rm_print_characters_block .group_select {
+    border-bottom: 1px solid var(--ym-stroke-3);
+    border-radius: 0;
+}
+
+body.yahoo-messenger #rm_print_characters_block .character_select.selected,
+body.yahoo-messenger #rm_print_characters_block .group_select.selected {
+    background: var(--ym-selected);
+}
+
+body.yahoo-messenger #rm_print_characters_block :is(.avatar, .avatar img) {
+    border-radius: var(--ym-avatar-radius);
+}
+
+body.yahoo-messenger #rm_print_characters_block .ch_name {
+    color: var(--ym-fg);
+    font-weight: 600;
+}
+
+body.yahoo-messenger #rm_print_characters_block :is(.ch_description, .ch_add_placeholder) {
+    color: var(--ym-fg-3);
+}
+
+body.yahoo-messenger #rm_print_characters_block .character_select.is_fav .ch_name {
+    color: var(--ym-brand-fg);
+}
+
+/* Filter chips and tags */
+body.yahoo-messenger .tag {
+    background: var(--ym-brand-soft);
+    color: var(--ym-brand-fg);
+    border-color: transparent;
+}
+
+body.yahoo-messenger .rm_tag_filter .tag:not(.selected),
+body.yahoo-messenger .tags_inline .tag:not(.selected) {
+    background: var(--ym-card);
+    border-color: var(--ym-stroke-2);
+    color: var(--ym-fg-2);
+}
+
+/* Character editor */
+body.yahoo-messenger #avatar_div_div,
+body.yahoo-messenger #avatar_load_preview {
+    border-radius: var(--ym-radius-md);
+}
+
+body.yahoo-messenger #rm_ch_create_block .ch_name,
+body.yahoo-messenger #rm_character_import {
+    color: var(--ym-fg);
+}
+
+body.yahoo-messenger #favorite_button.fav_on {
+    color: var(--ym-gold);
+}
+
+body.yahoo-messenger #rm_group_submit.menu_button {
+    width: auto;
+    padding: 4px 16px;
+    background: var(--ym-brand);
+    color: var(--ym-on-brand);
+}
+
+body.yahoo-messenger #rm_group_chats_block .group_member {
+    border-radius: var(--ym-radius);
+}
+
+/* Personas: cards in a list */
+body.yahoo-messenger #user_avatar_block .avatar-container {
+    border: 1px solid var(--ym-stroke-2);
+    border-radius: var(--ym-radius-md);
+    background: var(--ym-card);
+}
+
+body.yahoo-messenger #user_avatar_block .avatar-container.selected {
+    border-color: var(--ym-brand-fg);
+    background: var(--ym-selected);
+}
+
+body.yahoo-messenger #user_avatar_block .avatar img {
+    border-radius: var(--ym-avatar-radius);
+}
+
+/* Backgrounds */
+body.yahoo-messenger .bg_example {
+    border: 1px solid var(--ym-stroke-2);
+    border-radius: var(--ym-radius-md);
+    overflow: hidden;
+}
+
+body.yahoo-messenger .bg_example.selected {
+    border-color: var(--ym-brand-fg);
+    outline: 2px solid var(--ym-brand-fg);
+}
+
+/* World Info */
+body.yahoo-messenger #WorldInfo .world_entry {
+    margin-bottom: 8px;
+    border: 1px solid var(--ym-stroke-2);
+    border-radius: var(--ym-radius-md);
+    background: var(--ym-card);
+}
+
+body.yahoo-messenger #WorldInfo .world_entry .inline-drawer-header {
+    padding: 4px 8px;
+}
+
+body.yahoo-messenger #WorldInfo .world_entry_form_control {
+    color: var(--ym-fg-2);
+}
+
+/* Connections: the status line reads as a note */
+body.yahoo-messenger .online_status {
+    border-radius: var(--ym-radius);
+    background: var(--ym-card);
+}
+
+body.yahoo-messenger .online_status_text {
+    color: var(--ym-fg-2);
+}
+
+/* Extensions */
+body.yahoo-messenger #rm_extensions_block .extensions_block {
+    gap: 8px;
+}
+
+/* User settings: section titles over a card */
+body.yahoo-messenger #user-settings-block-content > * {
+    min-width: 0;
+}
+
+body.yahoo-messenger #user-settings-block h4 {
+    background: var(--ym-brand-soft);
+    border: none;
+    box-shadow: none;
+    color: var(--ym-brand-fg);
+}
+
+/* Prompt manager rows */
+body.yahoo-messenger .completion_prompt_manager_prompt {
+    border-color: var(--ym-stroke-2);
+}
+
+body.yahoo-messenger .completion_prompt_manager_prompt:hover {
+    background: var(--ym-subtle-hover);
+}
+
+body.yahoo-messenger #completion_prompt_manager .completion_prompt_manager_header {
+    color: var(--ym-fg-2);
+}
+
+/* Floating windows of SillyTavern's and its extensions': the same title bar colours */
+body.yahoo-messenger #movingDivs > .draggable {
+    border: none;
+    border-radius: var(--ym-radius-lg);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+body.yahoo-messenger #movingDivs > .draggable .panelControlBar {
+    color: var(--ym-brand-fg);
+}
+
+/* The menus by the message box */
+body.yahoo-messenger #options .options-content a:hover,
+body.yahoo-messenger #extensionsMenu .list-group-item:hover {
+    background: var(--ym-brand);
+    color: var(--ym-on-brand);
+}
+
+body.yahoo-messenger #options .options-content a:hover i,
+body.yahoo-messenger #extensionsMenu .list-group-item:hover i {
+    color: inherit;
+}
+
+/* Dialog headings */
+body.yahoo-messenger dialog.popup {
+    --ym-face-ring: var(--ym-card);
+}
+
+/* Chat history dialog */
+body.yahoo-messenger .select_chat_block {
+    border: 1px solid var(--ym-stroke-2);
+    border-radius: var(--ym-radius-md);
+    background: var(--ym-card);
+}
+
+body.yahoo-messenger .select_chat_block:hover {
+    background: var(--ym-hover);
+}
+
+body.yahoo-messenger .select_chat_block[highlight="true"] {
+    border-color: var(--ym-brand-fg);
+}
+
+/* SillyTavern darkens what's turned off with brightness(0.5), a dark film on a light theme: faded instead */
+body.yahoo-messenger #AdvancedFormatting .disabled,
+body.yahoo-messenger input:disabled,
+body.yahoo-messenger textarea:disabled {
+    filter: none;
+    opacity: 0.55;
+}
+
+/* The chevrons on collapsible sections */
+body.yahoo-messenger .inline-drawer-icon {
+    color: var(--ym-brand-fg);
+}
+
+/* Favorites along the top of the contact list: small pictures, not ovals */
+body.yahoo-messenger #HotSwapWrapper .avatar,
+body.yahoo-messenger #HotSwapWrapper .avatar img {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: var(--ym-avatar-radius);
+    object-fit: cover;
+    object-position: top center;
+}
+
+/* A real back arrow in place of the list icon */
+body.yahoo-messenger #rm_button_back::before,
+body.yahoo-messenger #rm_button_characters::before {
+    content: "\f060";
+}
+
+/* The dialogs that don't use SillyTavern's newer popups dim the page the same way */
+body.yahoo-messenger :is(#shadow_popup, #shadow_select_chat_popup, #shadow_character_popup) {
+    background-color: rgba(18, 4, 44, 0.45);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+/* Labels ST dims with opacity stay readable */
+body.yahoo-messenger #top-settings-holder .drawer-content :is(small, .checkbox_label span) {
+    opacity: 1;
+}
+
+/* Advanced Definitions: a window in the middle, like the others */
+@media screen and (min-width: 1001px) {
+    body.yahoo-messenger #character_popup {
+        position: fixed;
+        top: var(--ym-win-top);
+        left: calc(50vw - min(760px, 100vw - 48px) / 2);
+        width: min(760px, 100vw - 48px);
+        height: calc(100dvh - 2 * var(--ym-win-top));
+        max-height: none;
+        margin: 0;
+        border-radius: var(--ym-radius-lg);
+        background: var(--ym-list);
+        box-shadow: var(--ym-shadow-64);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        z-index: 3007;
+    }
+}
+
+/* Favorites in a conference's member list: SillyTavern's gold is unreadable on a light card */
+body.yahoo-messenger .group_member.is_fav .ch_name {
+    color: var(--ym-brand-fg);
+}
+
+/* Creating a conference: a button that says so, not a tiny tick */
+body.yahoo-messenger #rm_group_submit.menu_button::after {
+    content: 'Create';
+    margin-left: 8px;
+    font-family: var(--ym-font);
+    font-size: var(--ym-text);
+    font-weight: 700;
+}
+
+body.yahoo-messenger #rm_group_submit.menu_button {
+    min-width: 96px;
+    justify-content: center;
+}
+
+body.yahoo-messenger #rm_group_submit.menu_button {
+    flex: none;
+    align-self: center;
+    height: 32px;
+    min-height: 0;
+}

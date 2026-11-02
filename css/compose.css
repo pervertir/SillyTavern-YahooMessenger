@@ -1,0 +1,189 @@
+/* The message box: the format bar above it (messenger.js), then the text with its tools and Send */
+
+body.yahoo-messenger #form_sheld {
+    width: auto;
+    margin: 0;
+    padding: 4px 20px 16px;
+    box-sizing: border-box;
+    background: var(--ym-canvas);
+    white-space: normal;
+}
+
+/* #send_form also holds Quick Replies and attachments, so the box itself is the row of inputs */
+body.yahoo-messenger #send_form {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+body.yahoo-messenger #nonQRFormItems {
+    position: relative;
+    border: 1px solid var(--ym-stroke-2);
+    border-radius: var(--ym-radius-md);
+    background: var(--ym-input);
+    box-shadow: var(--ym-shadow-2);
+    overflow: hidden;
+    transition: box-shadow var(--ym-fast) var(--ym-ease);
+}
+
+/* the brand line under the box while typing */
+body.yahoo-messenger #nonQRFormItems::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--ym-brand);
+    transform: scaleX(0);
+    transition: transform var(--ym-normal) var(--ym-ease);
+    pointer-events: none;
+}
+
+body.yahoo-messenger #nonQRFormItems:focus-within::after {
+    transform: scaleX(1);
+}
+
+/* SillyTavern paints the form again for No Blur and No Connection */
+body.yahoo-messenger #send_form.no-connection,
+body.yahoo-messenger.no-blur #send_form {
+    background: none !important;
+}
+
+body.yahoo-messenger #nonQRFormItems {
+    align-items: flex-end;
+    column-gap: 2px;
+    padding: 4px 6px 4px 12px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+body.yahoo-messenger #send_textarea {
+    order: 1;
+    min-height: 36px;
+    height: 36px;
+    max-height: 40dvh;
+    padding: 8px 4px 8px 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: var(--ym-fg);
+    font-family: var(--ym-font);
+    font-size: var(--ym-text);
+    line-height: 20px;
+    text-align: start;
+    text-shadow: none;
+    resize: none;
+    box-shadow: none;
+    outline: none;
+}
+
+body.yahoo-messenger #send_textarea::placeholder {
+    text-align: start;
+    color: var(--ym-fg-3);
+    opacity: 1;
+}
+
+body.yahoo-messenger #leftSendForm {
+    order: 2;
+}
+
+body.yahoo-messenger #rightSendForm {
+    order: 3;
+}
+
+body.yahoo-messenger #leftSendForm,
+body.yahoo-messenger #rightSendForm {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 36px;
+}
+
+body.yahoo-messenger #rightSendForm > div:not(.mes_stop),
+body.yahoo-messenger #leftSendForm > div,
+body.yahoo-messenger #rightSendForm > .mes_stop {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--ym-radius);
+    color: var(--ym-fg-3);
+    font-size: 16px;
+    opacity: 1;
+    filter: none;
+    transition: background-color var(--ym-fast) var(--ym-ease), color var(--ym-fast) var(--ym-ease);
+}
+
+body.yahoo-messenger #rightSendForm > div:hover,
+body.yahoo-messenger #leftSendForm > div:hover {
+    background: var(--ym-subtle-hover);
+    color: var(--ym-brand-fg);
+    filter: none;
+}
+
+body.yahoo-messenger #extensionsMenuButton {
+    order: -1;
+}
+
+body.yahoo-messenger #addEmojiButton {
+    order: -2;
+}
+
+body.yahoo-messenger #send_but {
+    color: var(--ym-brand-fg);
+}
+
+body.yahoo-messenger #rightSendForm > .mes_stop {
+    color: var(--ym-danger);
+}
+
+body.yahoo-messenger #file_form {
+    padding: 8px 12px 0;
+}
+
+body.yahoo-messenger #file_form .file_attached {
+    gap: 8px;
+    padding: 6px 10px;
+    border: 1px solid var(--ym-stroke-2);
+    border-radius: var(--ym-radius);
+    background: var(--ym-list);
+    font-size: var(--ym-text-sm);
+}
+
+/* Delete-messages bar */
+body.yahoo-messenger #dialogue_del_mes {
+    gap: 8px;
+    padding: 0 0 8px;
+}
+
+body.yahoo-messenger #dialogue_del_mes_ok {
+    border-color: var(--ym-danger);
+    background: var(--ym-danger);
+    color: #ffffff;
+}
+
+body.yahoo-messenger #dialogue_del_mes_ok:hover {
+    filter: brightness(0.92);
+}
+
+/* A slash command running from the box: pause/continue and stop as plain icon buttons
+   (SillyTavern shows and hides them; only their look changes here) */
+body.yahoo-messenger #form_sheld #rightSendForm > .stscript_btn > .fa-solid {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--ym-radius);
+    background: none;
+    color: var(--ym-brand-fg);
+    font-size: 14px;
+}
+
+body.yahoo-messenger #form_sheld #rightSendForm > .stscript_btn.stscript_stop > .fa-solid {
+    color: var(--ym-danger);
+}
+
+body.yahoo-messenger #form_sheld #rightSendForm > .stscript_btn:hover > .fa-solid {
+    background: var(--ym-subtle-hover);
+}

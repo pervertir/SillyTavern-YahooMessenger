@@ -1,0 +1,207 @@
+/* Phones and narrow windows, at SillyTavern's own 1000px breakpoint. One window at a time, edge to
+   edge: the buddy list, or the open conversation (body.ym-m-chat) with a back arrow. Menu windows fill
+   the screen. */
+
+@media screen and (max-width: 1000px) {
+    /* SillyTavern puts translateZ(0) on <html> on phones, which makes it the frame for fixed
+       elements; give it the screen's height so things pinned to the bottom land on screen */
+    html.ym-html {
+        height: 100dvh;
+    }
+
+    body.yahoo-messenger {
+        --ym-safe-top: env(safe-area-inset-top, 0px);
+        /* SillyTavern pins some panels to this with !important: they start under the window's title bar */
+        --topBarBlockSize: calc(var(--ym-safe-top) + var(--ym-title-h));
+        --ym-win-top: var(--ym-safe-top);
+    }
+
+    body.yahoo-messenger #ym-buddy {
+        inset: 0;
+        width: auto;
+        padding-top: var(--ym-safe-top);
+        border-radius: 0;
+        z-index: 32;
+    }
+
+    body.yahoo-messenger.ym-m-chat #ym-buddy {
+        display: none;
+    }
+
+    body.yahoo-messenger .ym-title {
+        background: linear-gradient(100deg, var(--ym-title-from), var(--ym-title-to));
+    }
+
+    body.yahoo-messenger .ym-row {
+        min-height: 60px;
+    }
+
+    body.yahoo-messenger .ym-row .ym-pic {
+        width: 44px;
+        height: 44px;
+    }
+
+    /* no hover here: long press opens a contact's menu */
+    body.yahoo-messenger .ym-row-more {
+        display: none !important;
+    }
+
+    body.yahoo-messenger .ym-row:is(:hover, :focus-within) .ym-row-time {
+        display: inline;
+    }
+
+    body.yahoo-messenger .ym-buddy-foot {
+        padding: 4px 8px calc(4px + env(safe-area-inset-bottom, 0px));
+    }
+
+    body.yahoo-messenger .ym-tool,
+    body.yahoo-messenger .ym-menubar-item {
+        min-height: 36px;
+        min-width: 36px;
+    }
+
+    /* The conversation */
+    body.yahoo-messenger #sheld,
+    body.yahoo-messenger.movingUI #sheld {
+        inset: 0 !important;
+        width: 100dvw !important;
+        height: 100dvh !important;
+        padding-top: var(--ym-safe-top);
+        box-sizing: border-box;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    body.yahoo-messenger .ym-back {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        margin: 0 -4px 0 -8px;
+        border: none;
+        background: none;
+        color: var(--ym-on-brand);
+        font-size: 17px;
+    }
+
+    /* tabs live on the buddy list here; the title says who */
+    body.yahoo-messenger.ym-tabs-on .ym-tabs {
+        display: none;
+    }
+
+    body.yahoo-messenger.ym-tabs-on:not(.ym-no-chat) .ym-title-conv > .ym-title-text {
+        display: block;
+    }
+
+    body.yahoo-messenger .ym-title-conv > .ym-logo {
+        display: none;
+    }
+
+    body.yahoo-messenger .ym-title-text {
+        max-width: none;
+    }
+
+    body.yahoo-messenger .ym-contact-bar {
+        gap: 4px;
+        min-height: 46px;
+        padding: 3px 6px;
+    }
+
+    body.yahoo-messenger .ym-action {
+        width: 40px;
+        height: 40px;
+    }
+
+    body.yahoo-messenger .ym-action span {
+        display: none;
+    }
+
+    body.yahoo-messenger #ym-images {
+        display: none !important;
+    }
+
+    body.yahoo-messenger.ym-images-on:not(.ym-no-chat) :is(#chat, #form_sheld, #ym-status) {
+        margin-right: 0;
+    }
+
+    body.yahoo-messenger #chat .mes {
+        padding: calc(var(--ym-mes-gap) * 2 / 3) calc(var(--ym-chat-pad) * 0.6);
+    }
+
+    /* no hover on touch screens: a message's actions sit in its name line */
+    @media (hover: none) {
+        body.yahoo-messenger #chat .mes .mes_buttons {
+            position: static;
+            height: 24px;
+            margin-left: auto;
+            padding: 0;
+            background: none;
+            box-shadow: none;
+        }
+
+        body.yahoo-messenger #chat .mes .mes_button,
+        body.yahoo-messenger #chat .mes .extraMesButtons > div {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    body.yahoo-messenger #chat .mes .edit_textarea {
+        min-width: 0;
+    }
+
+    body.yahoo-messenger #form_sheld {
+        padding: 0 8px calc(8px + env(safe-area-inset-bottom, 0px));
+    }
+
+    body.yahoo-messenger #rightSendForm > #send_but:not(.displayNone) {
+        min-width: 44px;
+        padding: 0 8px;
+    }
+
+    body.yahoo-messenger #send_but::after {
+        content: none;
+    }
+
+    /* Home: the list comes first, and the welcome page is a tap away from the title */
+    body.yahoo-messenger #chat .welcomePanel {
+        margin: 8px;
+    }
+
+    /* Menu windows fill the screen */
+    body.yahoo-messenger.ym-menu-open #ym-window-bar {
+        left: 0;
+        width: 100dvw;
+        border-radius: 0;
+    }
+
+    body.yahoo-messenger #top-settings-holder .drawer-content,
+    body.yahoo-messenger #top-settings-holder .drawer-content.fillLeft,
+    body.yahoo-messenger #top-settings-holder .drawer-content.fillRight {
+        top: calc(var(--ym-win-top) + var(--ym-title-h));
+        left: 0 !important;
+        width: 100dvw !important;
+        max-height: calc(100dvh - var(--ym-win-top) - var(--ym-title-h));
+        padding: 8px 12px;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    body.yahoo-messenger #top-settings-holder .drawer-content.openDrawer {
+        height: calc(100dvh - var(--ym-win-top) - var(--ym-title-h));
+    }
+
+    body.yahoo-messenger #ym-emoticons:not([hidden]) {
+        grid-template-columns: repeat(auto-fill, 40px);
+        left: 8px;
+        right: 8px;
+    }
+
+    body.yahoo-messenger .ym-emoticon {
+        width: 40px;
+        height: 40px;
+    }
+}

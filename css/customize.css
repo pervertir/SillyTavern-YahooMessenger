@@ -1,0 +1,464 @@
+/* Customize: the parts that can be hidden (body.ym-x-<flag>, set by customize.js), and the
+   Customize page itself with its live preview. Token changes need no rules here: they're set
+   on the body and every other file already reads them. */
+
+/* ---- Layout ---- */
+body.yahoo-messenger.ym-x-hide-menubar .ym-menubar,
+body.yahoo-messenger.ym-x-hide-me #ym-me,
+body.yahoo-messenger.ym-x-hide-search .ym-search,
+body.yahoo-messenger.ym-x-hide-tools .ym-buddy-foot,
+body.yahoo-messenger.ym-x-hide-previews .ym-row-detail,
+body.yahoo-messenger.ym-x-hide-actions .ym-actions,
+body.yahoo-messenger.ym-x-hide-format #ym-format,
+body.yahoo-messenger.ym-x-hide-buzz .ym-buzz,
+body.yahoo-messenger.ym-x-hide-status #ym-status,
+body.yahoo-messenger.ym-x-hide-wand #extensionsMenuButton,
+body.yahoo-messenger.ym-x-hide-plus #options_button {
+    display: none !important;
+}
+
+/* ---- Messages ---- */
+body.yahoo-messenger.ym-x-hide-avatars #chat .mes .mesAvatarWrapper {
+    display: none;
+}
+
+body.yahoo-messenger.ym-x-hide-avatars #chat .mes:not([is_user="true"]) {
+    grid-template-columns: 0 minmax(0, max-content) minmax(48px, 1fr);
+    column-gap: 0;
+}
+
+body.yahoo-messenger.ym-x-hide-names #chat .mes .name_text,
+body.yahoo-messenger.ym-x-hide-timestamps #chat .mes .timestamp,
+body.yahoo-messenger.ym-x-hide-swipes #chat .mes :is(.swipe_left, .swipeRightBlock) {
+    display: none !important;
+}
+
+/* ---- Motion ---- */
+/* Reduced: no animations, and transitions quick */
+body.yahoo-messenger.ym-x-motion-reduced *,
+body.yahoo-messenger.ym-x-motion-reduced *::before,
+body.yahoo-messenger.ym-x-motion-reduced *::after {
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 50ms !important;
+}
+
+/* Off: nothing moves */
+body.yahoo-messenger.ym-x-motion-off *,
+body.yahoo-messenger.ym-x-motion-off *::before,
+body.yahoo-messenger.ym-x-motion-off *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+}
+
+/* ---- The Customize page ---- */
+body.yahoo-messenger dialog.popup.ym-cz-dialog {
+    width: min(1040px, 94vw);
+    max-width: none;
+    height: min(900px, 92dvh);
+    max-height: none;
+}
+
+body.yahoo-messenger dialog.popup.ym-cz-dialog .popup-body {
+    flex: 1;
+    min-height: 0;
+}
+
+body.yahoo-messenger dialog.popup.ym-cz-dialog .popup-content {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-top: 0;
+}
+
+body.yahoo-messenger .ym-customize {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+    color: var(--ym-fg);
+    font-family: var(--ym-font);
+    font-size: var(--ym-text);
+}
+
+body.yahoo-messenger .ym-cz-top {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-bottom: 12px;
+    background: var(--ym-raised);
+    border-bottom: 1px solid var(--ym-stroke-2);
+}
+
+body.yahoo-messenger .ym-cz-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+body.yahoo-messenger .ym-cz-heading h3 {
+    margin: 0;
+    flex: 1;
+    font-size: var(--ym-text-lg);
+    font-weight: 600;
+}
+
+body.yahoo-messenger .ym-cz-tools {
+    display: flex;
+    gap: 8px;
+}
+
+body.yahoo-messenger .ym-customize .menu_button.ym-cz-tool,
+body.yahoo-messenger .ym-customize .menu_button.ym-cz-reset {
+    width: auto;
+    margin: 0;
+    padding: 4px 12px;
+    white-space: nowrap;
+}
+
+body.yahoo-messenger .ym-cz-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+    border: 1px solid var(--ym-stroke-2);
+    border-radius: var(--ym-radius-lg);
+    background: var(--ym-card);
+}
+
+body.yahoo-messenger .ym-cz-section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+body.yahoo-messenger .ym-cz-section-head h4 {
+    margin: 0;
+    font-size: var(--ym-text-md);
+    font-weight: 600;
+}
+
+body.yahoo-messenger .ym-cz-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+    gap: 4px 24px;
+}
+
+body.yahoo-messenger .ym-cz-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    min-height: 36px;
+}
+
+body.yahoo-messenger .ym-cz-row[hidden] {
+    display: none;
+}
+
+body.yahoo-messenger .ym-cz-row.ym-cz-check,
+body.yahoo-messenger .ym-cz-row.ym-cz-css {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+body.yahoo-messenger .ym-cz-row.ym-cz-css {
+    grid-column: 1 / -1;
+    gap: 6px;
+}
+
+body.yahoo-messenger .ym-cz-label {
+    margin: 0;
+    color: var(--ym-fg-2);
+}
+
+body.yahoo-messenger .ym-cz-changed .ym-cz-label {
+    color: var(--ym-fg);
+    font-weight: 600;
+}
+
+body.yahoo-messenger .ym-cz-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+body.yahoo-messenger .ym-customize input.ym-cz-color {
+    width: 32px;
+    height: 32px;
+    padding: 2px;
+    border: 1px solid var(--ym-stroke);
+    border-radius: var(--ym-radius);
+    background: var(--ym-input);
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-customize .text_pole.ym-cz-text {
+    width: 140px;
+    margin: 0;
+}
+
+body.yahoo-messenger .ym-customize .text_pole.ym-cz-url {
+    width: 240px;
+}
+
+body.yahoo-messenger .ym-customize input.ym-cz-range {
+    width: 120px;
+    margin: 0;
+}
+
+body.yahoo-messenger .ym-customize .text_pole.ym-cz-number {
+    width: 64px;
+    margin: 0;
+}
+
+body.yahoo-messenger .ym-customize .text_pole.ym-cz-select {
+    width: 180px;
+    margin: 0;
+}
+
+body.yahoo-messenger .ym-cz-unit {
+    min-width: 20px;
+    color: var(--ym-fg-3);
+    font-size: var(--ym-text-sm);
+}
+
+body.yahoo-messenger .ym-customize .ym-cz-clear {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    border-radius: var(--ym-radius);
+    background: none;
+    color: var(--ym-fg-3);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-customize .ym-cz-clear:hover {
+    background: var(--ym-subtle-hover);
+    color: var(--ym-brand-fg);
+}
+
+body.yahoo-messenger .ym-customize .ym-cz-clear[hidden] {
+    visibility: hidden;
+    display: inline-block;
+}
+
+body.yahoo-messenger .ym-customize textarea.ym-cz-css {
+    width: 100%;
+    min-height: 140px;
+    margin: 0;
+    font-family: Menlo, Consolas, "Courier New", monospace;
+    font-size: var(--ym-text-sm);
+}
+
+body.yahoo-messenger .ym-cz-note {
+    color: var(--ym-fg-3);
+}
+
+/* ---- Live preview: a small buddy list and conversation built from the same tokens ---- */
+body.yahoo-messenger .ym-cz-preview {
+    display: flex;
+    gap: 10px;
+    height: 230px;
+    padding: 10px;
+    overflow: hidden;
+    border-radius: var(--ym-radius-lg);
+    background: linear-gradient(135deg, var(--ym-desk-from), var(--ym-desk-to));
+    font-size: calc(var(--ym-text) * 0.86);
+    line-height: 1.35;
+    pointer-events: none;
+    user-select: none;
+}
+
+body.yahoo-messenger .ym-pv-win {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--ym-radius-md);
+    box-shadow: var(--ym-shadow-8);
+}
+
+body.yahoo-messenger .ym-pv-buddy {
+    flex: none;
+    width: calc(var(--ym-list-w) * 0.6);
+    background: var(--ym-list);
+}
+
+body.yahoo-messenger .ym-pv-chat {
+    flex: 1;
+    min-width: 0;
+    background: var(--ym-canvas);
+}
+
+body.yahoo-messenger .ym-pv-title {
+    flex: none;
+    padding: 5px 10px;
+    background: linear-gradient(100deg, var(--ym-title-from), var(--ym-title-to));
+    color: var(--ym-on-brand);
+    font-weight: 700;
+}
+
+body.yahoo-messenger .ym-pv-group {
+    padding: 6px 10px 2px;
+    color: var(--ym-fg-2);
+    font-size: var(--ym-text-sm);
+    font-weight: 700;
+}
+
+body.yahoo-messenger .ym-pv-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px;
+}
+
+body.yahoo-messenger .ym-pv-row.ym-pv-sel {
+    background: var(--ym-brand-soft);
+}
+
+body.yahoo-messenger .ym-pv-row > span:last-child {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+body.yahoo-messenger .ym-pv-row small {
+    overflow: hidden;
+    color: var(--ym-fg-3);
+    font-size: var(--ym-text-sm);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+body.yahoo-messenger .ym-pv-av {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--ym-avatar-radius);
+    background: var(--ym-brand-soft);
+    color: var(--ym-brand-fg);
+    font-size: 9px;
+    font-weight: 700;
+}
+
+body.yahoo-messenger .ym-pv-av2 {
+    background: color-mix(in srgb, var(--ym-gold) 35%, var(--ym-card));
+    color: var(--ym-fg);
+}
+
+body.yahoo-messenger .ym-pv-messages {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: calc(var(--ym-mes-gap) * 1.2);
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    padding: 8px calc(var(--ym-chat-pad) * 0.6);
+    background:
+        linear-gradient(color-mix(in srgb, var(--ym-chat-bg) var(--ym-chat-bg-dim), transparent), color-mix(in srgb, var(--ym-chat-bg) var(--ym-chat-bg-dim), transparent)),
+        var(--ym-chat-bg-image) center / var(--ym-chat-bg-size) no-repeat,
+        var(--ym-chat-bg);
+}
+
+body.yahoo-messenger .ym-pv-mes {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+body.yahoo-messenger .ym-pv-name {
+    color: var(--ym-name-them);
+    font-weight: 700;
+}
+
+body.yahoo-messenger .ym-pv-mine .ym-pv-name {
+    color: var(--ym-name-me);
+}
+
+body.yahoo-messenger .ym-pv-meta {
+    color: var(--ym-fg-3);
+    font-size: var(--ym-text-sm);
+}
+
+body.yahoo-messenger .ym-pv-text {
+    font-size: calc(var(--ym-mes-text) * 0.86);
+}
+
+body.yahoo-messenger .ym-pv-text i {
+    color: var(--ym-mes-em);
+}
+
+body.yahoo-messenger .ym-pv-text q {
+    color: var(--ym-mes-quote);
+}
+
+body.yahoo-messenger.ym-bubbles .ym-pv-bubble {
+    padding: 4px 10px;
+    border-radius: var(--ym-bubble-radius);
+    background: var(--ym-bubble-in);
+}
+
+body.yahoo-messenger.ym-bubbles .ym-pv-mine .ym-pv-bubble {
+    background: var(--ym-bubble-out);
+}
+
+body.yahoo-messenger .ym-pv-compose {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: none;
+    margin: 0 10px 8px;
+    padding: 4px 4px 4px 10px;
+    border: 1px solid var(--ym-stroke);
+    border-radius: var(--ym-radius);
+    background: var(--ym-input);
+    color: var(--ym-fg-3);
+}
+
+body.yahoo-messenger .ym-pv-send {
+    padding: 1px 10px;
+    border-radius: var(--ym-radius-sm);
+    background: var(--ym-gold);
+    color: var(--ym-on-gold);
+    font-weight: 700;
+}
+
+@media screen and (max-width: 1000px) {
+    body.yahoo-messenger dialog.popup.ym-cz-dialog {
+        width: 100vw;
+        height: 100dvh;
+    }
+
+    body.yahoo-messenger .ym-cz-preview {
+        height: 180px;
+    }
+
+    body.yahoo-messenger .ym-pv-buddy {
+        display: none;
+    }
+
+    body.yahoo-messenger .ym-cz-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    body.yahoo-messenger .ym-cz-row:not(.ym-cz-check, .ym-cz-css) {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 4px;
+        padding: 4px 0;
+    }
+
+    body.yahoo-messenger .ym-cz-control {
+        flex-wrap: wrap;
+    }
+}
