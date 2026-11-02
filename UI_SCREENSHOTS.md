@@ -4,15 +4,19 @@ Every picture here comes from a clean test SillyTavern holding only made-up samp
 
 ## Base UI
 
-The buddy list and conversation as two windows on your background, light and dark.
+The default retro look: Windows XP-style windows, a contact tree with small faces and a plain transcript.
 
 ![chat light](.github/screenshots/chat-light.webp)
 
-![chat dark](.github/screenshots/chat-dark.webp)
-
 ![home](.github/screenshots/home.webp)
 
-![home dark](.github/screenshots/home-dark.webp)
+## Modern look
+
+One setting away: purple and gold, in light or dark.
+
+![modern light](.github/screenshots/modern-light.webp)
+
+![modern dark](.github/screenshots/modern-dark.webp)
 
 ## A quick tour
 
@@ -94,8 +98,6 @@ Every SillyTavern menu opens as a window with its own title bar.
 
 ![win preferences](.github/screenshots/win-preferences.webp)
 
-![win preferences dark](.github/screenshots/win-preferences-dark.webp)
-
 ![win backgrounds](.github/screenshots/win-backgrounds.webp)
 
 ![win extensions](.github/screenshots/win-extensions.webp)
@@ -105,8 +107,6 @@ Every SillyTavern menu opens as a window with its own title bar.
 ## Contacts and editors
 
 ![win contacts](.github/screenshots/win-contacts.webp)
-
-![win contacts dark](.github/screenshots/win-contacts-dark.webp)
 
 ![win character editor](.github/screenshots/win-character-editor.webp)
 
@@ -137,7 +137,6 @@ Every SillyTavern menu opens as a window with its own title bar.
 One window at a time, edge to edge.
 
 <img src=".github/screenshots/phone-home.webp" width="260" alt="phone home">
-<img src=".github/screenshots/phone-home-dark.webp" width="260" alt="phone home dark">
 <img src=".github/screenshots/phone-chat.webp" width="260" alt="phone chat">
 <img src=".github/screenshots/phone-message-actions.webp" width="260" alt="phone message actions">
 <img src=".github/screenshots/phone-emoticons.webp" width="260" alt="phone emoticons">

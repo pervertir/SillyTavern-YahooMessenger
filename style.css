@@ -1,6 +1,6 @@
 /* Yahoo Messenger theme for SillyTavern
    Every rule is scoped to body.yahoo-messenger, so the extension's "Enable theme" switch turns the
-   whole look on and off; body.ym-dark switches to the dark palette.
+   whole look on and off; body.ym-dark switches to the dark palette. retro.css is the default look, on top of the rest.
    tokens.css comes first because everything uses it, and mobile.css last. */
 
 @import url("css/tokens.css");
@@ -20,3 +20,5 @@
 @import url("css/extension-chips.css");
 @import url("css/extension-places.css");
 @import url("css/mobile.css");
+@import url("css/retro-icons.css");
+@import url("css/retro.css");

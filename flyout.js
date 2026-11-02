@@ -73,5 +73,10 @@ export function toggleFlyout(anchor, items, placement) {
     flyout.style.setProperty('--ym-flyout-left', `${Math.round(box.right + 4)}px`);
     flyout.style.setProperty('--ym-flyout-start', `${Math.round(box.left)}px`);
     flyout.style.setProperty('--ym-flyout-right', `${Math.round(window.innerWidth - box.right)}px`);
+    // a menu that wouldn't fit opens upwards, ending at the window's bottom edge
+    const height = flyout.offsetHeight;
+    if (box.bottom + 4 + height > window.innerHeight) {
+        flyout.style.setProperty('--ym-flyout-top', `${Math.max(8, window.innerHeight - height - 8)}px`);
+    }
     /** @type {HTMLElement} */ (flyout.querySelector('.ym-more-item'))?.focus();
 }

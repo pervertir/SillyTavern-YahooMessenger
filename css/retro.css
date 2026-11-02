@@ -1,0 +1,922 @@
+/* The retro look (the default): Messenger as it looked on Windows XP. Beige dialogs, blue title bars with
+   window buttons, bevelled controls, a tree of contacts with small faces, and a plain "Name: text" transcript.
+   Everything here hangs off body.ym-retro; without it the theme is the modern look. */
+
+body.yahoo-messenger.ym-retro {
+    --ym-brand: #316ac5;
+    --ym-brand-hover: #2a5cae;
+    --ym-brand-fg: #0a246a;
+    --ym-brand-soft: #d6e4fa;
+    --ym-on-brand: #ffffff;
+    --ym-title-from: #0a5bdc;
+    --ym-title-to: #3d95ff;
+    --ym-desk-from: #3a6ea5;
+    --ym-desk-to: #3a6ea5;
+    --ym-face: #ece9d8;
+    --ym-face-light: #ffffff;
+    --ym-face-dark: #aca899;
+    --ym-face-darker: #716f64;
+    --ym-yahoo: #5c1a9e;
+
+    --ym-list: #ece9d8;
+    --ym-canvas: #ece9d8;
+    --ym-card: #ffffff;
+    --ym-raised: #ffffff;
+    --ym-hover: #d6e4fa;
+    --ym-selected: #316ac5;
+    --ym-subtle-hover: #f7f6ee;
+    --ym-subtle-pressed: #dcd9c6;
+    --ym-input: #ffffff;
+    --ym-bubble-in: #ffffff;
+    --ym-bubble-out: #f2f6ff;
+
+    --ym-fg: #000000;
+    --ym-fg-2: #1a1a1a;
+    --ym-fg-3: #555555;
+    --ym-fg-4: #6b6b6b;
+    --ym-stroke: #7f9db9;
+    --ym-stroke-2: #aca899;
+    --ym-stroke-3: #d8d4c4;
+    --ym-stroke-accessible: #7f9db9;
+
+    --ym-font: Tahoma, "MS Sans Serif", Geneva, Verdana, sans-serif;
+    --ym-text: 12px;
+    --ym-text-sm: 11px;
+    --ym-text-xs: 11px;
+    --ym-text-md: 13px;
+    --ym-text-lg: 16px;
+
+    --ym-radius-sm: 0px;
+    --ym-radius: 3px;
+    --ym-radius-md: 0px;
+    --ym-radius-lg: 0px;
+    --ym-avatar-radius: 0px;
+    --ym-bubble-radius: 8px;
+
+    --ym-gap: 16px;
+    --ym-list-w: 240px;
+    --ym-images-w: 148px;
+    --ym-title-h: 28px;
+    --ym-chat-pad: 8px;
+    --ym-mes-gap: 2px;
+    --ym-mes-text: 13px;
+    --ym-mes-line: 18px;
+
+    --ym-name-them: #cc0000;
+    --ym-name-me: #0000cc;
+    --ym-mes-em: #444444;
+    --ym-mes-quote: #000080;
+
+    --ym-shadow-2: none;
+    --ym-shadow-8: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    --ym-shadow-16: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    --ym-shadow-28: 3px 3px 8px rgba(0, 0, 0, 0.45);
+    --ym-shadow-64: 4px 4px 12px rgba(0, 0, 0, 0.5);
+    --ym-fast: 0ms;
+    --ym-normal: 0ms;
+    --ym-logo: var(--ym-px-logo);
+    --ym-logo-solid: var(--ym-px-logo);
+}
+
+/* Bitmap-sharp pictures of the icons */
+body.ym-retro :is(.ym-logo, .ym-face, .ym-group-head i, .ym-tool i::before, .ym-action i::before) {
+    image-rendering: pixelated;
+}
+
+/* ---- Windows: a blue frame and the three buttons ---- */
+body.yahoo-messenger.ym-retro :is(#ym-buddy, #sheld) {
+    border: 3px solid var(--ym-title-from);
+    border-top: none;
+    box-sizing: border-box;
+    border-radius: 7px 7px 0 0;
+    background: var(--ym-face);
+}
+
+body.yahoo-messenger.ym-retro .ym-title {
+    border-radius: 6px 6px 0 0;
+    margin: 0 -3px;
+    background: linear-gradient(180deg, #0a5bdc 0%, #3d95ff 8%, #0a5bdc 22%, #0554d6 70%, #0a5bdc 92%, #0040b0 100%);
+    text-shadow: 1px 1px 0 #00207a;
+}
+
+body.yahoo-messenger.ym-retro .ym-title-text {
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+body.yahoo-messenger.ym-retro .ym-logo {
+    width: 16px;
+    height: 16px;
+}
+
+/* decorative minimise and maximise beside each window's close */
+body.yahoo-messenger.ym-retro .ym-title::after {
+    content: '';
+    flex: none;
+    width: 62px;
+    height: 20px;
+    margin-left: auto;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 20'%3E%3Cdefs%3E%3ClinearGradient id='b' x2='1' y2='1'%3E%3Cstop stop-color='%236d9cf5'/%3E%3Cstop offset='1' stop-color='%231c4fc4'/%3E%3C/linearGradient%3E%3ClinearGradient id='r' x2='1' y2='1'%3E%3Cstop stop-color='%23f08a6c'/%3E%3Cstop offset='1' stop-color='%23c8320f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke='%23fff'%3E%3Crect x='.5' y='.5' width='19' height='19' rx='3' fill='url(%23b)'/%3E%3Crect x='21.5' y='.5' width='19' height='19' rx='3' fill='url(%23b)'/%3E%3Crect x='42.5' y='.5' width='19' height='19' rx='3' fill='url(%23r)'/%3E%3C/g%3E%3Cg fill='none' stroke='%23fff' stroke-width='2'%3E%3Cpath d='M5 14h6M25 6h11v9H25zM47 5l9 9M56 5l-9 9'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+body.yahoo-messenger.ym-retro #ym-window-bar::after {
+    display: none;
+}
+
+body.yahoo-messenger.ym-retro .ym-window-close {
+    width: 21px;
+    height: 21px;
+    border: 1px solid #ffffff;
+    border-radius: 3px;
+    background: linear-gradient(135deg, #f08a6c, #c8320f);
+    font-size: 12px;
+}
+
+body.yahoo-messenger.ym-retro #ym-window-bar {
+    border-radius: 6px 6px 0 0;
+    margin: 0;
+}
+
+/* Menu windows are XP dialogs */
+body.yahoo-messenger.ym-retro #top-settings-holder .drawer-content,
+body.yahoo-messenger.ym-retro #top-settings-holder .drawer-content.fillLeft,
+body.yahoo-messenger.ym-retro #top-settings-holder .drawer-content.fillRight {
+    border: 3px solid var(--ym-title-from);
+    border-top: none;
+    background: var(--ym-face);
+}
+
+/* ---- Menus: white with the blue highlight ---- */
+body.yahoo-messenger.ym-retro .ym-menubar {
+    gap: 0;
+    padding: 1px 2px;
+    border-bottom: 1px solid var(--ym-face-dark);
+    background: var(--ym-face);
+}
+
+body.yahoo-messenger.ym-retro .ym-menubar-item {
+    padding: 2px 7px;
+    color: #000000;
+    font-size: 12px;
+}
+
+body.yahoo-messenger.ym-retro .ym-menubar-item:is(:hover, .ym-menu-anchor) {
+    background: var(--ym-brand);
+    color: #ffffff;
+}
+
+body.yahoo-messenger.ym-retro #ym-flyout:not([hidden]),
+body.yahoo-messenger.ym-retro :is(#options .options-content, #extensionsMenu, .list-group, .ctx-menu, #character_context_menu) {
+    padding: 2px;
+    border: 1px solid var(--ym-face-darker);
+    border-radius: 0;
+    box-shadow: var(--ym-shadow-16);
+}
+
+body.yahoo-messenger.ym-retro .ym-more-item,
+body.yahoo-messenger.ym-retro :is(#options .options-content a, #extensionsMenu .list-group-item, .list-group .list-group-item) {
+    min-height: 22px;
+    padding: 2px 8px;
+    border-radius: 0;
+    font-size: 12px;
+}
+
+/* ---- Your banner: the purple strip with the face ---- */
+body.yahoo-messenger.ym-retro #ym-me {
+    gap: 8px;
+    padding: 6px;
+    background: linear-gradient(180deg, #7a2fc4, var(--ym-yahoo));
+    color: #ffffff;
+    --ym-face-ring: var(--ym-yahoo);
+}
+
+body.yahoo-messenger.ym-retro .ym-me-pic {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #ffffff;
+    background: #ffffff;
+}
+
+body.yahoo-messenger.ym-retro .ym-me-name {
+    color: #ffffff;
+}
+
+body.yahoo-messenger.ym-retro .ym-me-status {
+    color: #ffe680;
+}
+
+body.yahoo-messenger.ym-retro input[type="text"].ym-me-message {
+    color: #ffffff;
+}
+
+body.yahoo-messenger.ym-retro input[type="text"].ym-me-message::placeholder {
+    color: #d9c6f2;
+}
+
+body.yahoo-messenger.ym-retro input[type="text"].ym-me-message:is(:hover, :focus) {
+    border-color: #ffffff;
+    background: #ffffff;
+    color: #000000;
+}
+
+/* ---- Search and the tree ---- */
+body.yahoo-messenger.ym-retro .ym-search {
+    height: 22px;
+    margin: 4px;
+    padding: 0 4px;
+    border: 1px solid var(--ym-stroke);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+body.yahoo-messenger.ym-retro .ym-list {
+    margin: 0 4px 4px;
+    padding: 2px 0;
+    border: 1px solid var(--ym-stroke);
+    background: #ffffff;
+}
+
+body.yahoo-messenger.ym-retro .ym-group-head {
+    height: 18px;
+    padding: 0 3px;
+    background: #ffffff;
+    color: #000000;
+    font-size: 12px;
+}
+
+/* the tree's boxes */
+body.yahoo-messenger.ym-retro .ym-group-head i {
+    width: 9px;
+    height: 9px;
+    background: var(--ym-px-minus) center / contain no-repeat;
+    transform: none !important;
+}
+
+body.yahoo-messenger.ym-retro .ym-group-head i::before {
+    content: none;
+}
+
+body.yahoo-messenger.ym-retro .ym-group-collapsed .ym-group-head i {
+    background-image: var(--ym-px-plus);
+}
+
+body.yahoo-messenger.ym-retro .ym-group-count {
+    color: #000000;
+    font-weight: 700;
+}
+
+/* a row is a small face and a name, then the status in grey */
+body.yahoo-messenger.ym-retro .ym-row {
+    gap: 4px;
+    min-height: 18px;
+    padding: 0 3px 0 16px;
+}
+
+body.yahoo-messenger.ym-retro .ym-row:hover {
+    background: none;
+    text-decoration: underline;
+}
+
+body.yahoo-messenger.ym-retro .ym-row-active,
+body.yahoo-messenger.ym-retro .ym-row-active:hover {
+    background: var(--ym-selected);
+    color: #ffffff;
+}
+
+body.yahoo-messenger.ym-retro .ym-row-active::before {
+    content: none;
+}
+
+body.yahoo-messenger.ym-retro .ym-row .ym-pic {
+    width: 16px;
+    height: 16px;
+    background: none;
+}
+
+body.yahoo-messenger.ym-retro .ym-row .ym-pic img {
+    display: none;
+}
+
+body.yahoo-messenger.ym-retro .ym-row .ym-pic > .ym-face {
+    display: block;
+    position: static;
+    width: 16px;
+    height: 16px;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+body.yahoo-messenger.ym-retro .ym-row .ym-pic-group {
+    display: block;
+    background: var(--ym-px-people) center / contain no-repeat;
+}
+
+body.yahoo-messenger.ym-retro .ym-face {
+    border-radius: 0;
+}
+
+body.yahoo-messenger.ym-retro .ym-face-available { background-image: var(--ym-px-smile); }
+body.yahoo-messenger.ym-retro .ym-face-busy { background-image: var(--ym-px-busy); }
+body.yahoo-messenger.ym-retro .ym-face-away { background-image: var(--ym-px-away); }
+body.yahoo-messenger.ym-retro .ym-face-invisible { background-image: var(--ym-px-invisible); }
+
+body.yahoo-messenger.ym-retro .ym-row-text {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 4px;
+    overflow: hidden;
+}
+
+body.yahoo-messenger.ym-retro .ym-row-top {
+    flex: none;
+    max-width: 100%;
+}
+
+body.yahoo-messenger.ym-retro .ym-row-name {
+    flex: none;
+    max-width: 150px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+body.yahoo-messenger.ym-retro .ym-row-time,
+body.yahoo-messenger.ym-retro .ym-row-more {
+    display: none !important;
+}
+
+body.yahoo-messenger.ym-retro .ym-row-detail {
+    flex: 1;
+    min-width: 0;
+    color: #808080;
+    font-size: 11px;
+    font-style: normal;
+    line-height: 18px;
+}
+
+body.yahoo-messenger.ym-retro .ym-row-detail::before {
+    content: '- ';
+}
+
+body.yahoo-messenger.ym-retro .ym-row-active .ym-row-detail {
+    color: #ffffff;
+}
+
+/* ---- Toolbars: flat until hovered, then raised; pixel icons ---- */
+body.yahoo-messenger.ym-retro :is(.ym-tool, .ym-action) {
+    border: 1px solid transparent;
+    border-radius: 3px;
+    color: #000000;
+}
+
+body.yahoo-messenger.ym-retro :is(.ym-tool, .ym-action):hover,
+body.yahoo-messenger.ym-retro .ym-action.ym-menu-anchor {
+    border-color: var(--ym-face-light) var(--ym-face-darker) var(--ym-face-darker) var(--ym-face-light);
+    background: var(--ym-face);
+    color: #000000;
+}
+
+body.yahoo-messenger.ym-retro :is(.ym-tool, .ym-action):active {
+    border-color: var(--ym-face-darker) var(--ym-face-light) var(--ym-face-light) var(--ym-face-darker);
+}
+
+body.yahoo-messenger.ym-retro .ym-buddy-foot {
+    padding: 2px 4px;
+    border-top: 1px solid var(--ym-face-dark);
+}
+
+body.yahoo-messenger.ym-retro :is(.ym-buddy-foot, .ym-actions) :is(i.fa-user-plus, i.fa-user-group, i.fa-address-book, i.fa-book-atlas, i.fa-plug, i.fa-gear, i.fa-pen-to-square, i.fa-clock-rotate-left, i.fa-id-card, i.fa-ellipsis)::before,
+body.yahoo-messenger.ym-retro .ym-tool-faces i::before,
+body.yahoo-messenger.ym-retro .ym-buzz i::before,
+body.yahoo-messenger.ym-retro #send_but::before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: var(--ym-glyph) center / contain no-repeat;
+}
+
+body.ym-retro i.fa-user-plus { --ym-glyph: var(--ym-px-addperson); }
+body.ym-retro i.fa-user-group { --ym-glyph: var(--ym-px-people); }
+body.ym-retro i.fa-address-book { --ym-glyph: var(--ym-px-card); }
+body.ym-retro i.fa-book-atlas { --ym-glyph: var(--ym-px-book); }
+body.ym-retro i.fa-plug { --ym-glyph: var(--ym-px-plug); }
+body.ym-retro i.fa-gear { --ym-glyph: var(--ym-px-gear); }
+body.ym-retro i.fa-pen-to-square { --ym-glyph: var(--ym-px-pen); }
+body.ym-retro i.fa-clock-rotate-left { --ym-glyph: var(--ym-px-clock); }
+body.ym-retro i.fa-id-card { --ym-glyph: var(--ym-px-card); }
+body.ym-retro i.fa-ellipsis { --ym-glyph: var(--ym-px-more); }
+body.ym-retro .ym-tool-faces i { --ym-glyph: var(--ym-px-smile); }
+body.ym-retro .ym-buzz i { --ym-glyph: var(--ym-px-bolt); }
+body.ym-retro #send_but { --ym-glyph: var(--ym-px-send); }
+
+/* ---- Conversation ---- */
+body.yahoo-messenger.ym-retro #sheld {
+    background: var(--ym-face);
+}
+
+body.yahoo-messenger.ym-retro .ym-tabs {
+    height: 24px;
+    margin-left: 8px;
+}
+
+body.yahoo-messenger.ym-retro .ym-tab {
+    height: 24px;
+    border-radius: 3px 3px 0 0;
+    background: rgba(255, 255, 255, 0.2);
+    text-shadow: none;
+}
+
+body.yahoo-messenger.ym-retro .ym-tab-active,
+body.yahoo-messenger.ym-retro .ym-tab-active:hover {
+    background: var(--ym-face);
+    color: #000000;
+}
+
+body.yahoo-messenger.ym-retro .ym-contact-bar {
+    min-height: 44px;
+    padding: 2px 6px;
+    border-bottom: 1px solid var(--ym-face-dark);
+    box-shadow: 0 1px 0 var(--ym-face-light);
+}
+
+body.yahoo-messenger.ym-retro .ym-who .ym-pic {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--ym-face-darker);
+}
+
+body.yahoo-messenger.ym-retro .ym-who:hover {
+    background: none;
+    text-decoration: underline;
+}
+
+body.yahoo-messenger.ym-retro .ym-action {
+    width: 54px;
+    height: 38px;
+    font-size: 11px;
+}
+
+/* The transcript sits in a sunken white box, with no pictures: "Name: text" */
+body.yahoo-messenger.ym-retro #chat {
+    margin: 6px 6px 0;
+    padding: 4px 0;
+    border: 1px solid var(--ym-stroke);
+    background: #ffffff;
+}
+
+/* room for the display images, only where they show */
+@media screen and (min-width: 1241px) {
+    body.yahoo-messenger.ym-retro.ym-images-on:not(.ym-no-chat) #chat {
+        margin-right: calc(var(--ym-images-w) + 6px);
+    }
+}
+
+body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes,
+body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes[is_user="true"] {
+    display: block;
+    padding: var(--ym-mes-gap) var(--ym-chat-pad);
+}
+
+body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes .mesAvatarWrapper {
+    display: none;
+}
+
+body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes:hover {
+    background: #f5f8ff;
+}
+
+body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes .ch_name {
+    display: inline-flex;
+    float: left;
+    min-height: 0;
+    margin: 0 5px 0 0;
+    gap: 4px;
+}
+
+body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes .mes_block:has(.edit_textarea) .ch_name {
+    display: flex;
+    float: none;
+}
+
+body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes .ch_name .alignItemsBaseline {
+    gap: 4px;
+}
+
+body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes .name_text {
+    font-size: var(--ym-mes-text);
+    line-height: var(--ym-mes-line);
+}
+
+body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes .timestamp {
+    color: #808080;
+    line-height: var(--ym-mes-line);
+}
+
+body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes .timestamp[data-ym-time]::after {
+    content: '(' attr(data-ym-time) '):';
+    color: #808080;
+}
+
+/* no times shown: the colon follows the name */
+body.yahoo-messenger.ym-retro:not(.ym-bubbles):is(.no-timestamps, .ym-x-hide-timestamps) #chat .mes .name_text::after {
+    content: ':';
+}
+
+body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes .mes_text p:first-child {
+    display: inline;
+}
+
+body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes .mes_text p + p {
+    margin-top: 6px;
+}
+
+body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes .mes_text :is(pre, blockquote, ul, ol) {
+    clear: both;
+}
+
+body.yahoo-messenger.ym-retro #chat .mes .mes_buttons {
+    border: 1px solid var(--ym-face-darker);
+    border-radius: 0;
+    background: var(--ym-face);
+    box-shadow: none;
+}
+
+body.yahoo-messenger.ym-retro #chat .mes.ym-buzz-mes .mes_text {
+    color: #cc0000;
+    font-size: var(--ym-mes-text);
+}
+
+/* Display images: framed pictures on the dialog's face */
+body.yahoo-messenger.ym-retro.ym-images-on:not(.ym-no-chat) #ym-images {
+    top: calc(var(--ym-title-h) + 45px);
+    padding: 6px;
+    border-left: none;
+    background: var(--ym-face);
+}
+
+body.yahoo-messenger.ym-retro :is(.ym-di-them > img, .ym-di-me > img) {
+    border: 2px solid;
+    border-color: var(--ym-face-darker) var(--ym-face-light) var(--ym-face-light) var(--ym-face-darker);
+    border-radius: 0;
+    box-sizing: border-box;
+    box-shadow: none;
+}
+
+body.yahoo-messenger.ym-retro .ym-di-them.ym-di-group > img {
+    border-width: 1px;
+}
+
+body.yahoo-messenger.ym-retro .ym-di-me {
+    width: 72px;
+    height: 72px;
+}
+
+/* Format bar, status line and message box */
+body.yahoo-messenger.ym-retro #form_sheld {
+    padding: 0 6px 6px;
+    background: var(--ym-face);
+}
+
+body.yahoo-messenger.ym-retro #ym-format {
+    padding: 2px 0;
+}
+
+body.yahoo-messenger.ym-retro #ym-format .ym-tool {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+}
+
+body.yahoo-messenger.ym-retro .ym-buzz {
+    height: 24px;
+    padding: 0 8px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background: none;
+    color: #cc0000;
+    font-family: "Arial Black", Tahoma, sans-serif;
+    font-size: 11px;
+}
+
+body.yahoo-messenger.ym-retro .ym-buzz:hover {
+    border-color: var(--ym-face-light) var(--ym-face-darker) var(--ym-face-darker) var(--ym-face-light);
+    background: var(--ym-face);
+}
+
+body.yahoo-messenger.ym-retro #ym-status {
+    order: 5;
+    min-height: 16px;
+    margin-top: 0;
+    padding: 1px 8px;
+    border-top: 1px solid var(--ym-face-dark);
+    box-shadow: inset 0 1px 0 var(--ym-face-light);
+    color: #000000;
+    font-style: normal;
+}
+
+body.yahoo-messenger.ym-retro #ym-status.ym-typing {
+    color: #000000;
+    font-weight: 400;
+}
+
+body.yahoo-messenger.ym-retro #nonQRFormItems,
+body.yahoo-messenger.ym-retro #nonQRFormItems:focus-within {
+    padding: 0 2px;
+    border: 1px solid var(--ym-stroke);
+    border-radius: 0;
+    background: #ffffff;
+    box-shadow: none;
+}
+
+body.yahoo-messenger.ym-retro #send_textarea {
+    color: #000000;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+/* XP's push button: Send and everything else */
+body.yahoo-messenger.ym-retro .menu_button,
+body.yahoo-messenger.ym-retro #rightSendForm > #send_but:not(.displayNone) {
+    min-height: 23px;
+    padding: 1px 10px;
+    border: 1px solid #003c74;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #ffffff 0%, #f5f4ea 60%, #e3e0d0 100%);
+    color: #000000;
+    font-size: 12px;
+    font-weight: 400;
+    box-shadow: inset -1px -1px 0 rgba(0, 0, 0, 0.08);
+}
+
+body.yahoo-messenger.ym-retro .menu_button:hover,
+body.yahoo-messenger.ym-retro #rightSendForm > #send_but:not(.displayNone):hover {
+    background: linear-gradient(180deg, #ffffff 0%, #f5f4ea 60%, #e3e0d0 100%);
+    border-color: #003c74;
+    box-shadow: inset 0 0 0 2px #fcc75f;
+    color: #000000;
+}
+
+body.yahoo-messenger.ym-retro .menu_button:active {
+    background: #e3e0d0;
+}
+
+body.yahoo-messenger.ym-retro #rightSendForm > #send_but:not(.displayNone) {
+    height: 26px;
+    margin: 4px 2px;
+}
+
+body.yahoo-messenger.ym-retro #send_but::after {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+body.yahoo-messenger.ym-retro :is(.menu_button.toggleEnabled, .menu_button.active, .popup .popup-button-ok, .menu_button.ym-primary) {
+    border-width: 2px;
+    color: #000000;
+    background: linear-gradient(180deg, #ffffff 0%, #f5f4ea 60%, #e3e0d0 100%);
+}
+
+body.yahoo-messenger.ym-retro .menu_button.toggleEnabled,
+body.yahoo-messenger.ym-retro .menu_button.active {
+    box-shadow: inset 0 0 0 2px #9dbcea;
+}
+
+body.yahoo-messenger.ym-retro :is(.menu_button.redWarningBG, .menu_button.caution) {
+    background: linear-gradient(180deg, #fff, #f7dcd6);
+    color: #a00000;
+}
+
+/* Fields: sunken white with the XP blue line */
+body.yahoo-messenger.ym-retro :is(.text_pole, textarea:not(#send_textarea), select, input[type="text"]:not(.ym-me-message), input[type="number"], input[type="password"], input[type="url"]) {
+    border: 1px solid var(--ym-stroke);
+    border-radius: 0;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 12px;
+}
+
+body.yahoo-messenger.ym-retro :is(.text_pole, textarea:not(#send_textarea), select, input[type="text"]:not(.ym-me-message), input[type="number"]):focus {
+    box-shadow: none;
+    border-color: var(--ym-stroke);
+}
+
+/* Check boxes and the rest */
+body.yahoo-messenger.ym-retro input[type="checkbox"] {
+    --SmartThemeCheckboxTickColor: #21a121;
+    width: 13px;
+    height: 13px;
+    border: 1px solid #1c5180;
+    border-radius: 0;
+    background: #ffffff;
+}
+
+body.yahoo-messenger.ym-retro input[type="checkbox"]:checked {
+    border-color: #1c5180;
+    background: #ffffff;
+}
+
+/* Cards become group boxes */
+body.yahoo-messenger.ym-retro :is(.inline-drawer, #extensions_settings .inline-drawer, #extensions_settings2 .inline-drawer, .wide100p > .inline-drawer, .flex-container > .inline-drawer, #left-nav-panel .inline-drawer, #rm_api_block .inline-drawer) {
+    border: 1px solid var(--ym-face-dark);
+    border-radius: 0;
+    background: var(--ym-face);
+    box-shadow: inset 1px 1px 0 var(--ym-face-light);
+}
+
+body.yahoo-messenger.ym-retro .inline-drawer-header {
+    border-radius: 0;
+}
+
+body.yahoo-messenger.ym-retro :is(.standoutHeader, #user-settings-block h4) {
+    border: none;
+    border-bottom: 1px solid var(--ym-face-dark);
+    border-radius: 0;
+    background: none;
+    color: #0a246a;
+    box-shadow: none;
+    font-size: 12px;
+}
+
+body.yahoo-messenger.ym-retro .inline-drawer-icon {
+    color: #0a246a;
+    font-size: 13px;
+}
+
+body.yahoo-messenger.ym-retro #top-settings-holder .drawer-content :is(h3, h4) {
+    font-size: 13px;
+}
+
+body.yahoo-messenger.ym-retro #top-settings-holder .drawer-content a {
+    color: #0000cc;
+    text-decoration: underline;
+}
+
+/* Lists on white */
+body.yahoo-messenger.ym-retro :is(#right-nav-panel, #rm_print_characters_block) {
+    background: var(--ym-face);
+}
+
+body.yahoo-messenger.ym-retro #rm_print_characters_block {
+    border: 1px solid var(--ym-stroke);
+    background: #ffffff;
+}
+
+body.yahoo-messenger.ym-retro #rm_print_characters_block :is(.character_select, .group_select):hover {
+    background: var(--ym-hover);
+}
+
+body.yahoo-messenger.ym-retro #rm_print_characters_block :is(.character_select, .group_select).selected {
+    background: var(--ym-selected);
+}
+
+/* Sliders: XP's track and pointer */
+body.yahoo-messenger.ym-retro input[type="range"]::-webkit-slider-thumb {
+    width: 11px;
+    height: 20px;
+    border: 1px solid #1c5180;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #ffffff, #d6d3c2);
+    box-shadow: none;
+}
+
+body.yahoo-messenger.ym-retro input[type="range"]::-moz-range-thumb {
+    width: 9px;
+    height: 18px;
+    border: 1px solid #1c5180;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #ffffff, #d6d3c2);
+    box-shadow: none;
+}
+
+body.yahoo-messenger.ym-retro .neo-range-slider {
+    height: 3px !important;
+    border-radius: 0 !important;
+    background: var(--ym-face-darker) !important;
+}
+
+/* Dialogs */
+body.yahoo-messenger.ym-retro dialog.popup,
+body.yahoo-messenger.ym-retro :is(#character_popup, #dialogue_popup, #select_chat_popup) {
+    border: 3px solid var(--ym-title-from);
+    border-radius: 6px 6px 0 0;
+    background: var(--ym-face);
+    box-shadow: var(--ym-shadow-64);
+}
+
+body.yahoo-messenger.ym-retro dialog.popup::backdrop,
+body.yahoo-messenger.ym-retro :is(#shadow_popup, #shadow_select_chat_popup, #shadow_character_popup) {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+body.yahoo-messenger.ym-retro #ym-scrim {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+body.yahoo-messenger.ym-retro .select_chat_block {
+    border-radius: 0;
+}
+
+body.yahoo-messenger.ym-retro #toast-container > div {
+    border: 1px solid #000000;
+    border-radius: 0;
+    background-color: #ffffe1;
+    color: #000000;
+    box-shadow: var(--ym-shadow-8);
+}
+
+/* Home */
+body.yahoo-messenger.ym-retro #chat .welcomePanel {
+    border: 1px solid var(--ym-face-dark);
+    border-radius: 0;
+    background: var(--ym-face);
+}
+
+body.yahoo-messenger.ym-retro #chat .welcomeHeaderTitle::before {
+    width: 48px;
+    height: 48px;
+    background: var(--ym-px-logo) center / contain no-repeat;
+    image-rendering: pixelated;
+}
+
+/* Scroll bars */
+body.yahoo-messenger.ym-retro * {
+    scrollbar-color: #c1d2ee #f0efe6;
+    scrollbar-width: auto;
+}
+
+body.yahoo-messenger.ym-retro ::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+}
+
+body.yahoo-messenger.ym-retro ::-webkit-scrollbar-track {
+    background: #f0efe6;
+}
+
+body.yahoo-messenger.ym-retro ::-webkit-scrollbar-thumb {
+    border: 1px solid #7f9db9;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #dbe6f9, #b6cbee);
+}
+
+/* Phones: same look, edge to edge */
+@media screen and (max-width: 1000px) {
+    body.yahoo-messenger.ym-retro :is(#ym-buddy, #sheld) {
+        border-width: 0;
+        border-radius: 0;
+    }
+
+    body.yahoo-messenger.ym-retro .ym-title {
+        margin: 0;
+        border-radius: 0;
+    }
+
+    body.yahoo-messenger.ym-retro .ym-title::after {
+        display: none;
+    }
+
+    body.yahoo-messenger.ym-retro .ym-row {
+        min-height: 32px;
+    }
+
+    body.yahoo-messenger.ym-retro .ym-row .ym-pic {
+        width: 16px;
+        height: 16px;
+    }
+
+    body.yahoo-messenger.ym-retro .ym-row-name {
+        font-size: 14px;
+    }
+
+    body.yahoo-messenger.ym-retro #chat {
+        margin: 4px 4px 0;
+    }
+}
+
+/* The reply pager under a "Name: text" line */
+body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes {
+    position: relative;
+}
+
+body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes .swipe_left {
+    position: absolute;
+    left: var(--ym-chat-pad);
+    bottom: 0;
+    margin: 0;
+}
+
+body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes .swipeRightBlock {
+    position: static;
+    clear: both;
+    width: max-content;
+    margin: 0 0 0 26px;
+}
+
+/* Code on white, in a plain sunken box */
+body.yahoo-messenger.ym-retro #chat .mes .mes_text pre {
+    border: 1px solid var(--ym-face-dark);
+    border-radius: 0;
+    background: #ffffff;
+}

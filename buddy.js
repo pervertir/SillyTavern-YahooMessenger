@@ -21,7 +21,7 @@ const STATUSES = [
     ['invisible', 'Invisible', 'ym-face-invisible'],
 ];
 
-let options = { settings: () => ({}), save: () => {}, setAppearance: (_a) => {}, customize: () => {}, opened: () => {} };
+let options = { settings: () => ({}), save: () => {}, setAppearance: (_a) => {}, setLook: (_l) => {}, customize: () => {}, opened: () => {} };
 /** Last chat of each contact, from SillyTavern's recent chats: avatar or group id → { preview, time, last } */
 let recent = new Map();
 let filterText = '';
@@ -359,7 +359,10 @@ function menus() {
                 panel('Backgrounds', 'fa-regular fa-image', 'backgrounds-button'),
                 panel('Extensions', 'fa-solid fa-cubes', 'extensions-settings-button'),
                 { label: 'Customize theme', icon: 'fa-solid fa-palette', run: () => options.customize() },
-                dark
+                document.body.classList.contains('ym-retro')
+                    ? { label: 'Switch to the modern look', icon: 'fa-solid fa-wand-magic-sparkles', run: () => options.setLook('modern') }
+                    : { label: 'Switch to the retro look', icon: 'fa-solid fa-clock-rotate-left', run: () => options.setLook('retro') },
+                document.body.classList.contains('ym-retro') ? null : dark
                     ? { label: 'Switch to light', icon: 'fa-regular fa-sun', run: () => options.setAppearance('light') }
                     : { label: 'Switch to dark', icon: 'fa-regular fa-moon', run: () => options.setAppearance('dark') },
             ];
@@ -370,7 +373,7 @@ function menus() {
                     items.push({ label: icon.title || drawer.id, icon: [...icon.classList].filter(name => /^fa-(?!fw$)/.test(name)).join(' '), run: () => icon.click() });
                 }
             }
-            return items;
+            return items.filter(Boolean);
         },
         Contacts: () => [
             { label: 'Contact list', icon: 'fa-regular fa-address-book', run: () => openCharacters('rm_button_characters') },
@@ -535,7 +538,9 @@ function createBuddyList() {
         const row = /** @type {HTMLElement} */ (/** @type {HTMLElement} */ (event.target).closest?.('.ym-row'));
         if (row) {
             event.preventDefault();
-            openRowMenu(/** @type {HTMLElement} */ (row.querySelector('.ym-row-more')), { avatar: row.dataset.avatar, group: row.dataset.group });
+            // the … button only shows on hover in some looks; the row is the anchor when it's hidden
+            const more = /** @type {HTMLElement} */ (row.querySelector('.ym-row-more'));
+            openRowMenu(more.offsetParent ? more : row, { avatar: row.dataset.avatar, group: row.dataset.group });
         }
     });
     body.addEventListener('keydown', (event) => {

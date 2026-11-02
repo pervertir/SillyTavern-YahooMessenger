@@ -22,6 +22,8 @@ const BODY_CLASS = 'yahoo-messenger';
 
 const defaultSettings = Object.freeze({
     enabled: true,
+    /** retro (Messenger on Windows XP) or modern */
+    look: 'retro',
     /** light, dark or system */
     appearance: 'light',
     /** transcript or bubbles */
@@ -87,12 +89,14 @@ function saveSettings() {
 }
 
 function isDark(settings) {
-    return settings.appearance === 'dark' || (settings.appearance === 'system' && darkQuery.matches);
+    // the retro look has one palette, as the real thing did
+    return settings.look !== 'retro' && (settings.appearance === 'dark' || (settings.appearance === 'system' && darkQuery.matches));
 }
 
 /** Body classes that follow a setting while the theme is on */
 const SETTING_CLASSES = {
     'ym-dark': isDark,
+    'ym-retro': settings => settings.look === 'retro',
     'ym-bubbles': settings => settings.messageStyle === 'bubbles',
     'ym-images-on': settings => settings.displayImages,
     'ym-tabs-on': settings => settings.tabs,
@@ -159,6 +163,17 @@ function setAppearance(appearance) {
     }
 }
 
+function setLook(look) {
+    const settings = getSettings();
+    settings.look = look;
+    applySettings();
+    saveSettings();
+    const select = /** @type {HTMLSelectElement} */ (document.getElementById('ym_look'));
+    if (select) {
+        select.value = look;
+    }
+}
+
 function onChatChanged(chatId) {
     if (!isOn()) {
         return;
@@ -208,6 +223,7 @@ async function renderSettingsPanel() {
             }
         }),
         checkbox('ym_pause_user_theme', 'pauseUserTheme', () => exclusive.changed()),
+        select('ym_look', 'look'),
         select('ym_appearance', 'appearance'),
         select('ym_message_style', 'messageStyle'),
         select('ym_list_lines', 'listLines', () => scheduleRefresh(0)),
@@ -279,6 +295,7 @@ async function buildFrame() {
         settings: getSettings,
         save: saveSettings,
         setAppearance,
+        setLook,
         customize: customizeTheme,
         opened: showChatOnPhone,
     };
@@ -344,6 +361,7 @@ function bootLook() {
     // never leave the cover up if something fails on the way
     setTimeout(endBoot, 20000);
     document.body.classList.toggle('ym-dark', !!settings && isDark({ ...defaultSettings, ...settings }));
+    document.body.classList.toggle('ym-retro', ({ ...defaultSettings, ...settings }).look === 'retro');
 }
 
 /**

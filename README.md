@@ -1,12 +1,14 @@
 # Yahoo Messenger Theme for SillyTavern
 
-A SillyTavern extension that brings back the feel of the Yahoo Messenger of the 2000s, redrawn as a modern app: a buddy list and a conversation as two windows on your background, in purple and gold, light or dark. It works on phones too.
+A SillyTavern extension that brings back the Yahoo Messenger of the 2000s. By default it looks the part, with Windows XP-style windows, a contact tree with small faces and a plain "Name: text" transcript. A modern look in purple and gold, light or dark, is one setting away. It works on phones too.
 
-This is an unofficial fan theme. It isn't made by, endorsed by or connected with Yahoo. All its icons are original drawings, and it uses none of Yahoo's logos.
+This is an unofficial fan theme. It isn't made by, endorsed by or connected with Yahoo. All its icons are original drawings in the period's pixel style, and it uses none of Yahoo's logos.
 
 ![chat light](.github/screenshots/chat-light.webp)
 
-![chat dark](.github/screenshots/chat-dark.webp)
+The modern look:
+
+![modern](.github/screenshots/modern-light.webp)
 
 ![tour](.github/screenshots/clip-tour.webp)
 
@@ -51,7 +53,8 @@ Under **Extensions → Yahoo Messenger Theme**:
 | Setting | What it does |
 |---|---|
 | Enable theme | Off leaves nothing of the theme in the page |
-| Appearance | Light, dark or follow the system |
+| Look | Retro (the default) or modern |
+| Appearance | Light, dark or follow the system, in the modern look |
 | Messages | Transcript or bubbles |
 | Under a contact's name | The last message, the character's creator notes, or nothing |
 | Show display images | The pictures beside the conversation |
