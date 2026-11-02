@@ -189,3 +189,29 @@ body.yahoo-messenger #chat .mes :is(.swipe_left, .swipe_right) {
     background: none;
     box-shadow: none;
 }
+
+/* A bubble is never narrower than the name and time above its text */
+body.yahoo-messenger.ym-bubbles #chat .mes {
+    grid-template-columns: var(--ym-avatar-size) minmax(min-content, max-content) minmax(48px, 1fr);
+}
+
+body.yahoo-messenger.ym-bubbles #chat .mes[is_user="true"] {
+    grid-template-columns: minmax(48px, 1fr) minmax(min-content, max-content) var(--ym-avatar-size);
+}
+
+body.yahoo-messenger.ym-bubbles #chat .mes .mes_block {
+    min-width: min-content;
+}
+
+body.yahoo-messenger.ym-bubbles #chat .mes .ch_name,
+body.yahoo-messenger.ym-bubbles #chat .mes .ch_name > .flex-container,
+body.yahoo-messenger.ym-bubbles #chat .mes .ch_name .alignItemsBaseline {
+    flex-wrap: nowrap;
+    flex: none;
+    min-width: max-content;
+}
+
+/* very long names still fit a narrow window */
+body.yahoo-messenger.ym-bubbles #chat .mes .name_text {
+    max-width: min(60vw, 420px);
+}
