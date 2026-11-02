@@ -1,0 +1,513 @@
+/* The retro look's Windows XP details: the desktop, taskbar, Start menu, and controls with Luna's real colours.
+   The drawings are original: nothing here is Microsoft's or Yahoo's artwork. */
+
+/* ---- Window frames and title bars ---- */
+body.yahoo-messenger.ym-retro {
+    --ym-title-from: #0831d9;
+}
+
+body.yahoo-messenger.ym-retro .ym-title {
+    background: linear-gradient(180deg, #0997ff 0%, #0053ee 8%, #0050ee 40%, #0066ff 88%, #0066ff 93%, #005bff 95%, #003dd7 96%, #003dd7 100%);
+    border-radius: 8px 8px 0 0;
+    text-shadow: 1px 1px 0 #0f1089;
+}
+
+body.yahoo-messenger.ym-retro :is(#ym-buddy, #sheld) {
+    border-color: #0831d9;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.4), inset -1px -1px 0 #001ea0;
+}
+
+body.yahoo-messenger.ym-retro .ym-title::after {
+    width: 66px;
+    height: 21px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 66 21'%3E%3Cdefs%3E%3CradialGradient id='b' cx='.3' cy='.25' r='1'%3E%3Cstop stop-color='%23fff' stop-opacity='.65'/%3E%3Cstop offset='.3' stop-color='%233c81f3'/%3E%3Cstop offset='1' stop-color='%230a3bc4'/%3E%3C/radialGradient%3E%3CradialGradient id='r' cx='.3' cy='.25' r='1'%3E%3Cstop stop-color='%23fff' stop-opacity='.6'/%3E%3Cstop offset='.3' stop-color='%23e67157'/%3E%3Cstop offset='1' stop-color='%23b42a0d'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cg stroke='%23fff'%3E%3Crect x='.5' y='.5' width='20' height='20' rx='3' fill='url(%23b)'/%3E%3Crect x='22.5' y='.5' width='20' height='20' rx='3' fill='url(%23b)'/%3E%3Crect x='44.5' y='.5' width='21' height='20' rx='3' fill='url(%23r)'/%3E%3C/g%3E%3Cg fill='none' stroke='%23fff'%3E%3Cpath stroke-width='3' d='M5 15h6'/%3E%3Cpath stroke-width='2' d='M27 6h11v10H27zM27 6.5h11'/%3E%3Cpath stroke-width='2.4' d='M50 6l9 9M59 6l-9 9'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+body.yahoo-messenger.ym-retro .ym-window-close {
+    border: 1px solid #ffffff;
+    background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.6), #e67157 30%, #b42a0d);
+}
+
+/* ---- The desktop ---- */
+body.yahoo-messenger.ym-xp {
+    --ym-taskbar-h: 30px;
+}
+
+body.yahoo-messenger.ym-xp :is(#bg1, #bg_custom) {
+    display: none;
+}
+
+/* A green hill under a deep blue sky, drawn here */
+html.ym-html body.yahoo-messenger.ym-xp {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000' preserveAspectRatio='xMidYMid slice'%3E%3Cdefs%3E%3ClinearGradient id='s' x2='0' y2='1'%3E%3Cstop stop-color='%231f63c9'/%3E%3Cstop offset='.45' stop-color='%234f96e8'/%3E%3Cstop offset='.72' stop-color='%23a9d2f6'/%3E%3C/linearGradient%3E%3CradialGradient id='h' cx='.42' cy='.1' r='.95'%3E%3Cstop stop-color='%23a9d648'/%3E%3Cstop offset='.45' stop-color='%236fb02c'/%3E%3Cstop offset='1' stop-color='%23336f16'/%3E%3C/radialGradient%3E%3ClinearGradient id='g' x2='.2' y2='1'%3E%3Cstop stop-color='%2377ad3a'/%3E%3Cstop offset='1' stop-color='%234a8a24'/%3E%3C/linearGradient%3E%3Cfilter id='b' x='-20%25' y='-50%25' width='140%25' height='200%25'%3E%3CfeGaussianBlur stdDeviation='16'/%3E%3C/filter%3E%3Cfilter id='c' x='-20%25' y='-50%25' width='140%25' height='200%25'%3E%3CfeGaussianBlur stdDeviation='6'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23s)'/%3E%3Cg fill='%23fff' filter='url(%23b)' opacity='.75'%3E%3Cellipse cx='260' cy='250' rx='240' ry='40'/%3E%3Cellipse cx='1180' cy='180' rx='300' ry='46'/%3E%3Cellipse cx='760' cy='400' rx='220' ry='26'/%3E%3C/g%3E%3Cg fill='%23fff' filter='url(%23c)'%3E%3Cellipse cx='230' cy='225' rx='110' ry='30'/%3E%3Cellipse cx='320' cy='205' rx='80' ry='34'/%3E%3Cellipse cx='1130' cy='150' rx='140' ry='30'/%3E%3Cellipse cx='1250' cy='130' rx='90' ry='34'/%3E%3C/g%3E%3Cpath fill='url(%23g)' d='M0 640c220-50 420-40 640 20s700 40 960-40v380H0z'/%3E%3Cpath fill='url(%23h)' d='M0 760C240 610 520 540 820 590s520 170 780 110v300H0z'/%3E%3C/svg%3E") center / cover no-repeat fixed #1f63c9;
+}
+
+/* ---- Taskbar ---- */
+body.yahoo-messenger.ym-xp #ym-taskbar {
+    display: flex;
+    align-items: stretch;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--ym-taskbar-h);
+    background: linear-gradient(180deg, #1f2f86 0%, #3165c4 3%, #3682e5 6%, #4490e6 10%, #3883e5 12%, #2b71e0 15%, #2663da 18%, #235bd6 20%, #2258d5 23%, #2157d6 38%, #245ddb 54%, #2562df 86%, #245fdc 89%, #2158d4 92%, #1d4ec0 95%, #1941a5 98%);
+    color: #ffffff;
+    font-family: Tahoma, sans-serif;
+    font-size: 11px;
+    user-select: none;
+    z-index: 29;
+}
+
+body.yahoo-messenger .ym-start {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex: none;
+    width: 98px;
+    padding: 0 0 2px 8px;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 0 10px 10px 0;
+    background: linear-gradient(180deg, #388e38 0%, #6cc36c 4%, #57b657 8%, #41a241 14%, #399a39 30%, #378f37 60%, #348c34 86%, #2d7f2d 94%, #1f6a1f 100%);
+    box-shadow: inset -2px 0 2px rgba(10, 40, 10, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.3), 1px 0 2px rgba(0, 0, 0, 0.4);
+    color: #ffffff;
+    font-family: "Franklin Gothic Medium", "Trebuchet MS", Arial, sans-serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.65);
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-start .ym-logo {
+    width: 18px;
+    height: 18px;
+    background-image: var(--ym-px-flag);
+    filter: drop-shadow(1px 1px 0 rgba(0, 0, 0, 0.4));
+}
+
+body.yahoo-messenger .ym-start:hover {
+    filter: brightness(1.1);
+}
+
+body.yahoo-messenger .ym-start.ym-start-open {
+    background: linear-gradient(180deg, #1f6a1f 0%, #2d7f2d 8%, #2f832f 60%, #388e38 100%);
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+body.yahoo-messenger .ym-tasks {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 2px;
+    min-width: 0;
+    padding: 0 4px 0 12px;
+    overflow: hidden;
+    /* the taskbar's grip */
+    background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0 1px, rgba(0, 0, 50, 0.45) 1px 2px, transparent 2px 4px) 5px 5px / 2px calc(100% - 10px) no-repeat;
+}
+
+body.yahoo-messenger .ym-task {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 0 1 160px;
+    min-width: 36px;
+    height: 24px;
+    padding: 0 6px;
+    margin: 0;
+    border: none;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #5a9bf5 0%, #3f88f0 10%, #3c81f3 80%, #2f6ed8 100%);
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.28), inset -1px -1px 0 rgba(0, 20, 90, 0.35);
+    color: #ffffff;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-task:hover {
+    background: linear-gradient(180deg, #6fa9f7, #5394f5);
+}
+
+body.yahoo-messenger .ym-task-active,
+body.yahoo-messenger .ym-task-active:hover {
+    background: linear-gradient(180deg, #1a4aa8, #1e52b7);
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.55);
+    font-weight: 700;
+}
+
+body.yahoo-messenger .ym-task .ym-logo {
+    width: 16px;
+    height: 16px;
+}
+
+body.yahoo-messenger .ym-task-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.yahoo-messenger .ym-tray {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: none;
+    padding: 0 12px 0 10px;
+    border-left: 1px solid #092e8a;
+    background: linear-gradient(180deg, #0c59b9 0%, #139ee9 4%, #18b5f2 8%, #139beb 12%, #1290e8 20%, #0d8dea 50%, #0d9ff1 86%, #0f9eed 90%, #119be9 94%, #1051a2 100%);
+    box-shadow: inset 1px 0 1px rgba(255, 255, 255, 0.35);
+}
+
+body.yahoo-messenger .ym-tray .ym-face {
+    width: 16px;
+    height: 16px;
+}
+
+/* ---- Start menu ---- */
+body.yahoo-messenger.ym-xp #ym-startmenu:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    bottom: var(--ym-taskbar-h);
+    width: 380px;
+    max-height: calc(100dvh - var(--ym-taskbar-h) - 8px);
+    overflow: hidden;
+    border: 1px solid #0831d9;
+    border-radius: 8px 8px 0 0;
+    background: #ffffff;
+    box-shadow: 3px -2px 8px rgba(0, 0, 0, 0.45);
+    font-family: Tahoma, sans-serif;
+    font-size: 11px;
+    z-index: 3011;
+}
+
+#ym-startmenu {
+    display: none;
+}
+
+body.yahoo-messenger .ym-sm-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: none;
+    height: 54px;
+    padding: 0 8px;
+    background: linear-gradient(180deg, #1868ce 0%, #0e60cb 12%, #0e60cb 20%, #1164cf 32%, #1667cf 33%, #1b6cd3 47%, #1e70d9 54%, #2476dc 60%, #297ae0 65%, #3482e3 77%, #3786e5 79%, #428ee9 90%, #4791eb 100%);
+    color: #ffffff;
+    font-family: "Franklin Gothic Medium", "Trebuchet MS", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0 -2px 2px rgba(255, 150, 40, 0.0);
+}
+
+body.yahoo-messenger .ym-sm-head img {
+    width: 42px;
+    height: 42px;
+    box-sizing: border-box;
+    border: 2px solid rgba(255, 255, 255, 0.75);
+    border-radius: 3px;
+    object-fit: cover;
+    object-position: top center;
+}
+
+/* the orange line under the head */
+body.yahoo-messenger .ym-sm-line {
+    flex: none;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(218, 136, 74, 0) 0%, #da884a 50%, rgba(218, 136, 74, 0) 100%);
+}
+
+body.yahoo-messenger .ym-sm-cols {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+body.yahoo-messenger .ym-sm-col {
+    flex: 1;
+    min-width: 0;
+    padding: 6px 2px;
+    overflow-y: auto;
+    background: #ffffff;
+}
+
+body.yahoo-messenger .ym-sm-col + .ym-sm-col {
+    border-left: 1px solid #95bdee;
+    background: #d3e5fa;
+}
+
+body.yahoo-messenger .ym-sm-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    width: 100%;
+    min-height: 26px;
+    padding: 2px 6px;
+    margin: 0;
+    border: none;
+    background: none;
+    color: #000000;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-sm-col:first-child .ym-sm-item {
+    font-weight: 700;
+    color: #1a1a1a;
+    min-height: 30px;
+}
+
+body.yahoo-messenger .ym-sm-col + .ym-sm-col .ym-sm-item {
+    color: #00136b;
+}
+
+body.yahoo-messenger .ym-sm-item:is(:hover, :focus-visible) {
+    background: #2f71cd;
+    color: #ffffff !important;
+    outline: none;
+}
+
+body.yahoo-messenger .ym-sm-foot {
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+    flex: none;
+    padding: 3px 6px;
+    background: linear-gradient(180deg, #4282d6 0%, #3b85e0 3%, #418ae3 5%, #418ae3 17%, #3c87e2 21%, #3786e4 26%, #3482e3 29%, #2e7ee1 39%, #2374df 49%, #2072db 57%, #196edb 62%, #176bd8 72%, #1468d5 75%, #1165d2 83%, #0f61cb 88%);
+}
+
+body.yahoo-messenger .ym-sm-foot .ym-sm-item {
+    width: auto;
+    color: #ffffff;
+}
+
+body.yahoo-messenger .ym-sm-foot .ym-sm-item:hover {
+    background: rgba(40, 60, 170, 0.6);
+}
+
+/* ---- Pixel icons on every menu entry ---- */
+body.yahoo-messenger.ym-retro :is(.ym-more-item, .ym-sm-item) i[class*="fa-"]::before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: var(--ym-glyph, var(--ym-px-folder)) center / contain no-repeat;
+    image-rendering: pixelated;
+}
+
+body.yahoo-messenger.ym-retro :is(.ym-more-item, .ym-sm-item) i {
+    flex: none;
+    width: 16px;
+    height: 16px;
+}
+
+body.yahoo-messenger.ym-retro .ym-sm-col:first-child .ym-sm-item i,
+body.yahoo-messenger.ym-retro .ym-sm-col:first-child .ym-sm-item i::before {
+    width: 24px;
+    height: 24px;
+}
+
+body.ym-retro i.fa-sliders { --ym-glyph: var(--ym-px-sliders); }
+body.ym-retro i.fa-font { --ym-glyph: var(--ym-px-font); }
+body.ym-retro :is(i.fa-image, i.fa-photo-film) { --ym-glyph: var(--ym-px-image); }
+body.ym-retro i.fa-cubes { --ym-glyph: var(--ym-px-cubes); }
+body.ym-retro i.fa-palette { --ym-glyph: var(--ym-px-palette); }
+body.ym-retro i.fa-wand-magic-sparkles { --ym-glyph: var(--ym-px-wand); }
+body.ym-retro i.fa-file-import { --ym-glyph: var(--ym-px-folder); }
+body.ym-retro :is(i.fa-comment, i.fa-comment-dots) { --ym-glyph: var(--ym-px-comment); }
+body.ym-retro i.fa-xmark { --ym-glyph: var(--ym-px-close); }
+body.ym-retro :is(i.fa-circle-question, i.fa-circle-info) { --ym-glyph: var(--ym-px-help); }
+body.ym-retro i.fa-star { --ym-glyph: var(--ym-px-star); }
+body.ym-retro i.fa-power-off { --ym-glyph: var(--ym-px-poweroff); }
+body.ym-retro :is(i.fa-id-badge, i.fa-signature, i.fa-i-cursor) { --ym-glyph: var(--ym-px-card); }
+
+body.yahoo-messenger.ym-retro .ym-more-item:hover i {
+    color: inherit;
+}
+
+/* Format bar: letters, as a toolbar had */
+body.yahoo-messenger.ym-retro #ym-format :is(.fa-bold, .fa-italic, .fa-strikethrough)::before {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+body.yahoo-messenger.ym-retro #ym-format .fa-bold::before { content: 'B'; }
+body.yahoo-messenger.ym-retro #ym-format .fa-italic::before { content: 'I'; font-style: italic; }
+body.yahoo-messenger.ym-retro #ym-format .fa-strikethrough::before { content: 'S'; text-decoration: line-through; }
+
+/* The message box's two menus: pixel icons too */
+body.yahoo-messenger.ym-retro #extensionsMenuButton {
+    --ym-glyph: var(--ym-px-wand);
+}
+
+body.yahoo-messenger.ym-retro #extensionsMenuButton::before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: var(--ym-glyph) center / contain no-repeat;
+    image-rendering: pixelated;
+}
+
+/* ---- Luna's controls ---- */
+body.yahoo-messenger.ym-retro .menu_button,
+body.yahoo-messenger.ym-retro #rightSendForm > #send_but:not(.displayNone) {
+    border: 1px solid #003c74;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #ffffff 0%, #ecebe5 86%, #d8d0c4 100%);
+    box-shadow: none;
+    filter: none;
+}
+
+body.yahoo-messenger.ym-retro .menu_button:hover,
+body.yahoo-messenger.ym-retro #rightSendForm > #send_but:not(.displayNone):hover {
+    border-color: #003c74;
+    background: linear-gradient(180deg, #ffffff 0%, #ecebe5 86%, #d8d0c4 100%);
+    box-shadow: inset -1px 1px #fff0cf, inset 1px 2px #fdd889, inset -2px 2px #fbc761, inset 2px -2px #e5a01a;
+}
+
+body.yahoo-messenger.ym-retro .menu_button:active {
+    background: linear-gradient(180deg, #cdcac3 0%, #e3e3db 8%, #e5e5de 94%, #f2f2f1 100%);
+    box-shadow: none;
+}
+
+body.yahoo-messenger.ym-retro :is(.menu_button:focus-visible, .popup .popup-button-ok, .menu_button.ym-primary) {
+    box-shadow: inset -1px 1px #cee7ff, inset 1px 2px #98b8ea, inset -2px 2px #bcd4f6, inset 1px -1px #89ade4, inset 2px -2px #89ade4;
+}
+
+body.yahoo-messenger.ym-retro :is(.menu_button.toggleEnabled, .menu_button.active) {
+    background: linear-gradient(180deg, #cdcac3 0%, #e3e3db 8%, #e5e5de 94%, #f2f2f1 100%);
+    box-shadow: none;
+}
+
+/* drop-down boxes with the blue arrow button */
+body.yahoo-messenger.ym-retro select:not([multiple]) {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 20px;
+    background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 19'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23e1eafe'/%3E%3Cstop offset='1' stop-color='%23aec8f7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='.5' y='.5' width='16' height='18' rx='2' fill='url(%23a)' stroke='%23b7cdf5'/%3E%3Cpath d='M4.5 7.5l4 4 4-4' fill='none' stroke='%234d6185' stroke-width='2'/%3E%3C/svg%3E") right 1px center / 17px calc(100% - 2px) no-repeat;
+}
+
+/* tick boxes */
+body.yahoo-messenger.ym-retro input[type="checkbox"] {
+    --SmartThemeCheckboxTickColor: #21a121;
+    border: 1px solid #1c5180;
+    background: linear-gradient(135deg, #dcdcd7, #ffffff);
+}
+
+body.yahoo-messenger.ym-retro input[type="checkbox"]:checked {
+    background: linear-gradient(135deg, #dcdcd7, #ffffff);
+    border-color: #1c5180;
+}
+
+/* radio */
+body.yahoo-messenger.ym-retro input[type="radio"] {
+    accent-color: #21a121;
+}
+
+/* Tabs inside windows and SillyTavern's toggles read as raised tabs */
+body.yahoo-messenger.ym-retro .ym-tab-active {
+    box-shadow: inset 0 2px 0 #e68b2c;
+}
+
+/* Scroll bars with their arrow buttons */
+body.yahoo-messenger.ym-retro ::-webkit-scrollbar {
+    width: 17px;
+    height: 17px;
+}
+
+body.yahoo-messenger.ym-retro ::-webkit-scrollbar-track {
+    background: linear-gradient(90deg, #f3f1ec, #fefefb);
+}
+
+body.yahoo-messenger.ym-retro ::-webkit-scrollbar-thumb {
+    border: 1px solid #ffffff;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #cadafb 0%, #c3d4fd 40%, #aac1f6 100%);
+    box-shadow: inset 0 0 0 1px #94aee8;
+}
+
+body.yahoo-messenger.ym-retro ::-webkit-scrollbar-button:single-button {
+    display: block;
+    width: 17px;
+    height: 17px;
+    border: 1px solid #ffffff;
+    border-radius: 3px;
+    background: #c3d4fd center / 9px 9px no-repeat;
+    box-shadow: inset 0 0 0 1px #94aee8;
+}
+
+body.yahoo-messenger.ym-retro ::-webkit-scrollbar-button:single-button:vertical:decrement {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 9'%3E%3Cpath d='M1 6l3.5-3.5L8 6' fill='none' stroke='%234d6185' stroke-width='2'/%3E%3C/svg%3E");
+}
+
+body.yahoo-messenger.ym-retro ::-webkit-scrollbar-button:single-button:vertical:increment {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 9'%3E%3Cpath d='M1 3l3.5 3.5L8 3' fill='none' stroke='%234d6185' stroke-width='2'/%3E%3C/svg%3E");
+}
+
+/* Toasts are balloon tips */
+body.yahoo-messenger.ym-retro #toast-container > div {
+    border-radius: 6px;
+    border-left: 1px solid #000000;
+}
+
+/* Hover toolbar on a message */
+body.yahoo-messenger.ym-retro #chat .mes .mes_button:hover {
+    background: var(--ym-face);
+    color: #000000;
+}
+
+@media screen and (max-width: 1000px) {
+    body.yahoo-messenger.ym-xp {
+        --ym-taskbar-h: 0px;
+    }
+
+    body.yahoo-messenger.ym-xp #ym-taskbar,
+    body.yahoo-messenger.ym-xp #ym-startmenu {
+        display: none !important;
+    }
+}
+
+/* ---- Loading: a black screen with the marching blue blocks, in place of the purple one ---- */
+body.ym-retro:is(.yahoo-messenger, .ym-booting) {
+    --ym-boot-bg: #000000;
+    --ym-boot-art: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 160'%3E%3Cpath fill='%236a1fb8' d='M70 6h80a14 14 0 0 1 14 14v46a14 14 0 0 1-14 14h-52l-24 18v-18h-4a14 14 0 0 1-14-14V20A14 14 0 0 1 70 6z'/%3E%3Ccircle cx='92' cy='32' r='8' fill='%23ffd800'/%3E%3Ccircle cx='128' cy='32' r='8' fill='%23ffd800'/%3E%3Cpath fill='none' stroke='%23ffd800' stroke-width='7' stroke-linecap='round' d='M84 52c7 11 16 15 26 15s19-4 26-15'/%3E%3Crect x='30' y='132' width='160' height='20' rx='5' fill='none' stroke='%23b2b2b2' stroke-width='2'/%3E%3C/svg%3E");
+}
+
+body.ym-retro:is(.yahoo-messenger, .ym-booting) #loader.splash-screen::before {
+    width: 220px;
+    height: 160px;
+    background:
+        linear-gradient(180deg, #8bb5f8, #2a5fd8 45%, #1b48b8) -40px 136px / 10px 12px no-repeat,
+        linear-gradient(180deg, #8bb5f8, #2a5fd8 45%, #1b48b8) -40px 136px / 10px 12px no-repeat,
+        linear-gradient(180deg, #8bb5f8, #2a5fd8 45%, #1b48b8) -40px 136px / 10px 12px no-repeat,
+        var(--ym-boot-art) center / contain no-repeat;
+    animation: ym-xp-march 1.8s linear infinite;
+}
+
+body.ym-booting.ym-retro::after {
+    inset: calc(50% - 80px) auto auto calc(50% - 110px);
+    width: 220px;
+    height: 160px;
+    background:
+        linear-gradient(180deg, #8bb5f8, #2a5fd8 45%, #1b48b8) -40px 136px / 10px 12px no-repeat,
+        linear-gradient(180deg, #8bb5f8, #2a5fd8 45%, #1b48b8) -40px 136px / 10px 12px no-repeat,
+        linear-gradient(180deg, #8bb5f8, #2a5fd8 45%, #1b48b8) -40px 136px / 10px 12px no-repeat,
+        var(--ym-boot-art) center / contain no-repeat;
+    animation: ym-xp-march 1.8s linear infinite;
+}
+
+@keyframes ym-xp-march {
+    from { background-position: 18px 136px, 6px 136px, -6px 136px, center; }
+    to { background-position: 196px 136px, 184px 136px, 172px 136px, center; }
+}
+
+body.ym-retro i.fa-bolt { --ym-glyph: var(--ym-px-bolt); }

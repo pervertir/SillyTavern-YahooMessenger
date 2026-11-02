@@ -18,6 +18,12 @@ One setting away: purple and gold, in light or dark.
 
 ![modern dark](.github/screenshots/modern-dark.webp)
 
+## Desktop and Start menu
+
+A drawn wallpaper, the taskbar with a button per conversation and a clock, and a Start menu with every SillyTavern menu.
+
+![start menu](.github/screenshots/start-menu.webp)
+
 ## A quick tour
 
 Contacts, a conference, and menus opening as windows.

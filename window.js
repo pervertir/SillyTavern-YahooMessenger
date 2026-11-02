@@ -2,7 +2,7 @@
 // images beside the transcript and the status line above the message box. SillyTavern's menus open
 // as windows of their own over it, each with the title bar drawn here.
 
-import { openContact, startMenuItems } from './buddy.js';
+import { myIdentity, openContact, startMenuItems } from './buddy.js';
 import { canUseNicknames, nameFor, openNicknames } from './lib/chat-nicknames.js';
 import { toggleFlyout } from './flyout.js';
 import { isOn, own } from './own.js';
@@ -29,7 +29,7 @@ const WINDOWS = {
 
 /** Conversations open as tabs: { avatar, group, name } */
 let tabs = [];
-let options = { settings: () => ({}) };
+let options = { settings: () => ({}), setLook: (_look) => {} };
 /** SillyTavern's drawers, watched for opening and closing */
 let drawers = [];
 let savedIcon = null;
@@ -122,13 +122,78 @@ function closeTab(tab) {
     renderTabs(open);
 }
 
+function closeStartMenu() {
+    const menu = document.getElementById('ym-startmenu');
+    if (menu) {
+        menu.hidden = true;
+    }
+    document.querySelector('.ym-start')?.classList.remove('ym-start-open');
+}
+
+function startItem({ label, icon, run }) {
+    const item = button('ym-sm-item');
+    item.append(el('i', icon), el('span', '', t(label)));
+    item.addEventListener('click', () => {
+        closeStartMenu();
+        run();
+    });
+    return item;
+}
+
+/** The Start menu: your picture and name, two columns, and the bottom strip. */
+function toggleStartMenu(start) {
+    let menu = document.getElementById('ym-startmenu');
+    if (menu && !menu.hidden) {
+        closeStartMenu();
+        return;
+    }
+    if (!menu) {
+        menu = el('div');
+        menu.id = 'ym-startmenu';
+        menu.setAttribute('role', 'menu');
+        document.body.append(own(menu));
+        document.addEventListener('pointerdown', (event) => {
+            const target = /** @type {Node} */ (event.target);
+            if (!menu.hidden && !menu.contains(target) && !start.contains(target)) {
+                closeStartMenu();
+            }
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeStartMenu();
+            }
+        });
+    }
+    const { left, right } = startMenuItems();
+    const { src, name } = myIdentity();
+    const head = el('div', 'ym-sm-head');
+    const picture = /** @type {HTMLImageElement} */ (el('img'));
+    picture.alt = '';
+    picture.src = src;
+    head.append(picture, el('span', '', name));
+    const columns = el('div', 'ym-sm-cols');
+    for (const items of [left, right]) {
+        const column = el('div', 'ym-sm-col');
+        column.append(...items.map(startItem));
+        columns.append(column);
+    }
+    const foot = el('div', 'ym-sm-foot');
+    foot.append(
+        startItem({ label: 'Close conversation', icon: 'fa-solid fa-xmark', run: () => clickOption('option_close_chat') }),
+        startItem({ label: 'Turn off the retro look', icon: 'fa-solid fa-power-off', run: () => options.setLook('modern') }),
+    );
+    menu.replaceChildren(head, el('div', 'ym-sm-line'), columns, foot);
+    menu.hidden = false;
+    start.classList.add('ym-start-open');
+}
+
 /** The retro look's taskbar: Start, a button per open conversation, and the clock. */
 function createTaskbar() {
     const bar = el('div');
     bar.id = 'ym-taskbar';
     const start = button('ym-start');
     start.append(el('span', 'ym-logo'), el('span', '', t('start')));
-    start.addEventListener('click', () => toggleFlyout(start, startMenuItems(), 'below-start'));
+    start.addEventListener('click', () => toggleStartMenu(start));
     const tasks = el('div', 'ym-tasks');
     const tray = el('div', 'ym-tray');
     tray.append(el('span', 'ym-face ym-face-available'), el('span', 'ym-clock'));

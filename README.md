@@ -46,6 +46,10 @@ https://github.com/pervertir/SillyTavern-YahooMessenger
 
 The page reloads by itself. Needs SillyTavern 1.19 or newer.
 
+## Startup screen
+
+SillyTavern draws its logo before any extension loads, so the theme alone can only replace it a moment later. To skip it, paste [`extras/retro-splash.css`](extras/retro-splash.css) at the end of `data/_css/user.css` in your SillyTavern folder (create the file if it isn't there) and reload. Delete that block if you go back to another look.
+
 ## Settings
 
 Under **Extensions → Yahoo Messenger Theme**:

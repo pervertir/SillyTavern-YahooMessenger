@@ -403,10 +403,15 @@ function menus() {
     };
 }
 
-/** The Start button's menu: the menu bar's Messenger, Contacts and Actions in one list. */
+/** The Start menu's two columns: what you do, then the settings, as in Windows. */
 export function startMenuItems() {
     const all = menus();
-    return [...all.Contacts(), ...all.Actions(), ...all.Messenger()];
+    return { left: [...all.Contacts(), ...all.Actions()], right: [...all.Messenger(), ...all.Help()] };
+}
+
+/** Your picture's address and your name, for the Start menu's head. */
+export function myIdentity() {
+    return { src: /** @type {HTMLImageElement|null} */ (document.querySelector('#ym-me .ym-pic img'))?.src ?? '', name: document.querySelector('#ym-me .ym-me-name')?.textContent ?? '' };
 }
 
 function statusInfo(id) {

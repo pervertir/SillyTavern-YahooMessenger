@@ -5,10 +5,6 @@ body:is(.yahoo-messenger, .ym-booting) {
     --ym-boot-bg: linear-gradient(135deg, #2b0a66, #8a4be8);
 }
 
-body.ym-retro {
-    --ym-boot-bg: #3a6ea5;
-}
-
 body:is(.yahoo-messenger, .ym-booting).ym-dark {
     --ym-boot-bg: linear-gradient(135deg, #0e0620, #38136f);
 }
