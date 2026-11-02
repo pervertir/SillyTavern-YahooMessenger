@@ -14,6 +14,7 @@ const IMAGES_ID = 'ym-images';
 const TABS_KEY = 'ym-tabs';
 const MAX_TABS = 8;
 const ICON_URL = new URL('img/logo.svg', import.meta.url).href;
+const RETRO_ICON_URL = new URL('img/xp/yahoo-face-32.png', import.meta.url).href;
 
 /** SillyTavern's menus: what each is called as a window, and how wide it reads well */
 const WINDOWS = {
@@ -80,7 +81,7 @@ export function setBranding(on) {
     }
     if (on) {
         savedIcon ??= icon.getAttribute('href');
-        icon.setAttribute('href', ICON_URL);
+        icon.setAttribute('href', document.body.classList.contains('ym-retro') ? RETRO_ICON_URL : ICON_URL);
     } else if (savedIcon !== null) {
         icon.setAttribute('href', savedIcon);
         savedIcon = null;
