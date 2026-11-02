@@ -194,3 +194,25 @@ body.yahoo-messenger #chat .typing_indicator .svg_dots {
     width: 22px;
     fill: var(--ym-brand);
 }
+
+/* Character Library's menu on the Characters button: the retro look's plain menu */
+body.yahoo-messenger.ym-retro #charlib-launcher-dropdown {
+    padding: 2px;
+    border: 1px solid var(--ym-face-darker);
+    border-radius: 0;
+    background: var(--ym-raised);
+    box-shadow: var(--ym-shadow-16);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+body.yahoo-messenger.ym-retro .charlib-launcher-item {
+    border-radius: 0;
+    color: #000000;
+    font-size: 12px;
+}
+
+body.yahoo-messenger.ym-retro .charlib-launcher-item:hover {
+    background: var(--ym-brand);
+    color: #ffffff;
+}

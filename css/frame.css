@@ -292,6 +292,13 @@ body.yahoo-messenger #top-settings-holder .drawer-content.fillRight {
     z-index: 3005;
 }
 
+/* SillyTavern scrolls its menus in and out by growing their height; a window just appears */
+body.yahoo-messenger #top-settings-holder .drawer-content,
+body.yahoo-messenger #top-settings-holder .drawer-content.openDrawer {
+    transition: none;
+    animation: none;
+}
+
 body.yahoo-messenger #top-settings-holder .drawer-content.openDrawer {
     height: calc(100dvh - 2 * var(--ym-win-top) - var(--ym-title-h));
 }
