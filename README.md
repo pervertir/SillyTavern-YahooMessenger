@@ -82,4 +82,4 @@ Turning this theme on turns off other theme extensions, and they come back when 
 
 ## License
 
-MIT for the code. Yahoo, Yahoo Messenger, Windows and their icons belong to their owners and aren't covered by that licence. The Messenger face in `img/xp/yahoo-face-32.png` is from the Farm-Fresh set (CC BY 3.0, FatCow).
+MIT for the code. `lib/three.min.js` is Three.js (MIT), and the pipes' growth and dissolve follow [1j01/pipes](https://github.com/1j01/pipes) (MIT, Isaiah Odhner). Yahoo, Yahoo Messenger, Windows and their icons belong to their owners and aren't covered by that licence. The Messenger face in `img/xp/yahoo-face-32.png` is from the Farm-Fresh set (CC BY 3.0, FatCow).

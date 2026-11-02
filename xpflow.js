@@ -3,6 +3,7 @@
 // the server; nothing typed is kept. It's for the nostalgia, not protection: the server's login is the real lock.
 
 import { isOn, own } from './own.js';
+import { runPipes } from './pipes.js';
 import { button, el, isPhone, t } from './util.js';
 
 /** Where this tab has got to: unset (logon), 'desktop' (Messenger not signed in) or 'messenger' */
@@ -396,144 +397,46 @@ export function turnOffDialog() {
 
 /* ---------- the pipes ---------- */
 
-const COLORS = [['#ff5050', '#a01010'], ['#50d050', '#107010'], ['#6080ff', '#1030a0'], ['#ffd040', '#a07000'], ['#40d8d8', '#007878'], ['#e060e0', '#801080'], ['#e8e8e8', '#808080']];
-const DIRECTIONS = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]];
-const GRID = [26, 16, 18];
+const WAKE_EVENTS = ['pointermove', 'pointerdown', 'keydown', 'wheel', 'touchstart'];
 
-/** Draws growing pipes on a black screen, until anything moves. */
-export function startPipes() {
+/** Runs the pipes (pipes.js) until anything moves. */
+export async function startPipes() {
     if (stopPipes) {
         return;
     }
-    const canvas = /** @type {HTMLCanvasElement} */ (el('canvas'));
-    canvas.id = 'ym-pipes';
-    document.body.append(own(canvas));
-    const ctx = canvas.getContext('2d');
-    const resize = () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    };
-    resize();
-
-    const project = ([x, y, z]) => {
-        const scale = Math.max(canvas.width / GRID[0], canvas.height / GRID[1]) * 1.25;
-        const depth = 1 / (1 + (z / GRID[2]) * 0.9);
-        return { x: canvas.width / 2 + (x - GRID[0] / 2) * scale * depth, y: canvas.height / 2 + (y - GRID[1] / 2) * scale * depth, r: scale * depth * 0.22 };
-    };
-    const random = n => Math.floor(Math.random() * n);
-    let filled = new Set();
-    let pipes = 0;
-    let pipe = null;
-    const key = p => p.join();
-    const inside = p => p.every((v, i) => v >= 0 && v < GRID[i]);
-
-    const newPipe = () => {
-        for (let i = 0; i < 40; i++) {
-            const at = [random(GRID[0]), random(GRID[1]), random(GRID[2])];
-            if (!filled.has(key(at))) {
-                filled.add(key(at));
-                pipes++;
-                pipe = { at, dir: DIRECTIONS[random(6)], color: COLORS[random(COLORS.length)] };
-                return true;
-            }
-        }
-        return false;
-    };
-    const reset = () => {
-        ctx.fillStyle = '#000000';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        filled = new Set();
-        pipes = 0;
-        newPipe();
-    };
-    const ball = (p, color, size = 1.45) => {
-        const c = project(p);
-        const shine = ctx.createRadialGradient(c.x - c.r * 0.4, c.y - c.r * 0.4, c.r * 0.1, c.x, c.y, c.r * size);
-        shine.addColorStop(0, '#ffffff');
-        shine.addColorStop(0.3, color[0]);
-        shine.addColorStop(1, color[1]);
-        ctx.fillStyle = shine;
-        ctx.beginPath();
-        ctx.arc(c.x, c.y, c.r * size, 0, Math.PI * 2);
-        ctx.fill();
-    };
-    const segment = (from, to, color) => {
-        const a = project(from);
-        const b = project(to);
-        const width = (a.r + b.r);
-        ctx.lineCap = 'butt';
-        const length = Math.hypot(b.x - a.x, b.y - a.y) || 1;
-        const nx = -(b.y - a.y) / length;
-        const ny = (b.x - a.x) / length;
-        const shade = ctx.createLinearGradient(a.x + nx * width / 2, a.y + ny * width / 2, a.x - nx * width / 2, a.y - ny * width / 2);
-        shade.addColorStop(0, color[1]);
-        shade.addColorStop(0.55, color[0]);
-        shade.addColorStop(0.72, '#ffffff');
-        shade.addColorStop(0.85, color[0]);
-        shade.addColorStop(1, color[1]);
-        ctx.strokeStyle = shade;
-        ctx.lineWidth = width;
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.stroke();
-    };
-    const step = () => {
-        if (!pipe) {
-            return;
-        }
-        const ahead = d => pipe.at.map((v, i) => v + d[i]);
-        const free = d => inside(ahead(d)) && !filled.has(key(ahead(d)));
-        let turned = false;
-        if (!free(pipe.dir) || Math.random() < 0.25) {
-            const options = DIRECTIONS.filter(free);
-            if (!options.length) {
-                ball(pipe.at, pipe.color, 1.2);
-                if (pipes >= 7 || !newPipe()) {
-                    reset();
-                }
-                return;
-            }
-            const next = options[random(options.length)];
-            turned = next !== pipe.dir;
-            pipe.dir = next;
-        }
-        const to = ahead(pipe.dir);
-        segment(pipe.at, to, pipe.color);
-        if (turned) {
-            ball(pipe.at, pipe.color);
-        }
-        filled.add(key(to));
-        pipe.at = to;
-    };
-    reset();
-    const timer = setInterval(step, 32);
-    window.addEventListener('resize', resize);
-
     // ignores the small mouse twitch that comes with pressing the button
     const started = Date.now();
-    const wake = (event) => {
-        if (Date.now() - started < 600) {
-            return;
-        }
-        if (event.type === 'pointermove' && Math.hypot(event.movementX, event.movementY) < 4) {
-            return;
-        }
-        stopPipes?.();
-    };
-    for (const type of ['pointermove', 'pointerdown', 'keydown', 'wheel', 'touchstart']) {
-        window.addEventListener(type, wake, true);
-    }
-    stopPipes = () => {
-        clearInterval(timer);
-        window.removeEventListener('resize', resize);
-        for (const type of ['pointermove', 'pointerdown', 'keydown', 'wheel', 'touchstart']) {
+    let stop = null;
+    let woken = false;
+    const end = () => {
+        for (const type of WAKE_EVENTS) {
             window.removeEventListener(type, wake, true);
         }
-        canvas.remove();
+        stop?.();
         stopPipes = null;
         lastActivity = Date.now();
     };
+    function wake(event) {
+        if (Date.now() - started < 600 || (event.type === 'pointermove' && Math.hypot(event.movementX, event.movementY) < 4)) {
+            return;
+        }
+        woken = true;
+        end();
+    }
+    stopPipes = end;
+    for (const type of WAKE_EVENTS) {
+        window.addEventListener(type, wake, true);
+    }
+    try {
+        stop = await runPipes();
+        if (woken) {
+            stop();
+        }
+    } catch (error) {
+        console.error('[Yahoo Messenger] Could not start the pipes', error);
+        toastr.warning(t('The pipes need WebGL, which this browser has turned off.'));
+        end();
+    }
 }
 
 /** After a while with nothing touched, the screensaver starts by itself. */
