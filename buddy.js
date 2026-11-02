@@ -3,6 +3,7 @@
 
 import { USER, canUseNicknames, nameFor, openNicknames } from './lib/chat-nicknames.js';
 import { toggleFlyout } from './flyout.js';
+import { currentRenames, displayText } from './names.js';
 import { formatListTime } from './times.js';
 import { buzz } from './messenger.js';
 import { isOn, own } from './own.js';
@@ -208,6 +209,7 @@ function render() {
     const lines = options.settings().listLines;
     const needle = filterText.trim().toLowerCase();
     const matches = (name, detail) => !needle || name.toLowerCase().includes(needle) || (detail ?? '').toLowerCase().includes(needle);
+    const renames = currentRenames();
     const byRecent = (a, b) => (b.last - a.last) || a.name.localeCompare(b.name);
 
     const friends = [];
@@ -215,16 +217,17 @@ function render() {
     for (const character of context.characters) {
         const seen = recent.get(character.avatar);
         const detail = lines === 'none' ? '' : lines === 'about' ? aboutLine(character.creatorcomment || character.data?.creator_notes) : (seen?.preview ?? '');
-        if (!matches(character.name, seen?.preview)) {
+        const shownName = nameFor(character.avatar, character.name, isCurrent({ avatar: character.avatar }) ? '' : 'another chat');
+        if (!matches(`${character.name} ${shownName}`, displayText(seen?.preview, renames))) {
             continue;
         }
         const row = {
             key: `c_${character.avatar}`,
             // chat and group nicknames show on the contact whose chat is open, everywhere ones on all of them
-            name: nameFor(character.avatar, character.name, isCurrent({ avatar: character.avatar }) ? '' : 'another chat'),
+            name: shownName,
             avatar: character.avatar,
             thumb: context.getThumbnailUrl('avatar', character.avatar),
-            detail,
+            detail: displayText(detail, renames),
             time: seen?.time ?? '',
             last: seen?.last ?? 0,
         };
@@ -233,7 +236,10 @@ function render() {
     const conferences = [];
     for (const group of context.groups) {
         const seen = recent.get(String(group.id));
-        const names = (group.members ?? []).map(m => context.characters.find(x => x.avatar === m)?.name).filter(Boolean);
+        const names = (group.members ?? []).map((m) => {
+            const member = context.characters.find(x => x.avatar === m);
+            return member && displayText(member.name, renames);
+        }).filter(Boolean);
         if (!matches(group.name, names.join(' '))) {
             continue;
         }
@@ -242,7 +248,7 @@ function render() {
             name: group.name,
             group: String(group.id),
             members: (group.members ?? []).slice(0, 4).map(m => context.getThumbnailUrl('avatar', m)),
-            detail: lines === 'none' ? '' : lines === 'about' ? names.join(', ') : (seen?.preview || names.join(', ')),
+            detail: lines === 'none' ? '' : lines === 'about' ? names.join(', ') : (displayText(seen?.preview, renames) || names.join(', ')),
             time: seen?.time ?? '',
             last: seen?.last ?? 0,
         });

@@ -7,6 +7,7 @@ import { applyCustomize, emptyCustomize, normalizeCustomize, openCustomize } fro
 import { registerExtensionSwitch } from './lib/theme-extensions.js';
 import { registerTheme, reloadPage } from './lib/theme-exclusive.js';
 import { refreshBuzzMarks, initMessenger } from './messenger.js';
+import { initNames, paintNames } from './names.js';
 import { isOn, parkOwned, restoreOwned } from './own.js';
 import { initXpFlow, resumeStory } from './xpflow.js';
 import { initSharpImages } from './sharp.js';
@@ -131,6 +132,9 @@ function applySettings() {
         body.remove(...[...body].filter(name => name.startsWith('ym-') && name !== 'ym-booting' && name !== 'ym-boot-done'));
     }
     setBranding(on);
+    if (built) {
+        paintNames();
+    }
     applyCustomize(settings.customize, on);
     // the windows exist only while the theme is on: built the first time it's turned on, taken
     // out when it's switched off, and put back as they were when it's on again
@@ -323,10 +327,12 @@ async function buildFrame() {
         changed: () => {
             refreshWindow();
             refreshMe();
+            paintNames();
             scheduleRefresh(0);
         },
         t,
     });
+    initNames();
     initWindow(options);
     initMessenger(options);
     const listLoaded = initBuddyList(options);

@@ -2,6 +2,7 @@
 // screensaver. The logon asks for the same name and password as SillyTavern's own login and checks them with
 // the server; nothing typed is kept. It's for the nostalgia, not protection: the server's login is the real lock.
 
+import { displayText } from './names.js';
 import { isOn, own } from './own.js';
 import { runPipes } from './pipes.js';
 import { button, el, isPhone, t } from './util.js';
@@ -47,7 +48,7 @@ function delay(ms) {
 
 function persona() {
     const img = /** @type {HTMLImageElement|null} */ (document.querySelector('#ym-me .ym-pic img'));
-    return { name: SillyTavern.getContext().name1 ?? '', src: img?.src ?? '' };
+    return { name: displayText(SillyTavern.getContext().name1 ?? ''), src: img?.src ?? '' };
 }
 
 function tone(pairs) {

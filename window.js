@@ -5,6 +5,7 @@
 import { myIdentity, openContact, startMenuItems } from './buddy.js';
 import { canUseNicknames, nameFor, openNicknames } from './lib/chat-nicknames.js';
 import { toggleFlyout } from './flyout.js';
+import { displayText, paintNames } from './names.js';
 import { isOn, own } from './own.js';
 import { logOffDialog, turnOffDialog } from './xpflow.js';
 import { button, clickOption, el, getChatOwner, iconButton, openDrawer, openProfile, t, toggleDrawer } from './util.js';
@@ -193,7 +194,7 @@ function toggleStartMenu(start) {
     const left = el('div', 'ym-sm-col');
     left.append(...pinned.map(startItem), el('div', 'ym-sm-sep'));
     // the most recent conversations, as Windows listed recent programs
-    left.append(...tabs.slice(-5).reverse().map(tab => startItem({ label: tab.name, icon: 'fa-regular fa-comment', run: () => openContact(tab) })));
+    left.append(...tabs.slice(-5).reverse().map(tab => startItem({ label: tabLabel(tab), icon: 'fa-regular fa-comment', run: () => openContact(tab) })));
     const programs = button('ym-sm-item ym-sm-all', t('All Programs'));
     programs.addEventListener('click', () => toggleFlyout(programs, all, 'beside'));
     left.append(el('div', 'ym-sm-spacer'), el('div', 'ym-sm-sep'), programs);
@@ -395,6 +396,12 @@ function renderTaskbar() {
     tasks.replaceChildren(...items);
 }
 
+/** A tab's name right now: nicknames can change while it's in the background. */
+function tabLabel(tab) {
+    const character = tab.group ? null : SillyTavern.getContext().characters.find(x => x.avatar === tab.avatar);
+    return character ? displayText(character.name) : tab.name;
+}
+
 function renderTabs(current) {
     const strip = document.querySelector(`#${HEAD_ID} .ym-tabs`);
     if (!strip) {
@@ -403,9 +410,10 @@ function renderTabs(current) {
     strip.replaceChildren(...tabs.map((tab) => {
         const active = sameTab(tab, current);
         const item = button(`ym-tab${active ? ' ym-tab-active' : ''}`);
-        item.title = tab.name;
+        const label = tabLabel(tab);
+        item.title = label;
         item.setAttribute('aria-current', String(active));
-        item.append(el('span', 'ym-tab-name', tab.name));
+        item.append(el('span', 'ym-tab-name', label));
         const close = el('span', 'ym-tab-close fa-solid fa-xmark');
         close.setAttribute('role', 'button');
         close.title = t('Close tab');
@@ -451,19 +459,19 @@ function refreshImages(group, character) {
     };
     if (group) {
         for (const member of (group.members ?? []).slice(0, 12)) {
-            const name = context.characters.find(x => x.avatar === member)?.name ?? '';
+            const name = displayText(context.characters.find(x => x.avatar === member)?.name ?? '');
             them.append(picture(context.getThumbnailUrl('avatar', member), name));
         }
     } else if (character) {
-        them.append(picture(imageUrl('characters', character.avatar), character.name));
+        them.append(picture(imageUrl('characters', character.avatar), displayText(character.name)));
     }
     const me = /** @type {HTMLImageElement} */ (holder.querySelector('.ym-di-me img'));
     const selected = document.querySelector('#user_avatar_block .avatar-container.selected');
     const id = selected?.getAttribute('data-avatar-id') || selected?.getAttribute('imgfile') || context.powerUserSettings?.default_persona;
     if (id) {
         me.src = imageUrl('User Avatars', id);
-        me.alt = context.name1 ?? '';
-        me.title = context.name1 ?? '';
+        me.alt = displayText(context.name1 ?? '');
+        me.title = me.alt;
     }
 }
 
@@ -520,7 +528,7 @@ export function refreshWindow() {
         addImage(context.getThumbnailUrl('avatar', character.avatar));
         picture.append(el('span', 'ym-face ym-face-available'));
         name = nameFor(character.avatar, character.name);
-        detail = context.getCurrentChatId() ?? '';
+        detail = displayText(context.getCurrentChatId() ?? '');
     } else if (temporary) {
         addImage('img/five.png');
         name = context.name2 || t('Assistant');
@@ -703,6 +711,7 @@ export function initWindow(config) {
         pending = requestAnimationFrame(() => {
             pending = 0;
             refreshWindow();
+            paintNames();
         });
     }).observe(document.getElementById('chat'), { childList: true });
 }
