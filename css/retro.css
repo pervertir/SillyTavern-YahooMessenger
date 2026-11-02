@@ -920,3 +920,14 @@ body.yahoo-messenger.ym-retro #chat .mes .mes_text pre {
     border-radius: 0;
     background: #ffffff;
 }
+
+/* Touch screens: a message's buttons float at its corner, so the text still starts right after the name */
+@media screen and (max-width: 1000px) and (hover: none) {
+    body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes .mes_buttons {
+        position: absolute;
+        top: 0;
+        right: 4px;
+        margin: 0;
+        background: var(--ym-face);
+    }
+}
