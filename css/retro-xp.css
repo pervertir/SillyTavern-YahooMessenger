@@ -479,7 +479,7 @@ body.yahoo-messenger.ym-retro #chat .mes .mes_button:hover {
 /* ---- Loading: a black screen with the marching blue blocks, in place of the purple one ---- */
 body.ym-retro:is(.yahoo-messenger, .ym-booting) {
     --ym-boot-bg: #000000;
-    --ym-boot-art: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 160'%3E%3Cpath fill='%236a1fb8' d='M70 6h80a14 14 0 0 1 14 14v46a14 14 0 0 1-14 14h-52l-24 18v-18h-4a14 14 0 0 1-14-14V20A14 14 0 0 1 70 6z'/%3E%3Ccircle cx='92' cy='32' r='8' fill='%23ffd800'/%3E%3Ccircle cx='128' cy='32' r='8' fill='%23ffd800'/%3E%3Cpath fill='none' stroke='%23ffd800' stroke-width='7' stroke-linecap='round' d='M84 52c7 11 16 15 26 15s19-4 26-15'/%3E%3Crect x='30' y='132' width='160' height='20' rx='5' fill='none' stroke='%23b2b2b2' stroke-width='2'/%3E%3C/svg%3E");
+    --ym-boot-art: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 160'%3E%3Crect x='30' y='132' width='160' height='20' rx='5' fill='none' stroke='%23b2b2b2' stroke-width='2'/%3E%3C/svg%3E");
 }
 
 body.ym-retro:is(.yahoo-messenger, .ym-booting) #loader.splash-screen::before {
@@ -489,6 +489,7 @@ body.ym-retro:is(.yahoo-messenger, .ym-booting) #loader.splash-screen::before {
         linear-gradient(180deg, #8bb5f8, #2a5fd8 45%, #1b48b8) -40px 136px / 10px 12px no-repeat,
         linear-gradient(180deg, #8bb5f8, #2a5fd8 45%, #1b48b8) -40px 136px / 10px 12px no-repeat,
         linear-gradient(180deg, #8bb5f8, #2a5fd8 45%, #1b48b8) -40px 136px / 10px 12px no-repeat,
+        url("../img/xp/yahoo-y.svg") center 4px / 104px no-repeat,
         var(--ym-boot-art) center / contain no-repeat;
     animation: ym-xp-march 1.8s linear infinite;
 }
@@ -501,13 +502,14 @@ body.ym-booting.ym-retro::after {
         linear-gradient(180deg, #8bb5f8, #2a5fd8 45%, #1b48b8) -40px 136px / 10px 12px no-repeat,
         linear-gradient(180deg, #8bb5f8, #2a5fd8 45%, #1b48b8) -40px 136px / 10px 12px no-repeat,
         linear-gradient(180deg, #8bb5f8, #2a5fd8 45%, #1b48b8) -40px 136px / 10px 12px no-repeat,
+        url("../img/xp/yahoo-y.svg") center 4px / 104px no-repeat,
         var(--ym-boot-art) center / contain no-repeat;
     animation: ym-xp-march 1.8s linear infinite;
 }
 
 @keyframes ym-xp-march {
-    from { background-position: 18px 136px, 6px 136px, -6px 136px, center; }
-    to { background-position: 196px 136px, 184px 136px, 172px 136px, center; }
+    from { background-position: 18px 136px, 6px 136px, -6px 136px, center 4px, center; }
+    to { background-position: 196px 136px, 184px 136px, 172px 136px, center 4px, center; }
 }
 
 body.ym-retro i.fa-bolt { --ym-glyph: var(--ym-px-bolt); }
@@ -520,4 +522,79 @@ body.yahoo-messenger.ym-retro .ym-sm-foot .ym-sm-item i,
 body.yahoo-messenger.ym-retro .ym-sm-foot .ym-sm-item i::before {
     width: 22px;
     height: 22px;
+}
+
+/* The period's real icons (img/xp), over the drawn ones wherever there's a match */
+body.ym-retro {
+    --ym-px-smile: url("../img/xp/smile.png");
+    --ym-px-flag: url("../img/xp/flag.png");
+    --ym-px-people: url("../img/xp/people.png");
+    --ym-px-addperson: url("../img/xp/people.png");
+    --ym-px-gear: url("../img/xp/gear.png");
+    --ym-px-plug: url("../img/xp/plug.png");
+    --ym-px-book: url("../img/xp/book.png");
+    --ym-px-image: url("../img/xp/image.png");
+    --ym-px-folder: url("../img/xp/folder.png");
+    --ym-px-palette: url("../img/xp/palette.png");
+    --ym-px-cubes: url("../img/xp/cubes.png");
+    --ym-px-help: url("../img/xp/help.png");
+    --ym-px-poweroff: url("../img/xp/poweroff.png");
+    --ym-px-close: url("../img/xp/close.png");
+    --ym-px-star: url("../img/xp/star.png");
+    --ym-px-pen: url("../img/xp/pen.png");
+    --ym-px-clock: url("../img/xp/clock.png");
+    --ym-px-comment: url("../img/xp/comment.png");
+    --ym-px-card: url("../img/xp/documents.png");
+    --ym-px-sliders: url("../img/xp/sliders.png");
+    --ym-px-font: url("../img/xp/font.png");
+    --ym-px-logo: url("../img/xp/yahoo-y.svg");
+    --ym-logo: url("../img/xp/yahoo-face-32.png");
+    --ym-logo-solid: url("../img/xp/yahoo-y.svg");
+}
+
+body.ym-retro i.fa-key { --ym-glyph: url("../img/xp/key.png"); }
+body.ym-retro i.fa-magnifying-glass { --ym-glyph: url("../img/xp/search.png"); }
+body.ym-retro i.fa-terminal { --ym-glyph: url("../img/xp/run.png"); }
+body.ym-retro i.fa-id-badge { --ym-glyph: url("../img/xp/documents.png"); }
+body.ym-retro :is(i.fa-image, i.fa-photo-film) { --ym-glyph: var(--ym-px-image); }
+body.ym-retro .ym-sm-item i.fa-address-book { --ym-glyph: url("../img/xp/people.png"); }
+
+/* These are real bitmaps at larger sizes, so they scale smoothly */
+body.yahoo-messenger.ym-retro :is(.ym-tool i, .ym-action i, .ym-more-item i, .ym-sm-item i)::before {
+    image-rendering: auto;
+}
+
+body.yahoo-messenger.ym-retro .ym-logo,
+body.yahoo-messenger .ym-start .ym-logo {
+    image-rendering: auto;
+}
+
+body.yahoo-messenger .ym-start .ym-logo {
+    background-image: url("../img/xp/flag-large.png");
+}
+
+body.yahoo-messenger .ym-lo-flag,
+body.yahoo-messenger .ym-pw-flag {
+    background-image: url("../img/xp/flag-large.png");
+    image-rendering: auto;
+}
+
+body.yahoo-messenger .ym-lo-off-icon {
+    background-image: url("../img/xp/poweroff.png");
+    image-rendering: auto;
+}
+
+body.yahoo-messenger .ym-si-logo {
+    background-image: url("../img/xp/yahoo-y.svg");
+}
+
+body.yahoo-messenger .ym-pw-off .ym-pw-icon { background: url("../img/xp/poweroff.png") center / contain no-repeat; border: none; box-shadow: none; }
+body.yahoo-messenger .ym-pw-restart .ym-pw-icon { background: url("../img/xp/restart.ico") center / contain no-repeat; border: none; box-shadow: none; }
+body.yahoo-messenger .ym-pw-logoff .ym-pw-icon { background: url("../img/xp/key.png") center / contain no-repeat; border: none; box-shadow: none; }
+body.yahoo-messenger .ym-pw-switch .ym-pw-icon { background: url("../img/xp/switch.png") center / contain no-repeat; border: none; box-shadow: none; }
+
+body.yahoo-messenger .ym-sm-all::after {
+    background: url("../img/xp/all-programs.ico") center / contain no-repeat;
+    clip-path: none;
+    border-radius: 0;
 }

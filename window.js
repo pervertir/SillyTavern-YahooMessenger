@@ -33,6 +33,8 @@ let tabs = [];
 let options = { settings: () => ({}), setLook: (_look) => {} };
 /** SillyTavern's drawers, watched for opening and closing */
 let drawers = [];
+/** A tab just closed: while its chat is closing, the window mustn't open a tab for it again */
+let closingTab = null;
 let savedIcon = null;
 
 /** Closes every open menu window. */
@@ -110,6 +112,8 @@ function closeTab(tab) {
     }
     tabs.splice(index, 1);
     saveTabs();
+    closingTab = tab;
+    setTimeout(() => { closingTab = null; }, 4000);
     const { group, character } = getChatOwner();
     const open = { group: group ? String(group.id) : '', avatar: character?.avatar ?? '' };
     if (sameTab(open, tab)) {
@@ -327,7 +331,9 @@ export function refreshWindow() {
     if (group || character) {
         const name = group?.name ?? nameFor(character.avatar, character.name);
         const index = tabs.findIndex(x => sameTab(x, current));
-        if (index === -1) {
+        if (closingTab && sameTab(closingTab, current)) {
+            // still closing
+        } else if (index === -1) {
             tabs.push({ ...current, name });
             if (tabs.length > MAX_TABS) {
                 tabs.shift();

@@ -2,7 +2,7 @@
 
 A SillyTavern extension that brings back the Yahoo Messenger of the 2000s. By default it looks the part, with Windows XP-style windows, a contact tree with small faces and a plain "Name: text" transcript. It has a desktop too, with a drawn wallpaper of green hills and a taskbar with Start, your conversations and a clock. A modern look in purple and gold, light or dark, is one setting away. It works on phones too.
 
-This is an unofficial fan theme. It isn't made by, endorsed by or connected with Yahoo. All its icons are original drawings in the period's pixel style, and it uses none of Yahoo's logos.
+This is an unofficial fan theme. It isn't made by, endorsed by or connected with Yahoo or Microsoft. The icons in `img/xp` belong to Microsoft and Yahoo and are here purely as a tribute to software that's long gone; the wallpaper and the other pixel icons are original drawings.
 
 ![chat light](.github/screenshots/chat-light.webp)
 
@@ -82,4 +82,4 @@ Turning this theme on turns off other theme extensions, and they come back when 
 
 ## License
 
-MIT. Yahoo and Yahoo Messenger are trademarks of their owner, used here only to say what this theme is a tribute to.
+MIT for the code. Yahoo, Yahoo Messenger, Windows and their icons belong to their owners and aren't covered by that licence. The Messenger face in `img/xp/yahoo-face-32.png` is from the Farm-Fresh set (CC BY 3.0, FatCow).
