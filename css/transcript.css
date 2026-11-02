@@ -87,9 +87,6 @@ body.yahoo-messenger.ym-bubbles #chat .mes:hover {
     background: none;
 }
 
-body.yahoo-messenger.ym-bubbles #chat .mes {
-    grid-template-columns: var(--ym-avatar-size) minmax(0, max-content) minmax(48px, 1fr);
-}
 
 body.yahoo-messenger.ym-bubbles #chat .mes .mes_block {
     width: auto;
@@ -97,9 +94,6 @@ body.yahoo-messenger.ym-bubbles #chat .mes .mes_block {
     background: var(--ym-bubble-in);
 }
 
-body.yahoo-messenger.ym-bubbles #chat .mes[is_user="true"] {
-    grid-template-columns: minmax(48px, 1fr) minmax(0, max-content) var(--ym-avatar-size);
-}
 
 body.yahoo-messenger.ym-bubbles #chat .mes[is_user="true"] .mes_block {
     grid-column: 2;

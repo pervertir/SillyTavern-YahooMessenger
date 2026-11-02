@@ -86,7 +86,6 @@ body.yahoo-messenger .ym-start {
 body.yahoo-messenger .ym-start .ym-logo {
     width: 18px;
     height: 18px;
-    background-image: var(--ym-px-flag);
     filter: drop-shadow(1px 1px 0 rgba(0, 0, 0, 0.4));
 }
 
@@ -317,7 +316,6 @@ body.yahoo-messenger.ym-retro .ym-sm-col:first-child .ym-sm-item i::before {
 
 body.ym-retro i.fa-sliders { --ym-glyph: var(--ym-px-sliders); }
 body.ym-retro i.fa-font { --ym-glyph: var(--ym-px-font); }
-body.ym-retro :is(i.fa-image, i.fa-photo-film) { --ym-glyph: var(--ym-px-image); }
 body.ym-retro i.fa-cubes { --ym-glyph: var(--ym-px-cubes); }
 body.ym-retro i.fa-palette { --ym-glyph: var(--ym-px-palette); }
 body.ym-retro i.fa-wand-magic-sparkles { --ym-glyph: var(--ym-px-wand); }
