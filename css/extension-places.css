@@ -216,3 +216,16 @@ body.yahoo-messenger.ym-retro .charlib-launcher-item:hover {
     background: var(--ym-brand);
     color: #ffffff;
 }
+
+/* Top Info Bar and its connection row: part of the conversation window, not a box on top of it */
+body.yahoo-messenger :is(#extensionTopBar, #extensionConnectionProfiles) {
+    box-sizing: border-box;
+    align-items: center;
+    border: none;
+    border-bottom: 1px solid var(--ym-stroke-2);
+    border-radius: 0;
+    background: var(--ym-canvas);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    color: var(--ym-fg);
+}

@@ -225,8 +225,14 @@ body.yahoo-messenger.ym-images-on:not(.ym-no-chat) #ym-images {
     background: var(--ym-list);
 }
 
-body.yahoo-messenger.ym-images-on:not(.ym-no-chat) :is(#chat, #form_sheld, #ym-status) {
-    margin-right: var(--ym-images-w);
+/* The window itself makes the room, so whatever else lives in it (an extension's top bar, say) fits too;
+   only the title strip and contact bar run the full width */
+body.yahoo-messenger.ym-images-on:not(.ym-no-chat) #sheld {
+    padding-right: var(--ym-images-w);
+}
+
+body.yahoo-messenger.ym-images-on:not(.ym-no-chat) #ym-head {
+    margin-right: calc(-1 * var(--ym-images-w));
 }
 
 body.yahoo-messenger .ym-di-them {
@@ -284,7 +290,11 @@ body.yahoo-messenger .ym-di-me > img {
         display: none;
     }
 
-    body.yahoo-messenger.ym-images-on:not(.ym-no-chat) :is(#chat, #form_sheld, #ym-status) {
+    body.yahoo-messenger.ym-images-on:not(.ym-no-chat) #sheld {
+        padding-right: 0;
+    }
+
+    body.yahoo-messenger.ym-images-on:not(.ym-no-chat) #ym-head {
         margin-right: 0;
     }
 }

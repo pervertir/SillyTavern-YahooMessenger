@@ -466,12 +466,6 @@ body.yahoo-messenger.ym-retro #chat {
     background: #ffffff;
 }
 
-/* room for the display images, only where they show */
-@media screen and (min-width: 1241px) {
-    body.yahoo-messenger.ym-retro.ym-images-on:not(.ym-no-chat) #chat {
-        margin-right: calc(var(--ym-images-w) + 6px);
-    }
-}
 
 body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes,
 body.yahoo-messenger.ym-retro:not(.ym-bubbles) #chat .mes[is_user="true"] {

@@ -123,7 +123,11 @@
         display: none !important;
     }
 
-    body.yahoo-messenger.ym-images-on:not(.ym-no-chat) :is(#chat, #form_sheld, #ym-status) {
+    body.yahoo-messenger.ym-images-on:not(.ym-no-chat) #sheld {
+        padding-right: 0;
+    }
+
+    body.yahoo-messenger.ym-images-on:not(.ym-no-chat) #ym-head {
         margin-right: 0;
     }
 
