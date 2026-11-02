@@ -1,6 +1,7 @@
 // What makes it a messenger: the format bar with emoticons and Buzz, the "is typing a message" status
 // line, and the sounds.
 
+import { nameFor } from './lib/chat-nicknames.js';
 import { isOn, own } from './own.js';
 import { button, el, getChatOwner, iconButton, t } from './util.js';
 
@@ -227,9 +228,10 @@ function restStatus() {
         return;
     }
     const { chat, timestampToMoment, name2 } = SillyTavern.getContext();
+    const { character } = getChatOwner();
     const last = [...(chat ?? [])].reverse().find(message => !message.is_user && !message.is_system && message.send_date);
     const time = last ? timestampToMoment(last.send_date) : null;
-    setStatus(time?.isValid?.() ? `${t('Last message from')} ${last.name || name2}: ${time.format('LT, MMM D')}` : '');
+    setStatus(time?.isValid?.() ? `${t('Last message from')} ${nameFor(last.original_avatar ?? character?.avatar ?? '', last.name || name2)}: ${time.format('LT, MMM D')}` : '');
 }
 
 function onGenerationStarted(type, _options, dryRun) {
@@ -237,7 +239,7 @@ function onGenerationStarted(type, _options, dryRun) {
         return;
     }
     const { group, character } = getChatOwner();
-    const name = group ? group.name : (character?.name ?? SillyTavern.getContext().name2);
+    const name = group ? group.name : (character ? nameFor(character.avatar, character.name) : SillyTavern.getContext().name2);
     if (name) {
         setStatus(`${name} ${t('is typing a message…')}`, true);
     }

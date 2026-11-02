@@ -29,6 +29,7 @@ Every feature, with pictures: **[UI_SCREENSHOTS.md](UI_SCREENSHOTS.md)**.
 - **Status line.** "Captain Kettle is typing a message…" while a reply is on its way, and when the last message came the rest of the time.
 - **Sounds.** Small tones for new messages and Buzz, made on the spot in your browser. They can be turned off.
 - **Windows.** Every SillyTavern menu opens as its own window with a title bar, over a dimmed page.
+- **Nicknames.** Give anyone a nickname in one chat, from Actions or the conversation's More menu, or with `/nickname`. It only changes what you see: the AI still gets real names.
 - **Customize.** Every color, size and part of the theme can be changed live, and looks can be exported and imported.
 
 Nothing of SillyTavern's goes away: every menu and function still works, including the welcome page's recent chats and Temporary Chat. Your SillyTavern background shows behind the windows unless you turn that off.

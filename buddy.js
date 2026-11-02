@@ -1,6 +1,7 @@
 // The buddy list window: the menu bar, your picture and status, search, and every contact in
 // collapsible groups (Favorites, Friends, Conferences). Characters are friends, groups conferences.
 
+import { USER, canUseNicknames, nameFor, openNicknames } from './lib/chat-nicknames.js';
 import { toggleFlyout } from './flyout.js';
 import { formatListTime } from './times.js';
 import { buzz } from './messenger.js';
@@ -218,7 +219,8 @@ function render() {
         }
         const row = {
             key: `c_${character.avatar}`,
-            name: character.name,
+            // a nickname belongs to one chat, so it shows on the contact whose chat is open
+            name: isCurrent({ avatar: character.avatar }) ? nameFor(character.avatar, character.name) : character.name,
             avatar: character.avatar,
             thumb: context.getThumbnailUrl('avatar', character.avatar),
             detail,
@@ -383,6 +385,7 @@ function menus() {
             { label: 'Conversation history', icon: 'fa-solid fa-clock-rotate-left', run: () => clickOption('option_select_chat') },
             { label: 'Temporary chat', icon: 'fa-regular fa-comment-dots', run: startTemporaryChat },
             { label: 'Buzz!', icon: 'fa-solid fa-bolt', run: buzz },
+            ...(canUseNicknames() ? [{ label: 'Nicknames in this chat', icon: 'fa-solid fa-signature', run: openNicknames }] : []),
             { label: 'Close conversation', icon: 'fa-solid fa-xmark', run: () => clickOption('option_close_chat') },
         ],
         Help: () => [
@@ -403,7 +406,7 @@ export function refreshMe(avatarId) {
         return;
     }
     const context = SillyTavern.getContext();
-    /** @type {HTMLElement} */ (me.querySelector('.ym-me-name')).textContent = context.name1 ?? '';
+    /** @type {HTMLElement} */ (me.querySelector('.ym-me-name')).textContent = nameFor(USER, context.name1 ?? '');
     const selected = document.querySelector('#user_avatar_block .avatar-container.selected');
     const id = avatarId || selected?.getAttribute('data-avatar-id') || selected?.getAttribute('imgfile') || context.powerUserSettings?.default_persona;
     const img = /** @type {HTMLImageElement} */ (me.querySelector('.ym-pic img'));

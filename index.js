@@ -1,7 +1,8 @@
 // Yahoo Messenger theme: toggles the scoped styles in style.css, builds the two windows (buddy list
 // and conversation) around SillyTavern and exposes a small settings panel.
 
-import { initBuddyList, markCurrent, scheduleRefresh } from './buddy.js';
+import { initBuddyList, markCurrent, refreshMe, scheduleRefresh } from './buddy.js';
+import { registerNicknames } from './lib/chat-nicknames.js';
 import { applyCustomize, emptyCustomize, normalizeCustomize, openCustomize } from './customize.js';
 import { registerExtensionSwitch } from './lib/theme-extensions.js';
 import { registerTheme, reloadPage } from './lib/theme-exclusive.js';
@@ -9,7 +10,7 @@ import { refreshBuzzMarks, initMessenger } from './messenger.js';
 import { isOn, parkOwned, restoreOwned } from './own.js';
 import { initSharpImages } from './sharp.js';
 import { initTimes, labelMessages } from './times.js';
-import { isPhone } from './util.js';
+import { isPhone, t } from './util.js';
 import { initWindow, refreshDrawerState, refreshWindow, setBranding } from './window.js';
 
 const MODULE_NAME = 'yahooMessengerTheme';
@@ -163,6 +164,7 @@ function onChatChanged(chatId) {
         return;
     }
     refreshWindow();
+    refreshMe();
     if (chatId) {
         showChatOnPhone();
     } else {
@@ -280,6 +282,15 @@ async function buildFrame() {
         customize: customizeTheme,
         opened: showChatOnPhone,
     };
+    registerNicknames({
+        isOn,
+        changed: () => {
+            refreshWindow();
+            refreshMe();
+            scheduleRefresh(0);
+        },
+        t,
+    });
     initWindow(options);
     initMessenger(options);
     const listLoaded = initBuddyList(options);

@@ -3,6 +3,7 @@
 // as windows of their own over it, each with the title bar drawn here.
 
 import { openContact } from './buddy.js';
+import { canUseNicknames, nameFor, openNicknames } from './lib/chat-nicknames.js';
 import { toggleFlyout } from './flyout.js';
 import { isOn, own } from './own.js';
 import { button, clickOption, el, getChatOwner, iconButton, openDrawer, t, toggleDrawer } from './util.js';
@@ -210,7 +211,7 @@ export function refreshWindow() {
 
     const current = { group: group ? String(group.id) : '', avatar: character?.avatar ?? '' };
     if (group || character) {
-        const name = group?.name ?? character.name;
+        const name = group?.name ?? nameFor(character.avatar, character.name);
         const index = tabs.findIndex(x => sameTab(x, current));
         if (index === -1) {
             tabs.push({ ...current, name });
@@ -243,7 +244,7 @@ export function refreshWindow() {
     } else if (character) {
         addImage(context.getThumbnailUrl('avatar', character.avatar));
         picture.append(el('span', 'ym-face ym-face-available'));
-        name = character.name;
+        name = nameFor(character.avatar, character.name);
         detail = context.getCurrentChatId() ?? '';
     } else if (temporary) {
         addImage('img/five.png');
@@ -294,6 +295,7 @@ function createHead() {
         action('Conversation history', 'History', 'fa-solid fa-clock-rotate-left', () => clickOption('option_select_chat')),
         action('View profile', 'Profile', 'fa-regular fa-id-card', () => openDrawer('rightNavHolder')),
         action('More options', 'More', 'fa-solid fa-ellipsis', item => toggleFlyout(item, [
+            ...(canUseNicknames() ? [{ label: 'Nicknames in this chat', icon: 'fa-solid fa-signature', run: openNicknames }] : []),
             { label: 'Rename conversation', icon: 'fa-solid fa-i-cursor', run: () => clickOption('option_select_chat') },
             {
                 label: options.settings().displayImages ? 'Hide display images' : 'Show display images',
