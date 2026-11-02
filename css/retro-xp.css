@@ -508,9 +508,10 @@ body.ym-booting.ym-retro::after {
     animation: ym-xp-march 1.8s linear infinite;
 }
 
+/* the three blocks stay inside the frame, which runs from 31px to 189px */
 @keyframes ym-xp-march {
-    from { background-position: 18px 136px, 6px 136px, -6px 136px, center 4px, center; }
-    to { background-position: 196px 136px, 184px 136px, 172px 136px, center 4px, center; }
+    from { background-position: 58px 136px, 46px 136px, 34px 136px, center 4px, center; }
+    to { background-position: 178px 136px, 166px 136px, 154px 136px, center 4px, center; }
 }
 
 body.ym-retro i.fa-bolt { --ym-glyph: var(--ym-px-bolt); }
