@@ -573,7 +573,7 @@ function createHead() {
         action('Conversation history', 'History', 'fa-solid fa-clock-rotate-left', () => clickOption('option_select_chat')),
         action('View profile', 'Profile', 'fa-regular fa-id-card', openProfile),
         action('More options', 'More', 'fa-solid fa-ellipsis', item => toggleFlyout(item, [
-            ...(canUseNicknames() ? [{ label: 'Nicknames in this chat', icon: 'fa-solid fa-signature', run: openNicknames }] : []),
+            ...(canUseNicknames() ? [{ label: 'Nicknames', icon: 'fa-solid fa-signature', run: openNicknames }] : []),
             { label: 'Rename conversation', icon: 'fa-solid fa-i-cursor', run: () => clickOption('option_select_chat') },
             {
                 label: options.settings().displayImages ? 'Hide display images' : 'Show display images',

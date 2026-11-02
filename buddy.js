@@ -220,8 +220,8 @@ function render() {
         }
         const row = {
             key: `c_${character.avatar}`,
-            // a nickname belongs to one chat, so it shows on the contact whose chat is open
-            name: isCurrent({ avatar: character.avatar }) ? nameFor(character.avatar, character.name) : character.name,
+            // chat and group nicknames show on the contact whose chat is open, everywhere ones on all of them
+            name: nameFor(character.avatar, character.name, isCurrent({ avatar: character.avatar }) ? '' : 'another chat'),
             avatar: character.avatar,
             thumb: context.getThumbnailUrl('avatar', character.avatar),
             detail,
@@ -395,7 +395,7 @@ function menus() {
             { label: 'Conversation history', icon: 'fa-solid fa-clock-rotate-left', run: () => clickOption('option_select_chat') },
             { label: 'Temporary chat', icon: 'fa-regular fa-comment-dots', run: startTemporaryChat },
             { label: 'Buzz!', icon: 'fa-solid fa-bolt', run: buzz },
-            ...(canUseNicknames() ? [{ label: 'Nicknames in this chat', icon: 'fa-solid fa-signature', run: openNicknames }] : []),
+            ...(canUseNicknames() ? [{ label: 'Nicknames', icon: 'fa-solid fa-signature', run: openNicknames }] : []),
             { label: 'Close conversation', icon: 'fa-solid fa-xmark', run: () => clickOption('option_close_chat') },
         ],
         Help: () => [
