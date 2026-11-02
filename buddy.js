@@ -6,7 +6,7 @@ import { toggleFlyout } from './flyout.js';
 import { formatListTime } from './times.js';
 import { buzz } from './messenger.js';
 import { isOn, own } from './own.js';
-import { button, clickOption, el, iconButton, openDrawer, t, toPreview, toggleDrawer } from './util.js';
+import { button, clickOption, el, iconButton, openDrawer, openProfile, t, toPreview, toggleDrawer } from './util.js';
 import { closeDrawers, showAbout } from './window.js';
 
 const LIST_ID = 'ym-buddy';
@@ -120,7 +120,7 @@ function openRowMenu(anchor, place) {
     items.push({
         label: place.group ? 'Edit conference' : 'View profile', icon: 'fa-regular fa-id-card', run: async () => {
             await openContact(place);
-            openDrawer('rightNavHolder');
+            openProfile();
         },
     });
     if (!place.group) {
@@ -382,6 +382,11 @@ function menus() {
             { label: 'New conference', icon: 'fa-solid fa-user-group', run: () => openCharacters('rm_button_group_chats') },
             panel('My profiles', 'fa-regular fa-id-badge', 'persona-management-button'),
             panel('World Info', 'fa-solid fa-book-atlas', 'WI-SP-button'),
+            // Character Library's own entry, when it's installed
+            ...(document.querySelector('#charlib-launcher-dropdown') ? [{
+                label: 'Character Library', icon: 'fa-solid fa-photo-film',
+                run: () => /** @type {HTMLElement|null} */ (document.querySelector('#charlib-launcher-dropdown [data-action="library"]'))?.click(),
+            }] : []),
         ],
         Actions: () => [
             { label: 'New conversation', icon: 'fa-regular fa-pen-to-square', run: () => clickOption('option_start_new_chat') },

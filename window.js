@@ -6,7 +6,7 @@ import { openContact, startMenuItems } from './buddy.js';
 import { canUseNicknames, nameFor, openNicknames } from './lib/chat-nicknames.js';
 import { toggleFlyout } from './flyout.js';
 import { isOn, own } from './own.js';
-import { button, clickOption, el, getChatOwner, iconButton, openDrawer, t, toggleDrawer } from './util.js';
+import { button, clickOption, el, getChatOwner, iconButton, openDrawer, openProfile, t, toggleDrawer } from './util.js';
 
 const HEAD_ID = 'ym-head';
 const IMAGES_ID = 'ym-images';
@@ -313,7 +313,7 @@ function createHead() {
     const names = el('span', 'ym-who-names');
     names.append(el('span', 'ym-who-name'), el('span', 'ym-who-detail'));
     who.append(el('span', 'ym-pic'), names);
-    who.addEventListener('click', () => openDrawer('rightNavHolder'));
+    who.addEventListener('click', openProfile);
 
     const actions = el('div', 'ym-actions');
     const action = (label, text, icon, run) => {
@@ -326,7 +326,7 @@ function createHead() {
     actions.append(
         action('Start a new conversation', 'New', 'fa-regular fa-pen-to-square', () => clickOption('option_start_new_chat')),
         action('Conversation history', 'History', 'fa-solid fa-clock-rotate-left', () => clickOption('option_select_chat')),
-        action('View profile', 'Profile', 'fa-regular fa-id-card', () => openDrawer('rightNavHolder')),
+        action('View profile', 'Profile', 'fa-regular fa-id-card', openProfile),
         action('More options', 'More', 'fa-solid fa-ellipsis', item => toggleFlyout(item, [
             ...(canUseNicknames() ? [{ label: 'Nicknames in this chat', icon: 'fa-solid fa-signature', run: openNicknames }] : []),
             { label: 'Rename conversation', icon: 'fa-solid fa-i-cursor', run: () => clickOption('option_select_chat') },
@@ -354,7 +354,7 @@ function createHead() {
     me.append(/** @type {HTMLImageElement} */ (el('img')));
     me.addEventListener('click', () => openDrawer('persona-management-button'));
     const them = el('div', 'ym-di-them');
-    them.addEventListener('click', () => openDrawer('rightNavHolder'));
+    them.addEventListener('click', openProfile);
     images.append(them, me);
     sheld.append(own(images));
 }
