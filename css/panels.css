@@ -335,3 +335,24 @@ body.yahoo-messenger #rm_group_submit.menu_button {
     height: 32px;
     min-height: 0;
 }
+
+/* Floating panels (Author's Note, CFG, Gallery, zoomed pictures, extensions'): SillyTavern puts them in the
+   gap beside its centred chat, which here is the top left of the screen, over the buddy list. They open
+   at the conversation's right edge instead. With MovingUI on, where they go is up to the person. */
+@media screen and (min-width: 1001px) {
+    body.yahoo-messenger:not(.movingUI) :is(#movingDivs > .draggable, #floatingPrompt, #cfgConfig, .zoomed_avatar) {
+        position: fixed !important;
+        inset: calc(var(--ym-gap) + var(--ym-title-h) + 61px) calc(var(--ym-gap) + 16px) auto auto !important;
+        width: min(420px, 100vw - var(--ym-list-w) - 3 * var(--ym-gap) - 32px) !important;
+        max-width: none !important;
+        height: auto !important;
+        max-height: calc(100dvh - 2 * var(--ym-gap) - var(--ym-title-h) - 77px) !important;
+        margin: 0 !important;
+        overflow-y: auto;
+        z-index: 40;
+    }
+
+    body.yahoo-messenger:not(.movingUI) #movingDivs > #gallery {
+        width: min(720px, 100vw - var(--ym-list-w) - 3 * var(--ym-gap) - 32px) !important;
+    }
+}
