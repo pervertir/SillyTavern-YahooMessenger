@@ -398,6 +398,12 @@ function menus() {
     };
 }
 
+/** The Start button's menu: the menu bar's Messenger, Contacts and Actions in one list. */
+export function startMenuItems() {
+    const all = menus();
+    return [...all.Contacts(), ...all.Actions(), ...all.Messenger()];
+}
+
 function statusInfo(id) {
     return STATUSES.find(x => x[0] === id) ?? STATUSES[0];
 }

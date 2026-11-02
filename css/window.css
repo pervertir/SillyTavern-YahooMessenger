@@ -4,7 +4,7 @@
 body.yahoo-messenger #sheld,
 body.yahoo-messenger.movingUI #sheld {
     position: fixed;
-    inset: var(--ym-gap) var(--ym-gap) var(--ym-gap) calc(var(--ym-gap) * 2 + var(--ym-list-w)) !important;
+    inset: var(--ym-gap) var(--ym-gap) calc(var(--ym-gap) + var(--ym-taskbar-h, 0px)) calc(var(--ym-gap) * 2 + var(--ym-list-w)) !important;
     display: flex;
     flex-direction: column;
     width: auto !important;

@@ -1,6 +1,6 @@
 # Yahoo Messenger Theme for SillyTavern
 
-A SillyTavern extension that brings back the Yahoo Messenger of the 2000s. By default it looks the part, with Windows XP-style windows, a contact tree with small faces and a plain "Name: text" transcript. A modern look in purple and gold, light or dark, is one setting away. It works on phones too.
+A SillyTavern extension that brings back the Yahoo Messenger of the 2000s. By default it looks the part, with Windows XP-style windows, a contact tree with small faces and a plain "Name: text" transcript. It has a desktop too, with a drawn wallpaper of green hills and a taskbar with Start, your conversations and a clock. A modern look in purple and gold, light or dark, is one setting away. It works on phones too.
 
 This is an unofficial fan theme. It isn't made by, endorsed by or connected with Yahoo. All its icons are original drawings in the period's pixel style, and it uses none of Yahoo's logos.
 
@@ -34,7 +34,7 @@ Every feature, with pictures: **[UI_SCREENSHOTS.md](UI_SCREENSHOTS.md)**.
 - **Nicknames.** Give anyone a nickname in one chat, from Actions or the conversation's More menu, or with `/nickname`. It only changes what you see: the AI still gets real names.
 - **Customize.** Every color, size and part of the theme can be changed live, and looks can be exported and imported.
 
-Nothing of SillyTavern's goes away: every menu and function still works, including the welcome page's recent chats and Temporary Chat. Your SillyTavern background shows behind the windows unless you turn that off.
+Nothing of SillyTavern's goes away: every menu and function still works, including the welcome page's recent chats and Temporary Chat. Turn off the retro desktop or use the modern look, and your SillyTavern background shows behind the windows.
 
 ## Install
 
@@ -54,6 +54,7 @@ Under **Extensions → Yahoo Messenger Theme**:
 |---|---|
 | Enable theme | Off leaves nothing of the theme in the page |
 | Look | Retro (the default) or modern |
+| XP-style wallpaper and taskbar | The retro desktop; off shows your own background |
 | Appearance | Light, dark or follow the system, in the modern look |
 | Messages | Transcript or bubbles |
 | Under a contact's name | The last message, the character's creator notes, or nothing |

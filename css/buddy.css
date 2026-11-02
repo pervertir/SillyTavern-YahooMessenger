@@ -6,7 +6,7 @@ body.yahoo-messenger #ym-buddy {
     position: fixed;
     top: var(--ym-gap);
     left: var(--ym-gap);
-    bottom: var(--ym-gap);
+    bottom: calc(var(--ym-gap) + var(--ym-taskbar-h, 0px));
     width: var(--ym-list-w);
     overflow: hidden;
     border-radius: var(--ym-radius-lg);

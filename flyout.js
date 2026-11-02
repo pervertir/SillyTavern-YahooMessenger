@@ -73,10 +73,13 @@ export function toggleFlyout(anchor, items, placement) {
     flyout.style.setProperty('--ym-flyout-left', `${Math.round(box.right + 4)}px`);
     flyout.style.setProperty('--ym-flyout-start', `${Math.round(box.left)}px`);
     flyout.style.setProperty('--ym-flyout-right', `${Math.round(window.innerWidth - box.right)}px`);
-    // a menu that wouldn't fit opens upwards, ending at the window's bottom edge
+    // a menu that wouldn't fit opens upwards, above its button when there's room
+    // (measured from the top, since its height is capped by the room below where it starts)
+    const top = flyout.style.getPropertyValue('--ym-flyout-top');
+    flyout.style.setProperty('--ym-flyout-top', '8px');
     const height = flyout.offsetHeight;
-    if (box.bottom + 4 + height > window.innerHeight) {
-        flyout.style.setProperty('--ym-flyout-top', `${Math.max(8, window.innerHeight - height - 8)}px`);
-    }
+    const above = box.top - height - 2;
+    const fits = box.bottom + 4 + height <= window.innerHeight;
+    flyout.style.setProperty('--ym-flyout-top', fits ? top : `${above >= 8 ? above : Math.max(8, window.innerHeight - height - 8)}px`);
     /** @type {HTMLElement} */ (flyout.querySelector('.ym-more-item'))?.focus();
 }

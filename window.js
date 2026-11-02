@@ -2,7 +2,7 @@
 // images beside the transcript and the status line above the message box. SillyTavern's menus open
 // as windows of their own over it, each with the title bar drawn here.
 
-import { openContact } from './buddy.js';
+import { openContact, startMenuItems } from './buddy.js';
 import { canUseNicknames, nameFor, openNicknames } from './lib/chat-nicknames.js';
 import { toggleFlyout } from './flyout.js';
 import { isOn, own } from './own.js';
@@ -122,7 +122,40 @@ function closeTab(tab) {
     renderTabs(open);
 }
 
+/** The retro look's taskbar: Start, a button per open conversation, and the clock. */
+function createTaskbar() {
+    const bar = el('div');
+    bar.id = 'ym-taskbar';
+    const start = button('ym-start');
+    start.append(el('span', 'ym-logo'), el('span', '', t('start')));
+    start.addEventListener('click', () => toggleFlyout(start, startMenuItems(), 'below-start'));
+    const tasks = el('div', 'ym-tasks');
+    const tray = el('div', 'ym-tray');
+    tray.append(el('span', 'ym-face ym-face-available'), el('span', 'ym-clock'));
+    bar.append(start, tasks, tray);
+    document.body.append(own(bar));
+    const tick = () => {
+        if (isOn()) {
+            tray.lastElementChild.textContent = SillyTavern.getContext().timestampToMoment(Date.now()).format('LT');
+        }
+    };
+    tick();
+    setInterval(tick, 20000);
+}
+
+function renderTaskbar(current) {
+    const tasks = document.querySelector('#ym-taskbar .ym-tasks');
+    tasks?.replaceChildren(...tabs.map((tab) => {
+        const task = button(`ym-task${sameTab(tab, current) ? ' ym-task-active' : ''}`);
+        task.title = tab.name;
+        task.append(el('span', 'ym-logo'), el('span', 'ym-task-name', tab.name));
+        task.addEventListener('click', () => openContact(tab));
+        return task;
+    }));
+}
+
 function renderTabs(current) {
+    renderTaskbar(current);
     const strip = document.querySelector(`#${HEAD_ID} .ym-tabs`);
     if (!strip) {
         return;
@@ -388,6 +421,7 @@ export function initWindow(config) {
     loadTabs();
     createHead();
     createWindowBar();
+    createTaskbar();
     trackDrawers();
     refreshWindow();
 

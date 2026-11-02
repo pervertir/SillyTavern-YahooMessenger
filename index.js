@@ -24,6 +24,8 @@ const defaultSettings = Object.freeze({
     enabled: true,
     /** retro (Messenger on Windows XP) or modern */
     look: 'retro',
+    /** The retro look's desktop: wallpaper and taskbar */
+    xpDesktop: true,
     /** light, dark or system */
     appearance: 'light',
     /** transcript or bubbles */
@@ -97,6 +99,7 @@ function isDark(settings) {
 const SETTING_CLASSES = {
     'ym-dark': isDark,
     'ym-retro': settings => settings.look === 'retro',
+    'ym-xp': settings => settings.look === 'retro' && settings.xpDesktop,
     'ym-bubbles': settings => settings.messageStyle === 'bubbles',
     'ym-images-on': settings => settings.displayImages,
     'ym-tabs-on': settings => settings.tabs,
@@ -224,6 +227,7 @@ async function renderSettingsPanel() {
         }),
         checkbox('ym_pause_user_theme', 'pauseUserTheme', () => exclusive.changed()),
         select('ym_look', 'look'),
+        checkbox('ym_xp_desktop', 'xpDesktop'),
         select('ym_appearance', 'appearance'),
         select('ym_message_style', 'messageStyle'),
         select('ym_list_lines', 'listLines', () => scheduleRefresh(0)),
