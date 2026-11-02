@@ -18,11 +18,27 @@ One setting away: purple and gold, in light or dark.
 
 ![modern dark](.github/screenshots/modern-dark.webp)
 
-## Desktop and Start menu
+## The whole story
 
-A drawn wallpaper, the taskbar with a button per conversation and a clock, and a Start menu with every SillyTavern menu.
+Windows logon with your SillyTavern login, the welcome screen, Messenger's sign-in window, the Start menu with All Programs, Log Off and Turn Off, the pipes on Stand By, and the last screen.
+
+![flow logon](.github/screenshots/flow-logon.webp)
+
+![flow logon password](.github/screenshots/flow-logon-password.webp)
+
+![flow signin](.github/screenshots/flow-signin.webp)
 
 ![start menu](.github/screenshots/start-menu.webp)
+
+![start all programs](.github/screenshots/start-all-programs.webp)
+
+![flow logoff](.github/screenshots/flow-logoff.webp)
+
+![flow turnoff](.github/screenshots/flow-turnoff.webp)
+
+![flow pipes](.github/screenshots/flow-pipes.webp)
+
+![flow safe](.github/screenshots/flow-safe.webp)
 
 ## A quick tour
 

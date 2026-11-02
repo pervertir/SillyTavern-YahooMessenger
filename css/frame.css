@@ -400,7 +400,7 @@ body.yahoo-messenger .ym-more-item i.ym-face {
     flex: 1;
 }
 
-.ym-settings .ym-setting-row > select {
+.ym-settings .ym-setting-row > :is(select, input) {
     width: auto;
     min-width: 160px;
     margin: 0;

@@ -511,3 +511,13 @@ body.ym-booting.ym-retro::after {
 }
 
 body.ym-retro i.fa-bolt { --ym-glyph: var(--ym-px-bolt); }
+
+body.ym-retro i.fa-key { --ym-glyph: var(--ym-px-card); }
+body.ym-retro i.fa-magnifying-glass { --ym-glyph: var(--ym-px-help); }
+body.ym-retro i.fa-terminal { --ym-glyph: var(--ym-px-more); }
+
+body.yahoo-messenger.ym-retro .ym-sm-foot .ym-sm-item i,
+body.yahoo-messenger.ym-retro .ym-sm-foot .ym-sm-item i::before {
+    width: 22px;
+    height: 22px;
+}

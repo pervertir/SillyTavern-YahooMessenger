@@ -34,6 +34,8 @@ Every feature, with pictures: **[UI_SCREENSHOTS.md](UI_SCREENSHOTS.md)**.
 - **Nicknames.** Give anyone a nickname in one chat, from Actions or the conversation's More menu, or with `/nickname`. It only changes what you see: the AI still gets real names.
 - **Customize.** Every color, size and part of the theme can be changed live, and looks can be exported and imported.
 
+**The whole story.** In the retro look, a session starts at the Windows logon, using the same user name and password as your SillyTavern login. The server checks them and nothing is saved. Then the desktop appears and Messenger's sign-in window shows your name and a Sign In button. Start has All Programs, Log Off and Turn Off Computer. Stand By and sitting idle start the pipes screensaver, and Turn Off closes the tab (browsers can refuse that, and then you get the famous "safe to turn off" screen). This is for the nostalgia, not protection. Your SillyTavern login is the real lock.
+
 Nothing of SillyTavern's goes away: every menu and function still works, including the welcome page's recent chats and Temporary Chat. Turn off the retro desktop or use the modern look, and your SillyTavern background shows behind the windows.
 
 ## Install

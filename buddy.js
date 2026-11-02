@@ -8,6 +8,7 @@ import { buzz } from './messenger.js';
 import { isOn, own } from './own.js';
 import { button, clickOption, el, iconButton, openDrawer, openProfile, t, toPreview, toggleDrawer } from './util.js';
 import { closeDrawers, showAbout } from './window.js';
+import { signOut } from './xpflow.js';
 
 const LIST_ID = 'ym-buddy';
 const COLLAPSED_KEY = 'ym-collapsed-groups';
@@ -403,10 +404,49 @@ function menus() {
     };
 }
 
-/** The Start menu's two columns: what you do, then the settings, as in Windows. */
+/** The Start menu, laid out as Windows' was: what you use on the left, the system's places on the right. */
 export function startMenuItems() {
     const all = menus();
-    return { left: [...all.Contacts(), ...all.Actions()], right: [...all.Messenger(), ...all.Help()] };
+    const panel = (label, icon, id) => ({ label, icon, run: () => openDrawer(id) });
+    return {
+        pinned: [
+            { label: 'Messenger', sub: 'Sign in or sign out', icon: 'fa-regular fa-comment', run: signOut },
+            { label: 'New conversation', sub: 'With the open contact', icon: 'fa-regular fa-pen-to-square', run: () => clickOption('option_start_new_chat') },
+        ],
+        all: [...all.Contacts(), ...all.Actions(), ...all.Messenger()],
+        right: [
+            [
+                { label: 'My Contacts', icon: 'fa-regular fa-address-book', run: () => openCharacters('rm_button_characters') },
+                panel('My Profiles', 'fa-regular fa-id-badge', 'persona-management-button'),
+                panel('My Pictures', 'fa-regular fa-image', 'backgrounds-button'),
+                panel('World Info', 'fa-solid fa-book-atlas', 'WI-SP-button'),
+            ],
+            [
+                panel('Control Panel', 'fa-solid fa-gear', 'user-settings-button'),
+                panel('Connect To', 'fa-solid fa-plug', 'sys-settings-button'),
+                panel('AI Response Settings', 'fa-solid fa-sliders', 'ai-config-button'),
+                panel('Response Formatting', 'fa-solid fa-font', 'advanced-formatting-button'),
+                panel('Add or Remove Programs', 'fa-solid fa-cubes', 'extensions-settings-button'),
+                { label: 'Customize theme', icon: 'fa-solid fa-palette', run: () => options.customize() },
+            ],
+            [
+                { label: 'Help and Support', icon: 'fa-regular fa-circle-question', run: () => window.open('https://docs.sillytavern.app/', '_blank', 'noopener') },
+                {
+                    label: 'Search', icon: 'fa-solid fa-magnifying-glass', run: () => /** @type {HTMLInputElement|null} */ (document.querySelector('.ym-search input'))?.focus(),
+                },
+                { label: 'Run…', icon: 'fa-solid fa-terminal', run: runCommand },
+            ],
+        ],
+    };
+}
+
+/** Run…: a slash command, as the old dialog took a program's name. */
+async function runCommand() {
+    const context = SillyTavern.getContext();
+    const command = await context.callGenericPopup(t('Type a slash command, and SillyTavern will run it for you.'), context.POPUP_TYPE.INPUT, '', { okButton: t('OK'), cancelButton: t('Cancel') });
+    if (command && String(command).trim()) {
+        await context.executeSlashCommandsWithOptions(String(command).trim());
+    }
 }
 
 /** Your picture's address and your name, for the Start menu's head. */

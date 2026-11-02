@@ -1,0 +1,529 @@
+/* The retro desktop's story: logon, Messenger's sign-in window, the Turn Off dialog, the last screen and the
+   pipes. Colours follow the real screens; every drawing is original. */
+
+/* Signed out: the desktop is there, Messenger isn't */
+body.yahoo-messenger.ym-signed-out :is(#ym-buddy, #sheld, #ym-images) {
+    display: none !important;
+}
+
+body.yahoo-messenger.ym-signed-out .ym-tasks > * {
+    display: none;
+}
+
+/* ---- Logon ---- */
+body.yahoo-messenger .ym-fullscreen {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    z-index: 2147482000;
+    background: #5a7edc;
+    color: #ffffff;
+    font-family: Tahoma, Verdana, sans-serif;
+    font-size: 12px;
+    user-select: none;
+}
+
+body.yahoo-messenger .ym-lo-top,
+body.yahoo-messenger .ym-lo-bottom {
+    flex: none;
+    height: 13%;
+    min-height: 72px;
+    background: #003399;
+}
+
+body.yahoo-messenger .ym-lo-top {
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(90deg, #003399, #ffffff 25%, #e9a03a 60%, #003399) 1;
+}
+
+body.yahoo-messenger .ym-lo-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 0 28px;
+    border-top: 2px solid transparent;
+    border-image: linear-gradient(90deg, #003399, #e9a03a 40%, #ffffff 75%, #003399) 1;
+}
+
+body.yahoo-messenger .ym-lo-mid {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    background: radial-gradient(ellipse at 22% 18%, #91acec 0%, #6d8ee2 28%, #5a7edc 60%);
+}
+
+body.yahoo-messenger .ym-lo-mid-text {
+    font-family: "Franklin Gothic Medium", "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 42px;
+    font-style: italic;
+    text-shadow: 2px 2px 3px rgba(0, 0, 60, 0.6);
+}
+
+body.yahoo-messenger .ym-lo-left {
+    flex: 0 1 44%;
+    padding-right: 28px;
+    text-align: right;
+}
+
+body.yahoo-messenger .ym-lo-brand {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+body.yahoo-messenger .ym-lo-flag,
+body.yahoo-messenger .ym-pw-flag {
+    display: block;
+    width: 64px;
+    height: 64px;
+    background: var(--ym-px-flag) center / contain no-repeat;
+    image-rendering: pixelated;
+}
+
+body.yahoo-messenger .ym-lo-word {
+    font-family: "Franklin Gothic Medium", "Trebuchet MS", Arial, sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 60, 0.5);
+}
+
+body.yahoo-messenger .ym-lo-word sup {
+    color: #ff9c32;
+    font-size: 20px;
+    font-style: italic;
+}
+
+body.yahoo-messenger .ym-lo-hint {
+    font-family: "Franklin Gothic Medium", "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 18px;
+}
+
+body.yahoo-messenger .ym-lo-divider {
+    flex: none;
+    align-self: stretch;
+    width: 2px;
+    margin: 6% 0;
+    background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.75) 25%, rgba(255, 255, 255, 0.75) 75%, transparent);
+}
+
+body.yahoo-messenger .ym-lo-right {
+    flex: 0 1 44%;
+    padding-left: 28px;
+}
+
+body.yahoo-messenger .ym-lo-tile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: min(340px, 100%);
+    padding: 7px;
+    margin: 0;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: #ffffff;
+    font: inherit;
+    font-size: 16px;
+    text-align: left;
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-lo-tile:is(:hover, :focus-visible) {
+    outline: none;
+    background: linear-gradient(90deg, #0d3bb1, rgba(13, 59, 177, 0));
+}
+
+body.yahoo-messenger .ym-lo-tile img {
+    width: 48px;
+    height: 48px;
+    box-sizing: border-box;
+    border: 2px solid #ffcf40;
+    border-radius: 4px;
+    object-fit: cover;
+    object-position: top center;
+}
+
+body.yahoo-messenger .ym-lo-form:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: min(300px, 100%);
+    margin: 4px 0 0 67px;
+}
+
+body.yahoo-messenger .ym-lo-label {
+    font-size: 11px;
+}
+
+body.yahoo-messenger .ym-lo-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+body.yahoo-messenger .ym-lo-form input {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    height: 24px;
+    padding: 2px 5px;
+    margin: 0;
+    box-sizing: border-box;
+    border: 1px solid #002d96;
+    border-radius: 3px;
+    background: #ffffff;
+    color: #000000;
+    font: 12px Tahoma, sans-serif;
+    user-select: text;
+}
+
+body.yahoo-messenger .ym-lo-go {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ffffff;
+    border-radius: 3px;
+    background: linear-gradient(135deg, #5ec85e, #1f7f1f);
+    cursor: pointer;
+    position: relative;
+}
+
+body.yahoo-messenger .ym-lo-go::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: #ffffff;
+    clip-path: polygon(0 38%, 55% 38%, 55% 10%, 100% 50%, 55% 90%, 55% 62%, 0 62%);
+}
+
+body.yahoo-messenger .ym-lo-message {
+    min-height: 15px;
+    color: #ffe680;
+    font-size: 11px;
+}
+
+body.yahoo-messenger .ym-lo-off {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: none;
+    padding: 4px 8px 4px 4px;
+    margin: 0;
+    border: none;
+    border-radius: 4px;
+    background: none;
+    color: #ffffff;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-lo-off:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+body.yahoo-messenger .ym-lo-off-icon {
+    display: block;
+    width: 28px;
+    height: 28px;
+    background: var(--ym-px-poweroff) center / contain no-repeat;
+    image-rendering: pixelated;
+}
+
+body.yahoo-messenger .ym-lo-note {
+    max-width: 340px;
+    font-size: 11px;
+    text-align: right;
+}
+
+/* ---- Messenger's sign-in window: narrow and tall, the big face on top ---- */
+body.yahoo-messenger.ym-xp #ym-signin {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: max(24px, 7dvh);
+    left: 64px;
+    width: 250px;
+    max-height: calc(100dvh - var(--ym-taskbar-h) - 40px);
+    border: 3px solid #0831d9;
+    border-top: none;
+    border-radius: 8px 8px 0 0;
+    box-sizing: border-box;
+    background: #ece9d8;
+    color: #000000;
+    box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.45);
+    font: 12px Tahoma, sans-serif;
+    z-index: 40;
+}
+
+body.yahoo-messenger .ym-si-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    padding: 18px 14px 14px;
+    overflow-y: auto;
+    background: linear-gradient(180deg, #f3effb 0%, #ece9d8 45%);
+}
+
+body.yahoo-messenger .ym-si-logo {
+    flex: none;
+    height: 112px;
+    margin-bottom: 18px;
+    background: url("../img/logo.svg") center / contain no-repeat;
+}
+
+body.yahoo-messenger .ym-si-label {
+    margin: 0 0 3px;
+    font-weight: 700;
+}
+
+body.yahoo-messenger .ym-si-id {
+    height: 21px;
+    margin-bottom: 14px;
+    padding: 2px 4px;
+    overflow: hidden;
+    box-sizing: border-box;
+    border: 1px solid #7f9db9;
+    background: #ffffff;
+    line-height: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.yahoo-messenger .ym-si-check {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 5px;
+    font-size: 11px;
+    font-weight: 400;
+}
+
+body.yahoo-messenger.ym-retro .ym-si-button.menu_button {
+    align-self: center;
+    width: auto;
+    min-width: 86px;
+    margin: 12px 0 8px;
+    justify-content: center;
+}
+
+body.yahoo-messenger .ym-si-status {
+    min-height: 15px;
+    font-size: 11px;
+    text-align: center;
+}
+
+/* ---- Log Off and Turn Off ---- */
+body.yahoo-messenger #ym-power {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    z-index: 2147483000;
+    /* the whole desktop goes grey behind it */
+    backdrop-filter: grayscale(1) brightness(0.85);
+    -webkit-backdrop-filter: grayscale(1) brightness(0.85);
+    background: rgba(0, 0, 0, 0.12);
+}
+
+body.yahoo-messenger .ym-pw-box {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    height: 200px;
+    margin-top: 30vh;
+    border: 1px solid #000000;
+    font-family: Tahoma, sans-serif;
+    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+}
+
+body.yahoo-messenger .ym-pw-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: none;
+    height: 42px;
+    padding: 0 8px 0 12px;
+    background: #092178;
+    color: #ffffff;
+    font-family: "Franklin Gothic Medium", "Trebuchet MS", sans-serif;
+    font-size: 17px;
+}
+
+body.yahoo-messenger .ym-pw-flag {
+    width: 28px;
+    height: 28px;
+}
+
+body.yahoo-messenger .ym-pw-mid {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 18px;
+    background: linear-gradient(90deg, #3349e0 0%, #617ee6 47%, #617ee6 53%, #3349e0 100%);
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+body.yahoo-messenger .ym-pw-choice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 4px;
+    margin: 0;
+    border: none;
+    background: none;
+    color: #ffffff;
+    font: 700 11px Tahoma, sans-serif;
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-pw-icon {
+    display: block;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    background: center / 24px 24px no-repeat, #888888;
+    image-rendering: pixelated;
+    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.45);
+}
+
+body.yahoo-messenger .ym-pw-choice:hover .ym-pw-icon {
+    filter: brightness(1.15);
+}
+
+body.yahoo-messenger .ym-pw-standby .ym-pw-icon { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 4h3v16H8zM14 4h3v16h-3z' fill='%23fff'/%3E%3C/svg%3E") center / 24px no-repeat, linear-gradient(135deg, #f2c94c, #c68a12); }
+body.yahoo-messenger .ym-pw-off .ym-pw-icon { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3v9' stroke='%23fff' stroke-width='3'/%3E%3Cpath d='M7 6a8 8 0 1 0 10 0' fill='none' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E") center / 24px no-repeat, linear-gradient(135deg, #ee7a5a, #b42a0d); }
+body.yahoo-messenger .ym-pw-restart .ym-pw-icon { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18 8a8 8 0 1 0 2 6' fill='none' stroke='%23fff' stroke-width='3'/%3E%3Cpath d='M20 2v7h-7z' fill='%23fff'/%3E%3C/svg%3E") center / 24px no-repeat, linear-gradient(135deg, #68c868, #1f7f1f); }
+body.yahoo-messenger .ym-pw-switch .ym-pw-icon { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 8h13l-3-4M21 16H8l3 4' fill='none' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E") center / 24px no-repeat, linear-gradient(135deg, #5a9bf5, #1e52b7); }
+body.yahoo-messenger .ym-pw-logoff .ym-pw-icon { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='6' y='10' width='12' height='10' rx='1' fill='%23fff'/%3E%3Cpath d='M8 10V7a4 4 0 0 1 8 0v3' fill='none' stroke='%23fff' stroke-width='2.5'/%3E%3C/svg%3E") center / 24px no-repeat, linear-gradient(135deg, #f2c94c, #c68a12); }
+
+body.yahoo-messenger .ym-pw-foot {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: none;
+    height: 42px;
+    padding-right: 10px;
+    background: #092178;
+}
+
+body.yahoo-messenger .ym-pw-cancel {
+    height: 22px;
+    padding: 0 14px;
+    margin: 0;
+    border: 1px solid #003c74;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #ffffff 0%, #ecebe5 86%, #d8d0c4 100%);
+    color: #000000;
+    font: 11px Tahoma, sans-serif;
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-pw-cancel:hover {
+    box-shadow: inset -1px 1px #fff0cf, inset 1px 2px #fdd889, inset -2px 2px #fbc761, inset 2px -2px #e5a01a;
+}
+
+/* ---- The last screen ---- */
+body.yahoo-messenger #ym-safe {
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: #000000;
+    cursor: pointer;
+}
+
+body.yahoo-messenger .ym-safe-text {
+    color: #ff9c00;
+    font: 700 28px "Arial", sans-serif;
+}
+
+body.yahoo-messenger .ym-safe-hint {
+    color: #777777;
+    font-size: 11px;
+}
+
+/* ---- Pipes ---- */
+body.yahoo-messenger #ym-pipes {
+    display: block;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+    background: #000000;
+    z-index: 2147483600;
+    cursor: none;
+}
+
+/* ---- The Start menu's right look ---- */
+body.yahoo-messenger .ym-sm-sep {
+    height: 7px;
+    margin: 0 4px;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.13) 50%, transparent) center / 100% 1px no-repeat;
+}
+
+body.yahoo-messenger .ym-sm-col + .ym-sm-col .ym-sm-sep {
+    background-image: linear-gradient(90deg, transparent, #87b3e2 50%, transparent);
+}
+
+body.yahoo-messenger .ym-sm-spacer {
+    flex: 1;
+}
+
+body.yahoo-messenger .ym-sm-col {
+    display: flex;
+    flex-direction: column;
+}
+
+body.yahoo-messenger .ym-sm-sub {
+    display: block;
+    color: #666666;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+body.yahoo-messenger .ym-sm-item:is(:hover, :focus-visible) .ym-sm-sub {
+    color: #ffffff;
+}
+
+body.yahoo-messenger .ym-sm-col + .ym-sm-col .ym-sm-top {
+    font-weight: 700;
+}
+
+body.yahoo-messenger .ym-sm-all {
+    justify-content: center;
+    font-weight: 700;
+}
+
+body.yahoo-messenger .ym-sm-all::after {
+    content: '';
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    background: #2a9c2a;
+    clip-path: polygon(0 35%, 55% 35%, 55% 5%, 100% 50%, 55% 95%, 55% 65%, 0 65%);
+}
+
+/* Things opened over the Start menu */
+body.yahoo-messenger.ym-xp #ym-flyout:not([hidden]) {
+    z-index: 3012;
+}
+
+@media screen and (max-width: 1000px) {
+    body.yahoo-messenger :is(#ym-logon, #ym-signin) {
+        display: none !important;
+    }
+}

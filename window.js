@@ -6,6 +6,7 @@ import { myIdentity, openContact, startMenuItems } from './buddy.js';
 import { canUseNicknames, nameFor, openNicknames } from './lib/chat-nicknames.js';
 import { toggleFlyout } from './flyout.js';
 import { isOn, own } from './own.js';
+import { logOffDialog, turnOffDialog } from './xpflow.js';
 import { button, clickOption, el, getChatOwner, iconButton, openDrawer, openProfile, t, toggleDrawer } from './util.js';
 
 const HEAD_ID = 'ym-head';
@@ -130,9 +131,14 @@ function closeStartMenu() {
     document.querySelector('.ym-start')?.classList.remove('ym-start-open');
 }
 
-function startItem({ label, icon, run }) {
+function startItem({ label, sub, icon, run }) {
     const item = button('ym-sm-item');
-    item.append(el('i', icon), el('span', '', t(label)));
+    const text = el('span', '', t(label));
+    if (sub) {
+        text.classList.add('ym-sm-top');
+        text.append(el('span', 'ym-sm-sub', t(sub)));
+    }
+    item.append(el('i', icon), text);
     item.addEventListener('click', () => {
         closeStartMenu();
         run();
@@ -164,23 +170,33 @@ function toggleStartMenu(start) {
             }
         });
     }
-    const { left, right } = startMenuItems();
+    const { pinned, all, right } = startMenuItems();
     const { src, name } = myIdentity();
     const head = el('div', 'ym-sm-head');
     const picture = /** @type {HTMLImageElement} */ (el('img'));
     picture.alt = '';
     picture.src = src;
     head.append(picture, el('span', '', name));
+    const left = el('div', 'ym-sm-col');
+    left.append(...pinned.map(startItem), el('div', 'ym-sm-sep'));
+    // the most recent conversations, as Windows listed recent programs
+    left.append(...tabs.slice(-5).reverse().map(tab => startItem({ label: tab.name, icon: 'fa-regular fa-comment', run: () => openContact(tab) })));
+    const programs = button('ym-sm-item ym-sm-all', t('All Programs'));
+    programs.addEventListener('click', () => toggleFlyout(programs, all, 'beside'));
+    left.append(el('div', 'ym-sm-spacer'), el('div', 'ym-sm-sep'), programs);
+    const rightColumn = el('div', 'ym-sm-col');
+    right.forEach((group, index) => {
+        if (index) {
+            rightColumn.append(el('div', 'ym-sm-sep'));
+        }
+        rightColumn.append(...group.map(startItem));
+    });
     const columns = el('div', 'ym-sm-cols');
-    for (const items of [left, right]) {
-        const column = el('div', 'ym-sm-col');
-        column.append(...items.map(startItem));
-        columns.append(column);
-    }
+    columns.append(left, rightColumn);
     const foot = el('div', 'ym-sm-foot');
     foot.append(
-        startItem({ label: 'Close conversation', icon: 'fa-solid fa-xmark', run: () => clickOption('option_close_chat') }),
-        startItem({ label: 'Turn off the retro look', icon: 'fa-solid fa-power-off', run: () => options.setLook('modern') }),
+        startItem({ label: 'Log Off', icon: 'fa-solid fa-key', run: logOffDialog }),
+        startItem({ label: 'Turn Off Computer', icon: 'fa-solid fa-power-off', run: turnOffDialog }),
     );
     menu.replaceChildren(head, el('div', 'ym-sm-line'), columns, foot);
     menu.hidden = false;

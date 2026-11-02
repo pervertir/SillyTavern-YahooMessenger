@@ -8,6 +8,7 @@ import { registerExtensionSwitch } from './lib/theme-extensions.js';
 import { registerTheme, reloadPage } from './lib/theme-exclusive.js';
 import { refreshBuzzMarks, initMessenger } from './messenger.js';
 import { isOn, parkOwned, restoreOwned } from './own.js';
+import { initXpFlow, resumeStory } from './xpflow.js';
 import { initSharpImages } from './sharp.js';
 import { initTimes, labelMessages } from './times.js';
 import { isPhone, t } from './util.js';
@@ -26,6 +27,11 @@ const defaultSettings = Object.freeze({
     look: 'retro',
     /** The retro look's desktop: wallpaper and taskbar */
     xpDesktop: true,
+    /** The whole story at the start of a session: Windows logon, then Messenger's sign-in */
+    xpLogon: true,
+    signInAuto: false,
+    /** Minutes with nothing touched before the pipes start; 0 is never */
+    screensaverMinutes: 10,
     /** light, dark or system */
     appearance: 'light',
     /** transcript or bubbles */
@@ -211,6 +217,9 @@ async function renderSettingsPanel() {
         return [input, key, () => input.value, after];
     };
 
+    const screensaver = /** @type {HTMLInputElement} */ (document.getElementById('ym_screensaver'));
+    screensaver.value = String(settings.screensaverMinutes);
+
     const controls = [
         // turning the theme on turns the other themes off and reloads the page; off applies live
         checkbox('ym_enabled', 'enabled', () => {
@@ -226,8 +235,10 @@ async function renderSettingsPanel() {
             }
         }),
         checkbox('ym_pause_user_theme', 'pauseUserTheme', () => exclusive.changed()),
-        select('ym_look', 'look'),
-        checkbox('ym_xp_desktop', 'xpDesktop'),
+        select('ym_look', 'look', () => resumeStory()),
+        checkbox('ym_xp_desktop', 'xpDesktop', () => resumeStory()),
+        checkbox('ym_xp_logon', 'xpLogon', () => resumeStory()),
+        [screensaver, 'screensaverMinutes', () => Math.min(240, Math.max(0, Number(screensaver.value) || 0))],
         select('ym_appearance', 'appearance'),
         select('ym_message_style', 'messageStyle'),
         select('ym_list_lines', 'listLines', () => scheduleRefresh(0)),
@@ -324,6 +335,7 @@ async function buildFrame() {
     onChatChanged(SillyTavern.getContext().getCurrentChatId());
     markCurrent();
     await Promise.race([listLoaded, delay(3000)]);
+    await initXpFlow(options);
 }
 
 /** Brings the windows up to date after they were put back (things may have changed while out). */
@@ -334,6 +346,7 @@ function refreshFrame() {
     scheduleRefresh(0);
     labelMessages();
     refreshBuzzMarks();
+    resumeStory();
 }
 
 function delay(ms) {
