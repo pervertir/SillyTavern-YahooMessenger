@@ -28,6 +28,14 @@ const WINDOWS = {
     rightNavHolder: ['Contacts', 'md'],
 };
 
+/** The Contacts window's title follows the page it's on */
+const CONTACT_PAGES = {
+    create: 'Add a Contact',
+    character_edit: 'Contact Profile',
+    group_create: 'Create Conference',
+    group_edit: 'Edit Conference',
+};
+
 /** Conversations open as tabs: { avatar, group, name } */
 let tabs = [];
 let options = { settings: () => ({}), setLook: (_look) => {} };
@@ -631,7 +639,8 @@ export function refreshDrawerState() {
     if (open) {
         const text = document.querySelector('#ym-window-bar .ym-title-text');
         if (text) {
-            text.textContent = t(label);
+            const page = open.id === 'rightNavHolder' ? CONTACT_PAGES[document.getElementById('right-nav-panel')?.dataset.menuType] : null;
+            text.textContent = t(page ?? label);
         }
     }
 }
@@ -648,6 +657,10 @@ function trackDrawers() {
         if (content) {
             observer.observe(content, { attributes: true, attributeFilter: ['class'] });
         }
+    }
+    const contacts = document.getElementById('right-nav-panel');
+    if (contacts) {
+        observer.observe(contacts, { attributes: true, attributeFilter: ['data-menu-type'] });
     }
     refreshDrawerState();
 }

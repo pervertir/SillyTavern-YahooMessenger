@@ -356,3 +356,18 @@ body.yahoo-messenger #rm_group_submit.menu_button {
         width: min(720px, 100vw - var(--ym-list-w) - 3 * var(--ym-gap) - 32px) !important;
     }
 }
+
+/* The group page's heading says what the page is for */
+body.yahoo-messenger #right-nav-panel:is([data-menu-type="group_create"], [data-menu-type="group_edit"]) #groupControlsToggle > span > span:first-child {
+    font-size: 0;
+}
+
+body.yahoo-messenger #right-nav-panel[data-menu-type="group_create"] #groupControlsToggle > span > span:first-child::before {
+    content: 'Create Conference';
+    font-size: var(--ym-text-md);
+}
+
+body.yahoo-messenger #right-nav-panel[data-menu-type="group_edit"] #groupControlsToggle > span > span:first-child::before {
+    content: 'Edit Conference';
+    font-size: var(--ym-text-md);
+}
