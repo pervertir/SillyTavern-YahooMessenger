@@ -609,3 +609,11 @@ body.ym-retro {
 body.ym-retro i.fa-user-plus {
     --ym-glyph: url("../img/add-contact.svg");
 }
+
+/* Status faces have no ring or box around them in this look */
+body.yahoo-messenger.ym-retro .ym-pic > .ym-face,
+body.yahoo-messenger.ym-retro .ym-face {
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+}
