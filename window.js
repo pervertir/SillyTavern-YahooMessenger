@@ -5,7 +5,7 @@
 import { myIdentity, openContact, startMenuItems } from './buddy.js';
 import { canUseNicknames, nameFor, openNicknames } from './lib/chat-nicknames.js';
 import { toggleFlyout } from './flyout.js';
-import { displayText, paintNames } from './names.js';
+import { displayText } from './names.js';
 import { isOn, own } from './own.js';
 import { logOffDialog, turnOffDialog } from './xpflow.js';
 import { button, clickOption, el, getChatOwner, iconButton, openDrawer, openProfile, t, toggleDrawer } from './util.js';
@@ -711,7 +711,6 @@ export function initWindow(config) {
         pending = requestAnimationFrame(() => {
             pending = 0;
             refreshWindow();
-            paintNames();
         });
     }).observe(document.getElementById('chat'), { childList: true });
 }
