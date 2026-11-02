@@ -61,7 +61,7 @@ Under **Extensions → Yahoo Messenger Theme**:
 | Enable theme | Off leaves nothing of the theme in the page |
 | Look | Retro (the default) or modern |
 | XP-style wallpaper and taskbar | The retro desktop; off shows your own background |
-| Desktop wallpaper | The drawn hills, or the background you picked in SillyTavern |
+| Desktop wallpaper | The wallpaper in `img/xp` (drawn hills if it's missing), or the background you picked in SillyTavern |
 | Appearance | Light, dark or follow the system, in the modern look |
 | Messages | Transcript or bubbles |
 | Under a contact's name | The last message, the character's creator notes, or nothing |
