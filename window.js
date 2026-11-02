@@ -655,12 +655,9 @@ function trackDrawers() {
         }
         const content = drawer.querySelector(':scope > .drawer-content');
         if (content) {
-            observer.observe(content, { attributes: true, attributeFilter: ['class'] });
+            // data-menu-type: the Contacts window's page, which names the window
+            observer.observe(content, { attributes: true, attributeFilter: ['class', 'data-menu-type'] });
         }
-    }
-    const contacts = document.getElementById('right-nav-panel');
-    if (contacts) {
-        observer.observe(contacts, { attributes: true, attributeFilter: ['data-menu-type'] });
     }
     refreshDrawerState();
 }
